@@ -7,6 +7,13 @@ extends CharacterBody2D
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
+var weapon: Node = null
+
+func equip_weapon(w: Node) -> void:
+	weapon = w
+	if weapon.has_method("equip"):
+		weapon.equip(self)
+
 func _physics_process(delta):
 	var input_dir = Input.get_vector(controls.left, controls.right, controls.up, controls.down)
 
@@ -27,3 +34,8 @@ func _physics_process(delta):
 			anim.play("idle")
 
 	move_and_slide()
+
+	# Attack input
+	if controls and weapon != null and Input.is_action_just_pressed(controls.attack):
+		if weapon.has_method("fire"):
+			weapon.fire(self)
