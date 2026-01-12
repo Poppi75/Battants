@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Battants"
-run/main_scene="uid://d1yyoovjp18qw"
+run/main_scene="uid://cfd6rqamqp50e"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [display]
