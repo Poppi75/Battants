@@ -28,6 +28,8 @@ func _on_body_entered(body: Node) -> void:
 		print("[Bullet] Hit player:", body.name)
 		if body.has_method("apply_damage"):
 			body.apply_damage(damage)
+			
+	print("[Bullet] Hit a wall")
 	queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -36,4 +38,5 @@ func _physics_process(delta: float) -> void:
 		rotation = velocity.angle()
 	lifetime -= delta
 	if lifetime <= 0.0:
+		print("[Bullet] Bullet lifetime ended")
 		queue_free()

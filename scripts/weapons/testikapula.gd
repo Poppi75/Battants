@@ -43,10 +43,13 @@ func unequip() -> void:
 
 func fire(shooter: CharacterBody2D) -> void:
 	if not can_fire:
+		print("[Weapon] can_fire is false")
 		return
 	if bullet_scene == null:
+		print("[Weapon Error Line 49] No bullet scene")
 		return
-
+	
+	print("[Weapon] Fired")
 	can_fire = false
 	var dir: Vector2 = Vector2.UP.rotated(shooter.rotation).normalized()
 
