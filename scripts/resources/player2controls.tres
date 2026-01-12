@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Player2Controls" load_steps=2 format=3 uid="uid://yhnfa7rpfjf2"]
+
+[ext_resource type="Script" uid="uid://tifc2jemrnm2" path="res://scripts/resources/player2controls.gd" id="1_jj4lc"]
+
+[resource]
+script = ExtResource("1_jj4lc")

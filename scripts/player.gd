@@ -3,10 +3,12 @@ extends CharacterBody2D
 @export var speed := 200
 @export var turn_speed := 8.0 # radians per second
 
+@export var controls: Resource = null
+
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta):
-	var input_dir = Input.get_vector("left", "right", "up", "down")
+	var input_dir = Input.get_vector(controls.left, controls.right, controls.up, controls.down)
 
 	# Movement
 	velocity = input_dir * speed
