@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5ssdxqxonm5f"]
+[gd_scene load_steps=14 format=3 uid="uid://c5ssdxqxonm5f"]
 
 [ext_resource type="Texture2D" uid="uid://ccucie5skwdq6" path="res://assets/player/mulkku_kavely_ja_idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://tcvy0t5ulnih" path="res://scripts/resources/player1controls.gd" id="2_obasw"]
+[ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_x8bsy"]
+[ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_iwsjm"]
+[ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_amrsk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vyb7"]
 atlas = ExtResource("1_3vyb7")
@@ -55,7 +58,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_obasw"]
 radius = 4.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
 collision_mask = 5
@@ -69,3 +72,20 @@ frame_progress = 0.08797325
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_obasw")
+
+[node name="health" type="TextureProgressBar" parent="."]
+z_index = 21
+offset_left = -8.0
+offset_top = -25.0
+offset_right = 32.0
+offset_bottom = 15.0
+texture_over = ExtResource("4_x8bsy")
+
+[node name="damagetaken" type="TextureProgressBar" parent="."]
+z_index = 20
+offset_left = -8.0
+offset_top = -25.0
+offset_right = 32.0
+offset_bottom = 15.0
+texture_under = ExtResource("5_iwsjm")
+texture_over = ExtResource("6_amrsk")

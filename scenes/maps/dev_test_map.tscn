@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://btwqfuc50oqc3" path="res://scripts/resources/player1controls.tres" id="5_60ioe"]
 [ext_resource type="PackedScene" uid="uid://dvcvhw55ybnm8" path="res://scenes/characters/player2.tscn" id="5_lf8kp"]
 [ext_resource type="Resource" uid="uid://yhnfa7rpfjf2" path="res://scripts/resources/player2controls.tres" id="7_lf8kp"]
+[ext_resource type="PackedScene" uid="uid://bhfn7krmu8sc6" path="res://scenes/weapons/testikapula.tscn" id="8_p7h3e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("2_p7h3e")
@@ -123,6 +124,9 @@ size = Vector2i(960, 1080)
 render_target_update_mode = 4
 
 [node name="devTestMap" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
+
+[node name="testikapula" parent="HBoxContainer/SubViewportContainer/SubViewport/devTestMap" instance=ExtResource("8_p7h3e")]
+position = Vector2(153, 97)
 
 [node name="walls" type="TileMapLayer" parent="HBoxContainer/SubViewportContainer/SubViewport/devTestMap"]
 z_index = 21

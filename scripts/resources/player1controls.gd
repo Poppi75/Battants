@@ -6,3 +6,4 @@ extends Resource
 @export var down := "p1_down"
 @export var left := "p1_left"
 @export var right := "p1_right"
+@export var attack := "p1_attack"
