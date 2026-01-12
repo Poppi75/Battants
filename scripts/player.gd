@@ -1,23 +1,27 @@
 extends CharacterBody2D
 
-@export var speed := 400
+@export var speed := 200
+@export var turn_speed := 8.0 # radians per second
+
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-var last_facing_angle := 0.0  # radians; 0 = facing up
 
-func get_input():
-	var input_direction = Input.get_vector("left", "right", "up", "down")
-	velocity = input_direction * speed
+func _physics_process(delta):
+	var input_dir = Input.get_vector("left", "right", "up", "down")
 
-	if input_direction == Vector2.ZERO:
-		# Keep facing the last direction when idle
-		anim.rotation = last_facing_angle
-		anim.play("idle")
+	# Movement
+	velocity = input_dir * speed
+
+	if input_dir != Vector2.ZERO:
+		# Smooth rotation of the whole character
+		var target_angle = Vector2.UP.angle_to(input_dir)
+		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+
+		# Play walk animation
+		if anim.animation != "walk":
+			anim.play("walk")
 	else:
-		# Update facing to movement direction (diagonals = ~45°)
-		last_facing_angle = Vector2.UP.angle_to(input_direction)
-		anim.rotation = last_facing_angle
-		anim.play("walk")
+		# Play idle animation
+		if anim.animation != "idle":
+			anim.play("idle")
 
-func _physics_process(_delta):
-	get_input()
 	move_and_slide()
