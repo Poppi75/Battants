@@ -29,7 +29,7 @@ func _on_body_entered(body: Node) -> void:
 		if body.has_method("apply_damage"):
 			body.apply_damage(damage)
 			
-	print("[Bullet] Hit a wall")
+	print("[Bullet] Destroyed")
 	queue_free()
 
 func _physics_process(delta: float) -> void:

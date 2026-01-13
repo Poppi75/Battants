@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkrfdetvbtheo"]
 
-[ext_resource type="Script" uid="uid://c0qb31yqyr5on" path="res://scripts/weapons/testikapula_bullet.gd" id="1_4etnx"]
+[ext_resource type="Script" uid="uid://c0qb31yqyr5on" path="res://scenes/characters/testikapula/testikapula_bullet.gd" id="1_4etnx"]
 [ext_resource type="Texture2D" uid="uid://cbnhysr52sn65" path="res://assets/weapomns/testokapula_bullet.png" id="1_5g5f0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5g5f0"]

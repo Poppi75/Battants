@@ -55,7 +55,7 @@ func fire(shooter: CharacterBody2D) -> void:
 
 	var bullet = bullet_scene.instantiate()
 	# Dynamically attach a simple movement script to the bullet
-	var bullet_script = load("res://scripts/weapons/testikapula_bullet.gd")
+	var bullet_script = load("res://scripts/weapons/testikapula/testikapula_bullet.gd")
 	bullet.set_script(bullet_script)
 
 	# Spawn slightly in front of the shooter
