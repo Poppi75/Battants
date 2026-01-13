@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dty5q2paghe2d"]
+
+[ext_resource type="Texture2D" uid="uid://ffqfaus8m318" path="res://assets/weapons/testokapula.png" id="1_ndoca"]
+
+[node name="TestiKapula" type="Sprite2D"]
+texture = ExtResource("1_ndoca")

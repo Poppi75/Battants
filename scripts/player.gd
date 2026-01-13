@@ -1,41 +1,111 @@
 extends CharacterBody2D
+class_name Player
 
-@export var speed := 200
-@export var turn_speed := 8.0 # radians per second
+@export_category("Item Scenes")
 
-@export var controls: Resource = null
+@export var melee_items: Array[PackedScene]
+@export var ranged_items: Array[PackedScene]
+@export var ability_items: Array[PackedScene]
+@export var utility_items: Array[PackedScene]
+
+@onready var melee_socket: Node2D = $MeleeSocket
+@onready var ranged_socket: Node2D = $RangedSocket
+@onready var ability_socket: Node2D = $AbilitySocket
+@onready var utility_socket: Node2D = $UtilitySocket
+
+@export var speed: float = 200.0
+@export var turn_speed: float = 8.0
+
+@export var controls: Resource
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
-var weapon: Node = null
 
-func equip_weapon(w: Node) -> void:
-	weapon = w
-	if weapon.has_method("equip"):
-		weapon.equip(self)
+func _ready() -> void:
+	randomize()
 
-func _physics_process(delta):
-	var input_dir = Input.get_vector(controls.left, controls.right, controls.up, controls.down)
 
-	# Movement
+func pickup() -> void:
+	var item_type: String = _pick_random_item_type()
+	if item_type == "":
+		return
+
+	match item_type:
+		"melee":
+			_equip_item(melee_items, melee_socket)
+		"ranged":
+			_equip_item(ranged_items, ranged_socket)
+		"ability":
+			_equip_item(ability_items, ability_socket)
+		"utility":
+			_equip_item(utility_items, utility_socket)
+
+
+# -------------------------------------------------
+# Internal helpers
+# -------------------------------------------------
+
+func _pick_random_item_type() -> String:
+	var available: Array[String] = []
+
+	if not melee_items.is_empty():
+		available.append("melee")
+	if not ranged_items.is_empty():
+		available.append("ranged")
+	if not ability_items.is_empty():
+		available.append("ability")
+	if not utility_items.is_empty():
+		available.append("utility")
+
+	if available.is_empty():
+		return ""
+
+	return available.pick_random()
+
+
+func _equip_item(item_list: Array[PackedScene], socket: Node2D) -> void:
+	if item_list.is_empty():
+		return
+
+	# Remove existing item(s)
+	for child: Node in socket.get_children():
+		child.queue_free()
+
+	# Instantiate and attach new item
+	var scene: PackedScene = item_list.pick_random()
+	var item: Node = scene.instantiate()
+
+	socket.add_child(item)
+
+	# Normalize transform
+	if item is Node2D:
+		item.position = Vector2.ZERO
+		item.rotation = 0.0
+		item.scale = Vector2.ONE
+
+
+# -------------------------------------------------
+# Movement
+# -------------------------------------------------
+
+func _physics_process(delta: float) -> void:
+	var input_dir: Vector2 = Input.get_vector(
+		controls.left,
+		controls.right,
+		controls.up,
+		controls.down
+	)
+
 	velocity = input_dir * speed
 
 	if input_dir != Vector2.ZERO:
-		# Smooth rotation of the whole character
-		var target_angle = Vector2.UP.angle_to(input_dir)
+		var target_angle: float = Vector2.UP.angle_to(input_dir)
 		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
 
-		# Play walk animation
 		if anim.animation != "walk":
 			anim.play("walk")
 	else:
-		# Play idle animation
 		if anim.animation != "idle":
 			anim.play("idle")
 
 	move_and_slide()
-
-	# Attack input
-	if controls and weapon != null and Input.is_action_just_pressed(controls.attack):
-		if weapon.has_method("fire"):
-			weapon.fire(self)

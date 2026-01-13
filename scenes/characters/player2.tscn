@@ -89,3 +89,15 @@ offset_right = 32.0
 offset_bottom = 15.0
 texture_under = ExtResource("5_a46ul")
 texture_over = ExtResource("6_ea28a")
+
+[node name="MeleeSocket" type="Node2D" parent="."]
+position = Vector2(0, -15)
+
+[node name="RangedSocket" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="AbilitySocket" type="Node2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="UtilitySocket" type="Node2D" parent="."]
+position = Vector2(0, 8)

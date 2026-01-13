@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ffqfaus8m318"
-path="res://.godot/imported/testokapula.png-ed4eb33286f01830e471d8332d0ab321.ctex"
+uid="uid://cbnhysr52sn65"
+path="res://.godot/imported/testokapula_bullet.png-e62f83dce37bed4587fb8edf272d4e13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapomns/testokapula.png"
-dest_files=["res://.godot/imported/testokapula.png-ed4eb33286f01830e471d8332d0ab321.ctex"]
+source_file="res://assets/weapons/testokapula_bullet.png"
+dest_files=["res://.godot/imported/testokapula_bullet.png-e62f83dce37bed4587fb8edf272d4e13.ctex"]
 
 [params]
 
