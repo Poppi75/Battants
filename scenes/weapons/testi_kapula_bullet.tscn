@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfnfq3yhmdykk"]
+
+[ext_resource type="Texture2D" uid="uid://br7vdclb25633" path="res://assets/weapons/testiakapula_bullet.png" id="1_5gd2i"]
+[ext_resource type="Script" uid="uid://b765prips40x1" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_7l757"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7l757"]
+radius = 3.4135733
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_7l757")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5gd2i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.7137619, -0.83697915)
+shape = SubResource("CircleShape2D_7l757")
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]

@@ -15,15 +15,17 @@ class_name Player
 
 @export var speed: float = 200.0
 @export var turn_speed: float = 8.0
+@export var orientation_offset: float = 0.0  # If your sprite faces a different default direction
 
 @export var controls: Resource
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var col_shape: CollisionShape2D = $CollisionShape2D
 
+var _facing_angle: float = 0.0  # Track the visual/collision facing separately from the body
 
 func _ready() -> void:
 	randomize()
-
 
 func pickup() -> void:
 	var item_type: String = _pick_random_item_type()
@@ -39,7 +41,6 @@ func pickup() -> void:
 			_equip_item(ability_items, ability_socket)
 		"utility":
 			_equip_item(utility_items, utility_socket)
-
 
 # -------------------------------------------------
 # Internal helpers
@@ -62,7 +63,6 @@ func _pick_random_item_type() -> String:
 
 	return available.pick_random()
 
-
 func _equip_item(item_list: Array[PackedScene], socket: Node2D) -> void:
 	if item_list.is_empty():
 		return
@@ -83,7 +83,6 @@ func _equip_item(item_list: Array[PackedScene], socket: Node2D) -> void:
 		item.rotation = 0.0
 		item.scale = Vector2.ONE
 
-
 # -------------------------------------------------
 # Movement
 # -------------------------------------------------
@@ -99,8 +98,13 @@ func _physics_process(delta: float) -> void:
 	velocity = input_dir * speed
 
 	if input_dir != Vector2.ZERO:
-		var target_angle: float = Vector2.UP.angle_to(input_dir)
-		rotation = lerp_angle(rotation, target_angle, turn_speed * delta)
+		# Compute desired facing (0 at UP, increasing clockwise), then smooth it
+		var target_angle: float = Vector2.UP.angle_to(input_dir) + orientation_offset
+		_facing_angle = lerp_angle(_facing_angle, target_angle, turn_speed * delta)
+
+		# Rotate ONLY the visual and collision children, not the CharacterBody2D
+		anim.rotation = _facing_angle
+		col_shape.rotation = _facing_angle
 
 		if anim.animation != "walk":
 			anim.play("walk")
