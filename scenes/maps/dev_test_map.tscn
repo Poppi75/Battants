@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=4 uid="uid://d1yyoovjp18qw"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_8cefm"]
-[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/player1.tscn" id="1_jiati"]
+[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/player.tscn" id="1_jiati"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="1_rmdl4"]
 [ext_resource type="PackedScene" uid="uid://cbxe716fia0hc" path="res://scenes/items/random_pickup_coin.tscn" id="2_fhurw"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="2_jiati"]

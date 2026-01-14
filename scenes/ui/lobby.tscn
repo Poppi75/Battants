@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctsecenwjvaaf"]
+
+[ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_66348"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6oakf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(25.028572, 13.235294)
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 301.0
+offset_right = 495.0
+offset_bottom = 332.0
+text = "play"
+
+[node name="Label" type="Label" parent="."]
+z_index = 316
+layout_mode = 0
+offset_left = 317.0
+offset_top = 141.0
+offset_right = 630.0
+offset_bottom = 164.0
+text = "join the game (all this just a placeholder)"
+label_settings = SubResource("LabelSettings_66348")
+
+[connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]

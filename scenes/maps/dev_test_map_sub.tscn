@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_pgvo8"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="2_61dhl"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="3_ndxdn"]
-[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/player1.tscn" id="4_woamx"]
+[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/player.tscn" id="4_woamx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8cefm"]
 texture = ExtResource("2_61dhl")

@@ -1,30 +1,29 @@
-[gd_scene load_steps=14 format=3 uid="uid://c5ssdxqxonm5f"]
+[gd_scene load_steps=13 format=3 uid="uid://c5ssdxqxonm5f"]
 
-[ext_resource type="Texture2D" uid="uid://ccucie5skwdq6" path="res://assets/player/mulkku_kavely_ja_idle.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://tcvy0t5ulnih" path="res://scripts/resources/player1controls.gd" id="2_obasw"]
-[ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_x8bsy"]
-[ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_iwsjm"]
-[ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_amrsk"]
+[ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_atpat"]
+[ext_resource type="Texture2D" uid="uid://ccucie5skwdq6" path="res://assets/player/mulkku_kavely_ja_idle.png" id="2_kqtwu"]
+[ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="3_6eyoc"]
+[ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="4_eojnx"]
+[ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="5_qgnko"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vyb7"]
-atlas = ExtResource("1_3vyb7")
+atlas = ExtResource("2_kqtwu")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
-atlas = ExtResource("1_3vyb7")
+atlas = ExtResource("2_kqtwu")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
-atlas = ExtResource("1_3vyb7")
+atlas = ExtResource("2_kqtwu")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
-atlas = ExtResource("1_3vyb7")
+atlas = ExtResource("2_kqtwu")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("1_3vyb7")
+atlas = ExtResource("2_kqtwu")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tuyoq"]
@@ -62,8 +61,7 @@ radius = 4.0
 z_index = 20
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_g2els")
-controls = ExtResource("2_obasw")
+script = ExtResource("1_atpat")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tuyoq")
@@ -79,7 +77,7 @@ offset_left = -8.0
 offset_top = -25.0
 offset_right = 32.0
 offset_bottom = 15.0
-texture_over = ExtResource("4_x8bsy")
+texture_over = ExtResource("3_6eyoc")
 
 [node name="damagetaken" type="TextureProgressBar" parent="."]
 z_index = 20
@@ -87,8 +85,8 @@ offset_left = -8.0
 offset_top = -25.0
 offset_right = 32.0
 offset_bottom = 15.0
-texture_under = ExtResource("5_iwsjm")
-texture_over = ExtResource("6_amrsk")
+texture_under = ExtResource("4_eojnx")
+texture_over = ExtResource("5_qgnko")
 
 [node name="MeleeSocket" type="Node2D" parent="."]
 position = Vector2(0, -15)
@@ -101,3 +99,5 @@ position = Vector2(0, -10)
 
 [node name="UtilitySocket" type="Node2D" parent="."]
 position = Vector2(0, 8)
+
+[node name="PlayerInput" type="Node" parent="."]
