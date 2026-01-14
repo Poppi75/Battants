@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dupqqac1cbd2t"]
+
+[ext_resource type="Script" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_qwlqv"]
+[ext_resource type="Texture2D" uid="uid://cdsggvbbvegtk" path="res://assets/weapons/bullet_ak47.png" id="2_qwlqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piwja"]
+size = Vector2(3.50107, 2.3895454)
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_qwlqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+texture = ExtResource("2_qwlqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(1.7137619, -0.83697915)
+shape = SubResource("RectangleShape2D_piwja")
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]

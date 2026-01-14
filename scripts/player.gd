@@ -3,7 +3,7 @@ class_name Player
 
 @export_category("Item Scenes")
 
-@export var max_health: int = 1000
+@export var max_health: int = 100
 var health
 var _damage_update_seq: int = 0
 @onready var health_bar: TextureProgressBar = $health

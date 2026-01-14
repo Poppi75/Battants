@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfnfq3yhmdykk"]
 
 [ext_resource type="Texture2D" uid="uid://br7vdclb25633" path="res://assets/weapons/testiakapula_bullet.png" id="1_5gd2i"]
-[ext_resource type="Script" uid="uid://b765prips40x1" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_7l757"]
+[ext_resource type="Script" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_7l757"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7l757"]
 radius = 3.4135733

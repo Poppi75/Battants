@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://b8gsavc5q3x6i"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_gf5eg"]
-[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_ma4cn"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_ma4cn"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="2_e1ynx"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="3_31l6i"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="4_08xok"]
@@ -125,6 +125,51 @@ position = Vector2(355, 356)
 
 [node name="Area2D4" parent="." instance=ExtResource("7_b7mf3")]
 position = Vector2(702, 357)
+
+[node name="Area2D5" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(571, 486)
+
+[node name="Area2D6" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(357, 497)
+
+[node name="Area2D7" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(704, 487)
+
+[node name="Area2D8" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(685, 99)
+
+[node name="Area2D9" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(532, 111)
+
+[node name="Area2D10" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(369, 96)
+
+[node name="Area2D11" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(194, 113)
+
+[node name="Area2D12" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(194, 113)
+
+[node name="Area2D13" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(171, 239)
+
+[node name="Area2D14" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(171, 378)
+
+[node name="Area2D15" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(194, 519)
+
+[node name="Area2D16" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(942, 466)
+
+[node name="Area2D17" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(913, 352)
+
+[node name="Area2D18" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(907, 225)
+
+[node name="Area2D19" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(915, 139)
 
 [node name="Spawns" type="Node" parent="."]
 

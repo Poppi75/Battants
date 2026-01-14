@@ -8,9 +8,9 @@ extends Camera2D
 # Distance at which we should be fully at one extreme
 @export var distance_for_max_zoom: float = 1200.0
 
-@export var padding: float = 200.0                  # Extra space around players (for centering box)
-@export var move_speed: float = 5.0                 # Camera follow speed
-@export var zoom_speed: float = 5.0                 # Zoom adjust speed
+@export var padding: float = 2000.0                  # Extra space around players (for centering box)
+@export var move_speed: float = 7.0                 # Camera follow speed
+@export var zoom_speed: float = 7.0                 # Zoom adjust speed
 
 @export var debug_log: bool = false                 # Enable to see what's happening
 
