@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=4 uid="uid://d1yyoovjp18qw"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_8cefm"]
-[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/player.tscn" id="1_jiati"]
+[ext_resource type="PackedScene" uid="uid://c5ssdxqxonm5f" path="res://scenes/characters/playerbroke.tscn" id="1_jiati"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="1_rmdl4"]
 [ext_resource type="PackedScene" uid="uid://cbxe716fia0hc" path="res://scenes/items/random_pickup_coin.tscn" id="2_fhurw"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="2_jiati"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="2_p7h3e"]
 [ext_resource type="Resource" uid="uid://btwqfuc50oqc3" path="res://scripts/resources/player1controls.tres" id="5_60ioe"]
-[ext_resource type="PackedScene" uid="uid://dvcvhw55ybnm8" path="res://scenes/characters/player2.tscn" id="5_lf8kp"]
+[ext_resource type="PackedScene" uid="uid://dvcvhw55ybnm8" path="res://scenes/characters/player.tscn" id="5_lf8kp"]
 [ext_resource type="Resource" uid="uid://yhnfa7rpfjf2" path="res://scripts/resources/player2controls.tres" id="7_lf8kp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]

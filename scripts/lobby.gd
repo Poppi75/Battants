@@ -22,11 +22,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not joined_devices.has(device_id) and joined_devices.size() < MAX_PLAYERS:
 			_add_player_for_device(device_id)
 
-	# 2. Start game
-	if event.is_action_pressed("ui_accept"):
-		if joined_devices.size() >= MIN_PLAYERS:
-			_start_match()
-
 # NOTE: no return type annotation here – allows returning int or null
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
