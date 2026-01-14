@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5ssdxqxonm5f"]
+[gd_scene load_steps=14 format=3 uid="uid://c5ssdxqxonm5f"]
 
 [ext_resource type="Texture2D" uid="uid://ccucie5skwdq6" path="res://assets/player/mulkku_kavely_ja_idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_iwsjm"]
 [ext_resource type="Script" uid="uid://tcvy0t5ulnih" path="res://scripts/resources/player1controls.gd" id="2_obasw"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_x8bsy"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_iwsjm"]
@@ -64,7 +63,6 @@ z_index = 20
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_g2els")
-ranged_items = Array[PackedScene]([ExtResource("2_iwsjm")])
 controls = ExtResource("2_obasw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
