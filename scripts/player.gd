@@ -43,6 +43,10 @@ func _physics_process(delta: float) -> void:
 
 		anim.rotation = _facing_angle
 		col_shape.rotation = _facing_angle
+		melee_socket.rotation = _facing_angle
+		# ranged_socket.rotation = _facing_angle
+		ability_socket.rotation = _facing_angle
+		utility_socket.rotation = _facing_angle
 
 		if anim.animation != "walk":
 			anim.play("walk")

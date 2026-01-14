@@ -9,12 +9,17 @@ func _physics_process(delta: float) -> void:
 	global_position += Vector2.RIGHT.rotated(rotation) * speed * delta
 
 func _on_life_time_timeout() -> void:
+	
+	print("[Bullet] Lifetime ended")
 	queue_free()
 
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players"):
+	if body.is_in_group("players") and body.has_method("take_damage()"):
+		
+		print("[Bullet] Hit a player")
 		body.take_damage()
 	
+	print("[Bullet] Destroyed")
 	queue_free()

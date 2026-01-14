@@ -30,7 +30,7 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3vyb7")
+"texture": SubResource("AtlasTexture_iwsjm")
 }],
 "loop": true,
 "name": &"idle",
@@ -38,16 +38,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g2els")
+"texture": SubResource("AtlasTexture_amrsk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qhqgy")
+"texture": SubResource("AtlasTexture_uhwab")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dqkch")
+"texture": SubResource("AtlasTexture_0iop5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
+"texture": SubResource("AtlasTexture_x80xl")
 }],
 "loop": true,
 "name": &"walk",
@@ -66,7 +66,6 @@ script = ExtResource("1_atpat")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"idle"
-frame_progress = 0.08797325
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_obasw")
@@ -74,7 +73,7 @@ shape = SubResource("CapsuleShape2D_obasw")
 [node name="health" type="TextureProgressBar" parent="."]
 z_index = 21
 offset_left = -8.0
-offset_top = -25.0
+offset_top = -23.0
 offset_right = 32.0
 offset_bottom = 15.0
 texture_over = ExtResource("3_6eyoc")
@@ -82,7 +81,7 @@ texture_over = ExtResource("3_6eyoc")
 [node name="damagetaken" type="TextureProgressBar" parent="."]
 z_index = 20
 offset_left = -8.0
-offset_top = -25.0
+offset_top = -23.0
 offset_right = 32.0
 offset_bottom = 15.0
 texture_under = ExtResource("4_eojnx")
@@ -92,10 +91,9 @@ texture_over = ExtResource("5_qgnko")
 position = Vector2(0, -15)
 
 [node name="RangedSocket" type="Node2D" parent="."]
-position = Vector2(0, -4)
 
 [node name="AbilitySocket" type="Node2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -11)
 
 [node name="UtilitySocket" type="Node2D" parent="."]
 position = Vector2(0, 8)

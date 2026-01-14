@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 @export var bullet_scene: PackedScene
 

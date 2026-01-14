@@ -2,36 +2,36 @@
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="Script" uid="uid://tifc2jemrnm2" path="res://scripts/resources/player2controls.gd" id="2_lu10d"]
-[ext_resource type="Texture2D" uid="uid://ccucie5skwdq6" path="res://assets/player/mulkku_kavely_ja_idle.png" id="2_wewdl"]
+[ext_resource type="Texture2D" uid="uid://v7phglfjvgak" path="res://assets/player/ant_player_animations.png" id="3_aod5d"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
 [ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_ea28a"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vyb7"]
-atlas = ExtResource("2_wewdl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwsjm"]
+atlas = ExtResource("3_aod5d")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
-atlas = ExtResource("2_wewdl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_amrsk"]
+atlas = ExtResource("3_aod5d")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
-atlas = ExtResource("2_wewdl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhwab"]
+atlas = ExtResource("3_aod5d")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
-atlas = ExtResource("2_wewdl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iop5"]
+atlas = ExtResource("3_aod5d")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("2_wewdl")
+[sub_resource type="AtlasTexture" id="AtlasTexture_x80xl"]
+atlas = ExtResource("3_aod5d")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_tuyoq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_a46ul"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3vyb7")
+"texture": SubResource("AtlasTexture_iwsjm")
 }],
 "loop": true,
 "name": &"idle",
@@ -39,16 +39,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g2els")
+"texture": SubResource("AtlasTexture_amrsk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qhqgy")
+"texture": SubResource("AtlasTexture_uhwab")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dqkch")
+"texture": SubResource("AtlasTexture_0iop5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
+"texture": SubResource("AtlasTexture_x80xl")
 }],
 "loop": true,
 "name": &"walk",
@@ -66,9 +66,8 @@ script = ExtResource("1_it4js")
 controls = ExtResource("2_lu10d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_tuyoq")
+sprite_frames = SubResource("SpriteFrames_a46ul")
 animation = &"idle"
-frame_progress = 0.08797325
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wewdl")
