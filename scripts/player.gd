@@ -29,22 +29,39 @@ var device_id: int = -1
 var move_input: Vector2 = Vector2.ZERO
 var attack_pressed: bool = false
 
+# Weapon input
+var aim_direction: Vector2 = Vector2.RIGHT
+var shoot_pressed: bool = false
+
+# ---- NEW: equipped items per slot ----
+var equipped := {
+	"melee": null,
+	"ranged": null,
+	"ability": null,
+	"utility": null
+}
+
 func _ready() -> void:
 	randomize()
 
 func _physics_process(delta: float) -> void:
 	var input_dir := move_input
+	
+	if attack_pressed:
+		_attack()
+		attack_pressed = false
+
+	shoot_pressed = false
 
 	velocity = input_dir * speed
 
 	if input_dir != Vector2.ZERO:
-		var target_angle: float = Vector2.UP.angle_to(input_dir) + orientation_offset
+		var target_angle := Vector2.UP.angle_to(input_dir) + orientation_offset
 		_facing_angle = lerp_angle(_facing_angle, target_angle, turn_speed * delta)
 
 		anim.rotation = _facing_angle
 		col_shape.rotation = _facing_angle
 		melee_socket.rotation = _facing_angle
-		# ranged_socket.rotation = _facing_angle
 		ability_socket.rotation = _facing_angle
 		utility_socket.rotation = _facing_angle
 
@@ -56,20 +73,24 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+# -------------------------
+# PICKUP / EQUIP SYSTEM
+# -------------------------
+
 func pickup() -> void:
-	var item_type: String = _pick_random_item_type()
+	var item_type := _pick_random_item_type()
 	if item_type == "":
 		return
 
 	match item_type:
 		"melee":
-			_equip_item(melee_items, melee_socket)
+			_equip_item("melee", melee_items, melee_socket)
 		"ranged":
-			_equip_item(ranged_items, ranged_socket)
+			_equip_item("ranged", ranged_items, ranged_socket)
 		"ability":
-			_equip_item(ability_items, ability_socket)
+			_equip_item("ability", ability_items, ability_socket)
 		"utility":
-			_equip_item(utility_items, utility_socket)
+			_equip_item("utility", utility_items, utility_socket)
 
 func _pick_random_item_type() -> String:
 	var available: Array[String] = []
@@ -88,32 +109,41 @@ func _pick_random_item_type() -> String:
 
 	return available.pick_random()
 
-func _equip_item(item_list: Array[PackedScene], socket: Node2D) -> void:
+func _equip_item(
+	item_type: String,
+	item_list: Array[PackedScene],
+	socket: Node2D
+) -> void:
 	if item_list.is_empty():
 		return
 
-	# Remove existing item(s)
-	for child: Node in socket.get_children():
-		child.queue_free()
+	# Remove currently equipped item of this type
+	if equipped[item_type]:
+		equipped[item_type].queue_free()
+		equipped[item_type] = null
 
-	# Instantiate and attach new item
-	var scene: PackedScene = item_list.pick_random()
-	var item: Node = scene.instantiate()
+	# Spawn new item
+	var scene: PackedScene = item_list.pick_random() as PackedScene
+	var item := scene.instantiate()
 
 	socket.add_child(item)
 
-	# Normalize transform
 	if item is Node2D:
 		item.position = Vector2.ZERO
 		item.rotation = 0.0
 		item.scale = Vector2.ONE
 
+	if "owner_player" in item:
+		item.owner_player = self
+
+	equipped[item_type] = item
+
+# -------------------------
+
 func _process(_delta: float) -> void:
 	if attack_pressed:
 		_attack()
-		attack_pressed = false  # consume
+		attack_pressed = false
 
 func _attack() -> void:
 	print("Player with device", device_id, "attacked")
-
-# (your pickup / item code stays as you had it)

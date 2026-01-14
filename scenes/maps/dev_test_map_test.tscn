@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://2d0yjcn1ibns"]
+[gd_scene load_steps=12 format=4 uid="uid://b8gsavc5q3x6i"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_gf5eg"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="1_ma4cn"]
+[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_ma4cn"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="2_e1ynx"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="3_31l6i"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="4_08xok"]
@@ -116,6 +116,15 @@ tile_set = SubResource("TileSet_lf8kp")
 
 [node name="Area2D" parent="." instance=ExtResource("7_b7mf3")]
 position = Vector2(350, 189)
+
+[node name="Area2D2" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(702, 189)
+
+[node name="Area2D3" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(355, 356)
+
+[node name="Area2D4" parent="." instance=ExtResource("7_b7mf3")]
+position = Vector2(702, 357)
 
 [node name="Spawns" type="Node" parent="."]
 

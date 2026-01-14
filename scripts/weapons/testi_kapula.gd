@@ -2,21 +2,31 @@ extends Node2D
 
 @export var bullet_scene: PackedScene
 
-
 @onready var shoot_point: Node2D = $ShootPoint
 
+var owner_player: Player = null  # set this when equipping the weapon
 
 func _process(_delta: float) -> void:
-	_aim_at_cursor()
-	_handle_shooting()
+	if owner_player == null:
+		return
 
-func _aim_at_cursor() -> void:
-	var mouse_pos = get_global_mouse_position()
-	var dir = (mouse_pos - global_position)
+	_aim_from_owner()
+	_handle_shooting_from_owner()
+
+func _aim_from_owner() -> void:
+	var dir: Vector2 = owner_player.aim_direction
+	if dir == Vector2.ZERO:
+		return
+
+	# Face where the player is aiming
 	rotation = dir.angle()
 
-func _handle_shooting() -> void:
-	if Input.is_action_pressed("p1_attack"):
+	# Optionally, position this weapon on the player
+	# if it's not already a child of their socket, etc.
+	# global_position = owner_player.global_position
+
+func _handle_shooting_from_owner() -> void:
+	if owner_player.shoot_pressed:
 		_shoot()
 
 func _shoot() -> void:
@@ -25,16 +35,7 @@ func _shoot() -> void:
 		return
 
 	var bullet = bullet_scene.instantiate()
-	# Add to the current scene so global transforms work as expected
 	get_tree().current_scene.add_child(bullet)
 
-	# Spawn at the ShootPoint and aim in the current direction
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = rotation
-
-	# If your bullet script uses a direction/velocity, you can optionally set it like this:
-	# var dir := Vector2.RIGHT.rotated(bullet.rotation)
-	# if bullet.has_method("set_direction"):
-	#     bullet.set_direction(dir)
-	# elif bullet.has_variable("velocity"):
-	#     bullet.velocity = dir * (bullet.speed if bullet.has_variable("speed") else 600.0)
