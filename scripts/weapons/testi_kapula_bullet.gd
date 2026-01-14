@@ -8,7 +8,13 @@ func _physics_process(delta: float) -> void:
 	# Move forward based on current rotation (0 rad faces right).
 	global_position += Vector2.RIGHT.rotated(rotation) * speed * delta
 
-
-
 func _on_life_time_timeout() -> void:
+	queue_free()
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players"):
+		body.take_damage()
+	
 	queue_free()
