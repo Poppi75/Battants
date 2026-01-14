@@ -3,6 +3,12 @@ class_name Player
 
 @export_category("Item Scenes")
 
+@export var max_health: int = 1000
+var health
+var _damage_update_seq: int = 0
+@onready var health_bar: TextureProgressBar = $health
+@onready var damageTaken_bar: TextureProgressBar = $damagetaken
+
 @export var melee_items: Array[PackedScene]
 @export var ranged_items: Array[PackedScene]
 @export var ability_items: Array[PackedScene]
@@ -42,6 +48,16 @@ var equipped := {
 }
 
 func _ready() -> void:
+	health = max_health
+	
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = health
+	
+	if damageTaken_bar:
+		damageTaken_bar.max_value = max_health
+		damageTaken_bar.value = health
+	
 	randomize()
 
 func _physics_process(delta: float) -> void:
@@ -76,6 +92,30 @@ func _physics_process(delta: float) -> void:
 # -------------------------
 # PICKUP / EQUIP SYSTEM
 # -------------------------
+
+func take_damage(damage: int) -> void:
+	print("keignrogireewmfrkgjrepirjgo")
+	
+	health -= damage
+	
+	update_health_bars()
+	
+	if health >= 0:
+		die()
+
+func die() -> void:
+	print(device_id, "Died")
+	# queue_free()							# THIS IS DEATH!!! IF DYING IS EXPECTED UNCOMMENT THIS LINE
+
+func update_health_bars() -> void:
+	if health_bar:
+		health_bar.value = health
+	
+	_damage_update_seq += 1
+	var seq: int = _damage_update_seq
+	await get_tree().create_timer(2.0).timeout
+	if seq == _damage_update_seq and damageTaken_bar:
+		damageTaken_bar.value = health
 
 func pickup() -> void:
 	var item_type := _pick_random_item_type()
