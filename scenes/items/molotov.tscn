@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d21ukyc61ytah"]
+
+[ext_resource type="Script" uid="uid://bvqq7n2vp4qcn" path="res://scripts/items/molotov.gd" id="1_3uel7"]
+[ext_resource type="Texture2D" uid="uid://c468x81uxe128" path="res://assets/item_art/molotov_coctail.png" id="1_nixad"]
+[ext_resource type="PackedScene" uid="uid://b83f4swpcxo16" path="res://scenes/items/molotov_projectile.tscn" id="2_lk3gv"]
+
+[node name="Molotov" type="Node2D"]
+script = ExtResource("1_3uel7")
+molotov_projectile_scene = ExtResource("2_lk3gv")
+
+[node name="molotov" type="Sprite2D" parent="."]
+texture = ExtResource("1_nixad")
+
+[node name="ShootPoint" type="Node2D" parent="."]

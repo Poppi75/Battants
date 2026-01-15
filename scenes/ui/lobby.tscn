@@ -21,9 +21,9 @@ script = ExtResource("1_6oakf")
 [node name="Label" type="Label" parent="."]
 z_index = 316
 layout_mode = 0
-offset_left = 15.0
+offset_left = 26.0
 offset_top = 1045.0
-offset_right = 687.0
+offset_right = 1658.0
 offset_bottom = 1068.0
 theme_override_fonts/font = ExtResource("3_2rbxb")
 text = "At least 2 players needed to start the game. Join with [Enter] on keyboard or [Start] with controller."

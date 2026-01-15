@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://bumohh4fq2yc8"]
+
+[ext_resource type="Script" uid="uid://c2kayr00nggeb" path="res://scripts/items/molotov_burn_area.gd" id="1_f532o"]
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_fseui"]
+
+[sub_resource type="Gradient" id="Gradient_fseui"]
+offsets = PackedFloat32Array(0, 0.3015873, 0.6984127, 1)
+colors = PackedColorArray(1, 1, 0.7490196, 1, 1, 0.48235294, 0, 1, 1, 0, 0, 0.6901961, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bhtjl"]
+gradient = SubResource("Gradient_fseui")
+
+[sub_resource type="Curve" id="Curve_jkola"]
+_data = [Vector2(0, 0.10112369), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ms25e"]
+curve = SubResource("Curve_jkola")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fseui"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+angular_velocity_min = 4.999984
+angular_velocity_max = 19.999983
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 4.9999976
+radial_accel_max = 9.999997
+scale_curve = SubResource("CurveTexture_ms25e")
+color_ramp = SubResource("GradientTexture1D_bhtjl")
+
+[sub_resource type="Gradient" id="Gradient_bhtjl"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.43137255, 0, 1, 1, 1, 0, 1, 0.69803923, 0, 0, 0.45882353)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jkola"]
+gradient = SubResource("Gradient_bhtjl")
+
+[sub_resource type="Curve" id="Curve_ms25e"]
+_data = [Vector2(0, 0.20224726), 0.0, 0.0, 0, 0, Vector2(0.49999997, 0.4044944), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_81qaj"]
+curve = SubResource("Curve_ms25e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhtjl"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 90.0
+initial_velocity_max = 200.0
+orbit_velocity_min = -0.09999991
+orbit_velocity_max = 0.1000001
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 4.9999976
+linear_accel_max = 14.999997
+scale_min = 0.19999999
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_81qaj")
+color_ramp = SubResource("GradientTexture1D_jkola")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
+radius = 16.0
+
+[node name="MolotovBurnArea" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_f532o")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Flames" type="GPUParticles2D" parent="."]
+scale = Vector2(0.2, 0.2)
+amount = 120
+texture = ExtResource("2_fseui")
+preprocess = 0.4
+randomness = 0.45
+process_material = SubResource("ParticleProcessMaterial_fseui")
+
+[node name="Embers" type="GPUParticles2D" parent="."]
+scale = Vector2(0.2, 0.2)
+amount = 30
+texture = ExtResource("2_fseui")
+lifetime = 1.5999999999999999
+preprocess = 0.45
+explosiveness = 0.15
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_bhtjl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fseui")
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]
