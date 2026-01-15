@@ -3,50 +3,48 @@ extends Control
 const MAX_PLAYERS := 4
 const MIN_PLAYERS := 2
 
-var joined_devices: Array = []      # store device ids (ints)
-var players: Array = []             # store player nodes
-
+var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
 func _ready() -> void:
 	randomize()
-	# Show UI text in your scene if you want like "Press join to enter"
 
 func _unhandled_input(event: InputEvent) -> void:
-	# 1. Player join
-	if event.is_action_pressed("ui_join"):
+	if event.is_action_pressed("join"):
 		var device_id = _get_event_device_id(event)
 		if device_id == null:
 			return
 
-		if not joined_devices.has(device_id) and joined_devices.size() < MAX_PLAYERS:
-			_add_player_for_device(device_id)
+		# Prevent multiple joins from KBM (-1)
+		if joined_devices.has(device_id):
+			return
+		if joined_devices.size() >= MAX_PLAYERS:
+			return
 
-# NOTE: no return type annotation here – allows returning int or null
+		_add_device(device_id)
+
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
-		return -1  # treat keyboard/mouse as device -1
+		return -1
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		return event.device
 	return null
 
-func _add_player_for_device(device_id: int) -> void:
+func _add_device(device_id: int) -> void:
 	joined_devices.append(device_id)
-
-	var player := player_scene.instantiate()
-	# If you later add a per-player device property, set it here, e.g.:
-	# player.device_id = device_id
-
-	players.append(player)
-
-	# Optional: show joined players in the lobby visually
-	add_child(player)
 	print("Player joined with device:", device_id)
 
-func _start_match() -> void:
-	var bindings: Array = []
+	# (Optional) If you don’t actually want to spawn players in the lobby, remove this.
+	# Spawning only in the match scene is usually cleaner.
+	# var p := player_scene.instantiate()
+	# add_child(p)
 
-	# Build bindings from joined_devices so each entry has a "device" key
+func _start_match() -> void:
+	if joined_devices.size() < MIN_PLAYERS:
+		print("Need at least", MIN_PLAYERS, "players")
+		return
+
+	var bindings: Array = []
 	for device_id in joined_devices:
 		bindings.append({ "device": device_id })
 
@@ -57,6 +55,9 @@ func _start_match() -> void:
 	]
 	var chosen: String = maps[randi() % maps.size()]
 	get_tree().change_scene_to_file(chosen)
+
+
+
 
 func _on_start_game_pressed() -> void:
 	_start_match()
