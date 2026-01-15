@@ -23,7 +23,6 @@ func _process(delta: float) -> void:
 		return
 
 	_aim_from_owner(delta)
-	_handle_shooting_from_owner()
 
 func _aim_from_owner(delta:  float) -> void:
 	var dir: Vector2 = owner_player.aim_direction
@@ -38,26 +37,24 @@ func _aim_from_owner(delta:  float) -> void:
 	var step:  float = clamp(diff, -rotation_speed * delta, rotation_speed * delta)
 	rotation += step
 
-func _handle_shooting_from_owner() -> void:
-	if owner_player.shoot_pressed and can_shoot:
-		_shoot()
-
 func _shoot() -> void:
+	
 	if bullet_scene == null:
 		push_warning("Assign a Bullet scene to 'bullet_scene' in the Inspector.")
 		return
-	
-	ak_47_anim.play("shoot")
-	
-	var bullet = bullet_scene.instantiate()
-	get_tree().current_scene.add_child(bullet)
-	
-	bullet.global_position = shoot_point.global_position
-	bullet.rotation = rotation
-	
-	# Start cooldown
-	can_shoot = false
-	shoot_cooldown.start()
+		
+	if can_shoot:
+		ak_47_anim.play("shoot")
+		
+		var bullet = bullet_scene.instantiate()
+		get_tree().current_scene.add_child(bullet)
+		
+		bullet.global_position = shoot_point.global_position
+		bullet.rotation = rotation
+		
+		# Start cooldown
+		can_shoot = false
+		shoot_cooldown.start()
 
 func _on_shoot_cooldown_timeout() -> void:
 	can_shoot = true
