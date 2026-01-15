@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=6 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
+[ext_resource type="Texture2D" uid="uid://4p77cgkigpw6" path="res://assets/ui art/mainmenu_art.png" id="2_5t5el"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_66348"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5t5el"]
 
 [node name="lobby" type="Control"]
 layout_mode = 3
@@ -14,28 +18,43 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6oakf")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(25.028572, 13.235294)
-
-[node name="StartGame" type="Button" parent="."]
-layout_mode = 0
-offset_left = 454.0
-offset_top = 301.0
-offset_right = 495.0
-offset_bottom = 332.0
-text = "play"
-
 [node name="Label" type="Label" parent="."]
 z_index = 316
 layout_mode = 0
-offset_left = 317.0
-offset_top = 141.0
-offset_right = 630.0
-offset_bottom = 164.0
-text = "join the game (all this just a placeholder)"
+offset_left = 15.0
+offset_top = 1045.0
+offset_right = 687.0
+offset_bottom = 1068.0
+theme_override_fonts/font = ExtResource("3_2rbxb")
+text = "At least 2 players needed to start the game. Join with [Enter] on keyboard or [Start] with controller."
 label_settings = SubResource("LabelSettings_66348")
 
-[connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1760.0
+offset_bottom = -990.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(12.050273, 12.050273)
+texture = ExtResource("2_5t5el")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 773.0
+offset_right = 317.0
+offset_bottom = 805.0
+theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
+theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
+theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
+theme_override_fonts/font = ExtResource("3_2rbxb")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5t5el")
+text = "Start"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_settings_button_pressed"]

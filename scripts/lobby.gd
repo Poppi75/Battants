@@ -56,8 +56,5 @@ func _start_match() -> void:
 	var chosen: String = maps[randi() % maps.size()]
 	get_tree().change_scene_to_file(chosen)
 
-
-
-
-func _on_start_game_pressed() -> void:
+func _on_settings_button_pressed() -> void:
 	_start_match()
