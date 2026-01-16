@@ -11,6 +11,8 @@ const PlayerScene := preload("res://scenes/characters/player.tscn")
 
 var players: Array[Player] = []
 
+var player_number = 1
+
 func _ready() -> void:
 	var bindings: Array = Global.player_bindings
 
@@ -21,6 +23,8 @@ func _ready() -> void:
 		var player: Player = PlayerScene.instantiate()
 		player.device_id = device_id
 		player.player_index = i
+		player.player_number = player_number
+		player_number += 1
 
 		if i < spawn_points.size():
 			player.position = spawn_points[i].position

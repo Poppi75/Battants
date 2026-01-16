@@ -11,7 +11,8 @@ func _process(delta: float) -> void:
 	if owner_player == null:
 		return
 
-	_aim_from_owner(delta)
+	if owner_player.equipped_slot == "ranged":
+		_aim_from_owner(delta)
 
 # -------------------------
 # AIM
