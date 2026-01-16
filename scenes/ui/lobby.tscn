@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=7 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="Texture2D" uid="uid://4p77cgkigpw6" path="res://assets/ui art/mainmenu_art.png" id="2_5t5el"]
@@ -8,6 +8,10 @@
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5t5el"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5t5el"]
+font_size = 64
+font_color = Color(0, 0, 0, 1)
 
 [node name="lobby" type="Control"]
 layout_mode = 3
@@ -56,5 +60,14 @@ theme_override_fonts/font = ExtResource("3_2rbxb")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5t5el")
 text = "Start"
+
+[node name="players_joined" type="Label" parent="."]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 583.0
+offset_right = 1109.0
+offset_bottom = 671.0
+text = "players joined: 0"
+label_settings = SubResource("LabelSettings_5t5el")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_settings_button_pressed"]
