@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvj7kditdrf2q"]
+
+[ext_resource type="Script" uid="uid://t4n28bjetqrj" path="res://scripts/weapons/explosion.gd" id="1_sxefp"]
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_llixc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nb77e"]
+radius = 22.203604
+
+[sub_resource type="Gradient" id="Gradient_4u5ba"]
+offsets = PackedFloat32Array(0, 0.21698113, 0.4528302, 0.7358491, 1)
+colors = PackedColorArray(0.99160606, 1, 0.4961443, 1, 1, 0.52156866, 0, 1, 1, 0, 0, 1, 0.24115604, 0.24115604, 0.24115604, 1, 0.23921569, 0.23921569, 0.23921569, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_10feb"]
+gradient = SubResource("Gradient_4u5ba")
+
+[sub_resource type="Curve" id="Curve_wbm2e"]
+_data = [Vector2(0, 0.10112357), 0.0, 0.0, 0, 0, Vector2(0.5986842, 0.5955056), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mbvir"]
+curve = SubResource("Curve_wbm2e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2q87t"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+angular_velocity_min = 0.0999839
+angular_velocity_max = 0.2999839
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.59999996
+scale_curve = SubResource("CurveTexture_mbvir")
+color_ramp = SubResource("GradientTexture1D_10feb")
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_sxefp")
+
+[node name="Explosions" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nb77e")
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 200
+texture = ExtResource("2_llixc")
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2q87t")

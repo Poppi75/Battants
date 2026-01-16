@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://d1kffgd6w0sr1"]
+
+[ext_resource type="Script" uid="uid://cht2lf01jd2dv" path="res://scripts/weapons/weapon_homing_launcher.gd" id="1_fditi"]
+[ext_resource type="PackedScene" uid="uid://dwv6e34q7r0s7" path="res://scenes/weapons/bullet_hominglauncher.tscn" id="2_dyq44"]
+[ext_resource type="Texture2D" uid="uid://cngd5s7uxcy71" path="res://assets/weapons/weapon_homing_launcher_animation.png" id="2_jimwe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyq44"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(272, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h02bo"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62blk"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mt1k"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(34, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef4fn"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(68, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13t8c"]
+atlas = ExtResource("2_jimwe")
+region = Rect2(102, 0, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c72j7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyq44")
+}],
+"loop": false,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h02bo")
+}],
+"loop": false,
+"name": &"missile",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62blk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mt1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef4fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13t8c")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 35.0
+}]
+
+[node name="homing_launcher" type="Node2D"]
+script = ExtResource("1_fditi")
+missile_scene = ExtResource("2_dyq44")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(17, 0)
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="hominglauncher" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_c72j7")
+animation = &"missile"
+
+[node name="reloadTimer" type="Timer" parent="."]
+wait_time = 9.0
+
+[connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]
+[connection signal="timeout" from="reloadTimer" to="." method="_on_reload_timer_timeout"]
