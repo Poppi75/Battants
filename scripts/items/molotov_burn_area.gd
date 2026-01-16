@@ -4,7 +4,7 @@ extends Area2D
 @export var full_size_time: float = 5.0     # time it stays max size
 @export var fade_time: float = 1.0          # time to shrink/fade out
 @export var max_scale: float = 5.0          # how big the patch gets
-@export var damage_per_second: float = 14.0 # damage over time
+@export var damage_per_second: float = 17.0 # damage over time
 
 var time_alive: float = 0.0
 var total_lifetime: float

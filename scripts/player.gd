@@ -261,7 +261,7 @@ func _attack() -> void:
 	if equipped["melee"] and equipped["melee"].has_method("attack"):
 		equipped["melee"].attack()
 
-	if equipped["ranged"].has_method("_shoot"):
+	if equipped["ranged"] and equipped["ranged"].has_method("_shoot"):
 		equipped["ranged"]._shoot()
 
 	if equipped["ability"] and equipped["ability"].has_method("attack"):

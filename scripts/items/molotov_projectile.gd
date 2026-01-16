@@ -7,6 +7,9 @@ extends CharacterBody2D
 @export var max_lifetime: float = 2.0     # safety timeout
 @export var fire_scene: PackedScene       # set in editor to MolotovFireArea.tscn
 
+# How fast it spins at max_speed, in radians/sec
+@export var max_angular_speed: float = 10.0
+
 var direction: Vector2 = Vector2.ZERO
 var current_speed: float = 0.0
 var accel_rate: float
@@ -39,6 +42,16 @@ func _physics_process(delta: float) -> void:
 	current_speed -= decel * delta
 	if current_speed < 0.0:
 		current_speed = 0.0
+
+	# --- ROTATION: visually counterclockwise, slowing with speed ---
+	var speed_ratio := 0.0
+	if max_speed > 0.0:
+		speed_ratio = current_speed / max_speed   # 0..1
+
+	var angular_speed := max_angular_speed * speed_ratio
+	# Use -= so that, regardless of sprite orientation, this appears CCW on screen
+	rotation -= angular_speed * delta
+	# ---------------------------------------------------------------
 
 	# 3) move in straight line
 	velocity = direction * current_speed
