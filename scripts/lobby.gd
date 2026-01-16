@@ -6,6 +6,9 @@ const MIN_PLAYERS := 2
 var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
+var players_joined = 0
+@onready var players_joined_text = $players_joined
+
 func _ready() -> void:
 	randomize()
 
@@ -33,11 +36,17 @@ func _get_event_device_id(event: InputEvent):
 func _add_device(device_id: int) -> void:
 	joined_devices.append(device_id)
 	print("Player joined with device:", device_id)
+	players_joined += 1
+	update_players_joined()
 
 	# (Optional) If you don’t actually want to spawn players in the lobby, remove this.
 	# Spawning only in the match scene is usually cleaner.
 	# var p := player_scene.instantiate()
 	# add_child(p)
+	
+func update_players_joined():
+	players_joined_text.text = str("players joined:", players_joined)
+	
 
 func _start_match() -> void:
 	if joined_devices.size() < MIN_PLAYERS:
