@@ -16,7 +16,8 @@ func _process(delta: float) -> void:
 	if owner_player == null:
 		return
 
-	_aim_from_owner(delta)
+	if owner_player.equipped_slot == "ranged":
+		_aim_from_owner(delta)
 
 func _aim_from_owner(delta: float) -> void:
 	var dir: Vector2 = owner_player.aim_direction

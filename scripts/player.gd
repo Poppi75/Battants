@@ -27,11 +27,14 @@ var _damage_update_seq: int = 0
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
 
+var equipped_slot = "melee"
+
 var _facing_angle: float = 0.0
 
 # -1 = keyboard/mouse, 0+ = gamepad index
 var device_id: int = -1
 var player_index: int = 0
+var player_number: int = 0
 
 # Input state
 var move_input: Vector2 = Vector2.ZERO
@@ -54,9 +57,6 @@ const GAMEPAD_RIGHT_DEADZONE := 0.25
 
 # Preferred: trigger axis held
 const TRIGGER_PRESS_THRESHOLD := 0.50
-
-# Fallback (easy/robust): right bumper
-const GAMEPAD_SHOOT_BUTTON := JOY_BUTTON_RIGHT_SHOULDER
 
 func _ready() -> void:
 	health = max_health
@@ -90,11 +90,11 @@ func _physics_process(delta: float) -> void:
 		ability_socket.rotation = _facing_angle
 		utility_socket.rotation = _facing_angle
 
-		if anim.animation != "walk":
-			anim.play("walk")
+		if anim.animation != "p"+str(player_number)+"_walk":
+			anim.play("p"+str(player_number)+"_walk")
 	else:
-		if anim.animation != "idle":
-			anim.play("idle")
+		if anim.animation != "p"+str(player_number)+"_idle":
+			anim.play("p"+str(player_number)+"_idle")
 
 	move_and_slide()
 
@@ -106,6 +106,14 @@ func _read_input() -> void:
 	if device_id == -1:
 		move_input = Input.get_vector("left", "right", "up", "down")
 		shoot_held = Input.is_action_pressed("attack")
+		if Input.is_action_just_pressed("melee_slot"):
+			equipped_slot = "melee"
+		if Input.is_action_just_pressed("ranged_slot"):
+			equipped_slot = "ranged"
+		if Input.is_action_just_pressed("ability_slot"):
+			equipped_slot = "ability"
+		if Input.is_action_just_pressed("utility_slot"):
+			equipped_slot = "utility"
 
 		# Aim from player to mouse
 		var cam := get_viewport().get_camera_2d()
@@ -119,6 +127,15 @@ func _read_input() -> void:
 	move_input = _get_move_for_device(device_id)
 	aim_direction = _get_aim_for_device(device_id)
 	shoot_held = _get_shoot_for_device(device_id)
+	
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_B):
+		equipped_slot = "melee"
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
+		equipped_slot = "ranged"
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_X):
+		equipped_slot = "ability"
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_Y):
+		equipped_slot = "utility"
 
 func _get_shoot_for_device(pad: int) -> bool:
 	# Preferred: right trigger axis
@@ -136,10 +153,7 @@ func _get_shoot_for_device(pad: int) -> bool:
 
 	var trigger_down := rt01 > TRIGGER_PRESS_THRESHOLD
 
-	# Fallback: right bumper (works on basically everything)
-	var bumper_down := Input.is_joy_button_pressed(pad, GAMEPAD_SHOOT_BUTTON)
-
-	return trigger_down or bumper_down
+	return trigger_down
 
 func _get_move_for_device(pad: int) -> Vector2:
 	var dir := Vector2.ZERO
@@ -166,6 +180,7 @@ func _get_move_for_device(pad: int) -> Vector2:
 	return dir
 
 func _get_aim_for_device(pad: int) -> Vector2:
+	
 	# Right stick aim (keep previous if inside deadzone)
 	var x := Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X)
 	var y := Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
@@ -258,14 +273,14 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 # -------------------------
 
 func _attack() -> void:
-	if equipped["melee"] and equipped["melee"].has_method("attack"):
+	if equipped["melee"] and equipped["melee"].has_method("attack") and equipped_slot == "melee":
 		equipped["melee"].attack()
 
-	if equipped["ranged"] and equipped["ranged"].has_method("_shoot"):
+	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged":
 		equipped["ranged"]._shoot()
 
-	if equipped["ability"] and equipped["ability"].has_method("attack"):
+	if equipped["ability"] and equipped["ability"].has_method("attack") and equipped_slot == "ability":
 		equipped["ability"].attack()
 
-	if equipped["utility"] and equipped["utility"].has_method("attack"):
+	if equipped["utility"] and equipped["utility"].has_method("attack") and equipped_slot == "utility":
 		equipped["utility"].attack()
