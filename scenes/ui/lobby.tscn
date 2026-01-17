@@ -70,4 +70,84 @@ offset_bottom = 671.0
 text = "players joined: 0"
 label_settings = SubResource("LabelSettings_5t5el")
 
+[node name="p1_txt" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 470.0
+offset_top = 699.0
+offset_right = 974.0
+offset_bottom = 787.0
+text = "p1"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p2_txt" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 785.0
+offset_top = 699.0
+offset_right = 1289.0
+offset_bottom = 787.0
+text = "p2"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p3_txt" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1145.0
+offset_top = 699.0
+offset_right = 1649.0
+offset_bottom = 787.0
+text = "p3"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p4_txt" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1505.0
+offset_top = 699.0
+offset_right = 2009.0
+offset_bottom = 787.0
+text = "p4"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p1_ctrl" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 371.0
+offset_top = 788.0
+offset_right = 875.0
+offset_bottom = 876.0
+text = "controller"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p2_ctrl" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 697.0
+offset_top = 788.0
+offset_right = 1201.0
+offset_bottom = 876.0
+text = "controller"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p3_ctrl" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1054.0
+offset_top = 788.0
+offset_right = 1558.0
+offset_bottom = 876.0
+text = "controller"
+label_settings = SubResource("LabelSettings_5t5el")
+
+[node name="p4_ctrl" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1415.0
+offset_top = 788.0
+offset_right = 1919.0
+offset_bottom = 876.0
+text = "controller"
+label_settings = SubResource("LabelSettings_5t5el")
+
 [connection signal="pressed" from="StartButton" to="." method="_on_settings_button_pressed"]

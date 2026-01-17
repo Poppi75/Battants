@@ -10,6 +10,20 @@ var players_joined = 0
 @onready var joined_text = $players_joined
 func _ready() -> void:
 	randomize()
+	
+@onready var players = [
+	$p1_txt,
+	$p2_txt,
+	$p3_txt,
+	$p4_txt
+]
+
+@onready var controls = [
+	$p1_ctrl,
+	$p2_ctrl,
+	$p3_ctrl,
+	$p4_ctrl
+]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("join"):
@@ -50,6 +64,8 @@ func _remove_device(device_id: int) -> void:
 	joined_devices.erase(device_id)
 	print("player left with device", device_id)
 	players_joined -= 1
+	players[players_joined].visible = false
+	controls[players_joined].visible = false
 	update_players_joined()
 
 	# (Optional) If you don’t actually want to spawn players in the lobby, remove this.
@@ -59,6 +75,13 @@ func _remove_device(device_id: int) -> void:
 	
 func update_players_joined():
 	joined_text.text = str("players joined:", players_joined)
+	for i in range(joined_devices.size()):
+		players[i].visible = true
+		controls[i].visible = true
+		if joined_devices[i] != -1:
+			controls[i].text = "controller"
+		else:
+			controls[i].text = "keyboard"
 	
 
 func _start_match() -> void:
