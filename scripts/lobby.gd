@@ -7,7 +7,6 @@ var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
 var players_joined = 0
-@onready var joined_text = $players_joined
 func _ready() -> void:
 	randomize()
 	
@@ -24,6 +23,8 @@ func _ready() -> void:
 	$p3_ctrl,
 	$p4_ctrl
 ]
+
+var maps = Global.maps
 
 var mouse_texture = preload("res://assets/ui art/ui_mouse.png")
 var controller_texture = preload("res://assets/ui art/ui_controller.png")
@@ -77,7 +78,6 @@ func _remove_device(device_id: int) -> void:
 	# add_child(p)
 	
 func update_players_joined():
-	joined_text.text = str("players joined:", players_joined)
 	for i in range(joined_devices.size()):
 		players[i].visible = true
 		controls[i].visible = true
@@ -98,11 +98,6 @@ func _start_match() -> void:
 
 	Global.player_bindings = bindings
 
-	var maps: Array[String] = [
-		"res://scenes/maps/dev_test_map_test.tscn",
-		"res://scenes/maps/map1.tscn",
-		"res://scenes/maps/map2.tscn",
-	]
 	var chosen: String = maps[randi() % maps.size()]
 	get_tree().change_scene_to_file(chosen)
 
