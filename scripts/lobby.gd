@@ -7,8 +7,7 @@ var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
 var players_joined = 0
-@onready var players_joined_text = $players_joined
-
+@onready var joined_text = $players_joined
 func _ready() -> void:
 	randomize()
 
@@ -25,6 +24,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		_add_device(device_id)
+		
+	if event.is_action_pressed("unjoin"):
+		var device_id = _get_event_device_id(event)
+		if device_id == null:
+			return
+			
+		if joined_devices.has(device_id):
+			_remove_device(device_id)
 
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
@@ -38,6 +45,12 @@ func _add_device(device_id: int) -> void:
 	print("Player joined with device:", device_id)
 	players_joined += 1
 	update_players_joined()
+	
+func _remove_device(device_id: int) -> void:
+	joined_devices.erase(device_id)
+	print("player left with device", device_id)
+	players_joined -= 1
+	update_players_joined()
 
 	# (Optional) If you don’t actually want to spawn players in the lobby, remove this.
 	# Spawning only in the match scene is usually cleaner.
@@ -45,7 +58,7 @@ func _add_device(device_id: int) -> void:
 	# add_child(p)
 	
 func update_players_joined():
-	players_joined_text.text = str("players joined:", players_joined)
+	joined_text.text = str("players joined:", players_joined)
 	
 
 func _start_match() -> void:
