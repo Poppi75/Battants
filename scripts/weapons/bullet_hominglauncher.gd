@@ -19,7 +19,7 @@ func _ready() -> void:
 		timer.start()
 
 func _physics_process(delta: float) -> void:
-	if owner_player != null:
+	if owner_player != null and owner_player.equipped_slot == "ranged":
 		var dir: Vector2 = owner_player.aim_direction
 		if dir != Vector2.ZERO:
 			var target_angle: float = dir.angle()

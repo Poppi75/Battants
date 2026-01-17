@@ -25,6 +25,9 @@ func _ready() -> void:
 	$p4_ctrl
 ]
 
+var mouse_texture = preload("res://assets/ui art/ui_mouse.png")
+var controller_texture = preload("res://assets/ui art/ui_controller.png")
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("join"):
 		var device_id = _get_event_device_id(event)
@@ -79,9 +82,9 @@ func update_players_joined():
 		players[i].visible = true
 		controls[i].visible = true
 		if joined_devices[i] != -1:
-			controls[i].text = "controller"
+			controls[i].texture = controller_texture
 		else:
-			controls[i].text = "keyboard"
+			controls[i].texture = mouse_texture
 	
 
 func _start_match() -> void:
