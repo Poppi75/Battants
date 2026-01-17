@@ -204,7 +204,8 @@ z_index = 20
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_it4js")
-ranged_items = Array[PackedScene]([ExtResource("2_kqtwu"), ExtResource("3_6eyoc"), ExtResource("4_eojnx"), ExtResource("5_qgnko")])
+ranged_items = Array[PackedScene]([ExtResource("2_kqtwu"), ExtResource("3_6eyoc"), ExtResource("5_qgnko")])
+utility_items = Array[PackedScene]([ExtResource("4_eojnx")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a46ul")
