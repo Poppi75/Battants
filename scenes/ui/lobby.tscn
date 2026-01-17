@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=11 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
@@ -9,10 +9,6 @@
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5t5el"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_5t5el"]
-font_size = 64
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rqagm"]
 font = ExtResource("3_2rbxb")
@@ -81,15 +77,6 @@ theme_override_fonts/font = ExtResource("3_2rbxb")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5t5el")
 text = "Start"
-
-[node name="players_joined" type="Label" parent="."]
-layout_mode = 0
-offset_left = 605.0
-offset_top = 583.0
-offset_right = 1109.0
-offset_bottom = 671.0
-text = "players joined: 0"
-label_settings = SubResource("LabelSettings_5t5el")
 
 [node name="p1_txt" type="Label" parent="."]
 visible = false

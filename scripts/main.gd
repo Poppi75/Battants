@@ -11,7 +11,9 @@ const PlayerScene := preload("res://scenes/characters/player.tscn")
 
 var players: Array[Player] = []
 
-var player_number = 1
+var player_number := 1
+var player_count := 0
+
 
 func _ready() -> void:
 	var bindings: Array = Global.player_bindings
@@ -29,11 +31,30 @@ func _ready() -> void:
 		if i < spawn_points.size():
 			player.position = spawn_points[i].position
 
+		# 🔗 CONNECT PLAYER DEATH SIGNAL
+		player.died.connect(_on_player_died)
+
 		add_child(player)
 		players.append(player)
 
-		print("Spawned player_index=", i, "device_id=", device_id)
+		print("Spawned player_index=", i, " device_id=", device_id)
 
-# IMPORTANT:
-# No per-player input feeding here anymore.
-# Each Player reads input for itself.
+	# ✅ Correct player count
+	player_count = players.size()
+
+	print("Total players:", player_count)
+
+
+func _on_player_died(player: Player) -> void:
+	# Remove from list
+	players.erase(player)
+
+	# Decrease count
+	player_count -= 1
+
+	print("Player died. Remaining players:", player_count)
+
+	if player_count == 1:
+		print("🎉 WE HAVE A WINNER 🎉")
+		get_tree().create_timer(5.0).timeout
+		

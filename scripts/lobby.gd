@@ -7,7 +7,6 @@ var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
 var players_joined = 0
-@onready var joined_text = $players_joined
 func _ready() -> void:
 	randomize()
 	
@@ -77,7 +76,6 @@ func _remove_device(device_id: int) -> void:
 	# add_child(p)
 	
 func update_players_joined():
-	joined_text.text = str("players joined:", players_joined)
 	for i in range(joined_devices.size()):
 		players[i].visible = true
 		controls[i].visible = true
