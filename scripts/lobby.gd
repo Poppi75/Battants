@@ -24,6 +24,8 @@ func _ready() -> void:
 	$p4_ctrl
 ]
 
+var maps = Global.maps
+
 var mouse_texture = preload("res://assets/ui art/ui_mouse.png")
 var controller_texture = preload("res://assets/ui art/ui_controller.png")
 
@@ -96,9 +98,6 @@ func _start_match() -> void:
 
 	Global.player_bindings = bindings
 
-	var maps: Array[String] = [
-		"res://scenes/maps/dev_test_map_test.tscn",
-	]
 	var chosen: String = maps[randi() % maps.size()]
 	get_tree().change_scene_to_file(chosen)
 

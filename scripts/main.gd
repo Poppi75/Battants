@@ -13,7 +13,7 @@ var players: Array[Player] = []
 
 var player_number := 1
 var player_count := 0
-
+var maps = Global.maps
 
 func _ready() -> void:
 	var bindings: Array = Global.player_bindings
@@ -56,5 +56,7 @@ func _on_player_died(player: Player) -> void:
 
 	if player_count == 1:
 		print("🎉 WE HAVE A WINNER 🎉")
-		get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(5.0).timeout
+		var chosen: String = maps[randi() % maps.size()]
+		get_tree().change_scene_to_file(chosen)
 		

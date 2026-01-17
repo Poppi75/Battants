@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_llixc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nb77e"]
-radius = 22.203604
+radius = 112.0714
 
 [sub_resource type="Gradient" id="Gradient_4u5ba"]
 offsets = PackedFloat32Array(0, 0.21698113, 0.4528302, 0.7358491, 1)
