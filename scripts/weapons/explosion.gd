@@ -37,8 +37,6 @@ func _do_damage() -> void:
 	print("[Explosion] overlapping bodies: ", bodies.size())
 
 	for body in bodies:
-		if body == owner_player:
-			continue
 		if body.is_in_group("players"):
 			print("[Explosion] Damaging player: ", body.name)
 			body.take_damage(damage_amount)
