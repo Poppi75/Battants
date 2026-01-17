@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=12 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
 [ext_resource type="Texture2D" uid="uid://ciccjyip5fxcy" path="res://assets/ui art/lobby_art.png" id="3_5t5el"]
+[ext_resource type="Texture2D" uid="uid://5r1ms2gi7rmu" path="res://assets/ui art/ui_controller.png" id="4_2rbxb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_66348"]
 font_color = Color(0, 0, 0, 1)
@@ -12,6 +13,26 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_5t5el"]
 font_size = 64
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rqagm"]
+font = ExtResource("3_2rbxb")
+font_size = 32
+font_color = Color(0.92941177, 0.10980392, 0.14117648, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2rbxb"]
+font = ExtResource("3_2rbxb")
+font_size = 32
+font_color = Color(0.3019608, 0.42745098, 0.9529412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bthuv"]
+font = ExtResource("3_2rbxb")
+font_size = 32
+font_color = Color(0.13333334, 0.69411767, 0.29803923, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bnidf"]
+font = ExtResource("3_2rbxb")
+font_size = 32
+font_color = Color(1, 0.9490196, 0, 1)
 
 [node name="lobby" type="Control"]
 layout_mode = 3
@@ -73,81 +94,77 @@ label_settings = SubResource("LabelSettings_5t5el")
 [node name="p1_txt" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 470.0
-offset_top = 699.0
-offset_right = 974.0
-offset_bottom = 787.0
-text = "p1"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 454.0
+offset_top = 785.0
+offset_right = 518.0
+offset_bottom = 817.0
+text = "P1"
+label_settings = SubResource("LabelSettings_rqagm")
 
 [node name="p2_txt" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 785.0
-offset_top = 699.0
-offset_right = 1289.0
-offset_bottom = 787.0
-text = "p2"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 645.0
+offset_top = 785.0
+offset_right = 709.0
+offset_bottom = 817.0
+text = "P2"
+label_settings = SubResource("LabelSettings_2rbxb")
 
 [node name="p3_txt" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1145.0
-offset_top = 699.0
-offset_right = 1649.0
-offset_bottom = 787.0
-text = "p3"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 835.0
+offset_top = 785.0
+offset_right = 899.0
+offset_bottom = 817.0
+text = "P3"
+label_settings = SubResource("LabelSettings_bthuv")
 
 [node name="p4_txt" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1505.0
-offset_top = 699.0
-offset_right = 2009.0
-offset_bottom = 787.0
-text = "p4"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 1030.0
+offset_top = 785.0
+offset_right = 1094.0
+offset_bottom = 817.0
+text = "P4"
+label_settings = SubResource("LabelSettings_bnidf")
 
-[node name="p1_ctrl" type="Label" parent="."]
+[node name="p1_ctrl" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 371.0
-offset_top = 788.0
-offset_right = 875.0
-offset_bottom = 876.0
-text = "controller"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 417.0
+offset_top = 843.0
+offset_right = 547.0
+offset_bottom = 973.0
+texture = ExtResource("4_2rbxb")
 
-[node name="p2_ctrl" type="Label" parent="."]
+[node name="p2_ctrl" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 697.0
-offset_top = 788.0
-offset_right = 1201.0
-offset_bottom = 876.0
-text = "controller"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 611.0
+offset_top = 843.0
+offset_right = 741.0
+offset_bottom = 973.0
+texture = ExtResource("4_2rbxb")
 
-[node name="p3_ctrl" type="Label" parent="."]
+[node name="p3_ctrl" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1054.0
-offset_top = 788.0
-offset_right = 1558.0
-offset_bottom = 876.0
-text = "controller"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 803.0
+offset_top = 843.0
+offset_right = 933.0
+offset_bottom = 973.0
+texture = ExtResource("4_2rbxb")
 
-[node name="p4_ctrl" type="Label" parent="."]
+[node name="p4_ctrl" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1415.0
-offset_top = 788.0
-offset_right = 1919.0
-offset_bottom = 876.0
-text = "controller"
-label_settings = SubResource("LabelSettings_5t5el")
+offset_left = 996.0
+offset_top = 843.0
+offset_right = 1126.0
+offset_bottom = 973.0
+texture = ExtResource("4_2rbxb")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_settings_button_pressed"]
