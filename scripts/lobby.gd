@@ -100,6 +100,8 @@ func _start_match() -> void:
 
 	var maps: Array[String] = [
 		"res://scenes/maps/dev_test_map_test.tscn",
+		"res://scenes/maps/map1.tscn",
+		"res://scenes/maps/map2.tscn",
 	]
 	var chosen: String = maps[randi() % maps.size()]
 	get_tree().change_scene_to_file(chosen)
