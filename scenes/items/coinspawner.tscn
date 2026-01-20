@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx5sqqjomivsw"]
+
+[ext_resource type="Script" uid="uid://dhqybg08edmxf" path="res://scripts/items/coinspawner.gd" id="1_0adhx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wg82f"]
+size = Vector2(1920, 1080)
+
+[node name="coinspawner" type="Area2D"]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_0adhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wg82f")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
