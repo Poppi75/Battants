@@ -1,11 +1,16 @@
-[gd_scene load_steps=12 format=4 uid="uid://b8gsavc5q3x6i"]
+[gd_scene load_steps=14 format=4 uid="uid://b8gsavc5q3x6i"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_gf5eg"]
 [ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_ma4cn"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="2_e1ynx"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="3_31l6i"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_u6lvt"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="4_08xok"]
 [ext_resource type="PackedScene" uid="uid://cbxe716fia0hc" path="res://scenes/items/random_pickup_coin.tscn" id="7_b7mf3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ma4cn"]
+font = ExtResource("3_u6lvt")
+font_size = 32
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("2_e1ynx")
@@ -104,6 +109,15 @@ zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("1_ma4cn")
+
+[node name="win_text" type="Label" parent="Camera2D"]
+visible = false
+offset_left = -154.0
+offset_top = -82.0
+offset_right = 166.0
+offset_bottom = -50.0
+text = "winner: p1"
+label_settings = SubResource("LabelSettings_ma4cn")
 
 [node name="walls" type="TileMapLayer" parent="."]
 z_index = 22

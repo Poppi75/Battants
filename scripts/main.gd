@@ -9,6 +9,8 @@ const PlayerScene := preload("res://scenes/characters/player.tscn")
 	$Spawns/Spawn4,
 ]
 
+@onready var winner = $Camera2D/win_text
+
 var players: Array[Player] = []
 
 var player_number := 1
@@ -55,7 +57,8 @@ func _on_player_died(player: Player) -> void:
 	print("Player died. Remaining players:", player_count)
 
 	if player_count == 1:
-		print("🎉 WE HAVE A WINNER 🎉")
+		winner.visible = true
+		winner.text = str("winner: p",players[0].player_number)
 		await get_tree().create_timer(5.0).timeout
 		var chosen: String = maps[randi() % maps.size()]
 		get_tree().change_scene_to_file(chosen)
