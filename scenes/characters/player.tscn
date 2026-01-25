@@ -1,9 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=36 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
 [ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="3_6eyoc"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
+[ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_eojnx"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
 [ext_resource type="PackedScene" uid="uid://bfbwvy7kl55e4" path="res://scenes/items/flashbang.tscn" id="5_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://d1kffgd6w0sr1" path="res://scenes/weapons/weapon_homing_launcher.tscn" id="5_qgnko"]
@@ -205,7 +206,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_it4js")
 ranged_items = Array[PackedScene]([ExtResource("2_kqtwu"), ExtResource("3_6eyoc"), ExtResource("5_qgnko")])
-utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("5_jk2m4")])
+utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a46ul")
