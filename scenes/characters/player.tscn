@@ -217,29 +217,26 @@ shape = SubResource("CapsuleShape2D_wewdl")
 [node name="health" type="TextureProgressBar" parent="."]
 z_index = 21
 offset_left = -8.0
-offset_top = -25.0
+offset_top = -24.0
 offset_right = 32.0
-offset_bottom = 15.0
+offset_bottom = 16.0
 value = 100.0
 texture_progress = ExtResource("4_aod5d")
 
 [node name="damagetaken" type="TextureProgressBar" parent="."]
 z_index = 20
 offset_left = -8.0
-offset_top = -25.0
+offset_top = -24.0
 offset_right = 32.0
-offset_bottom = 15.0
+offset_bottom = 16.0
 value = 100.0
 texture_under = ExtResource("5_a46ul")
 texture_progress = ExtResource("6_ea28a")
 
 [node name="MeleeSocket" type="Node2D" parent="."]
-position = Vector2(0, -15)
 
 [node name="RangedSocket" type="Node2D" parent="."]
 
 [node name="AbilitySocket" type="Node2D" parent="."]
-position = Vector2(0, -10)
 
 [node name="UtilitySocket" type="Node2D" parent="."]
-position = Vector2(0, 8)

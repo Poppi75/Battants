@@ -75,7 +75,7 @@ position = Vector2(17, 0)
 wait_time = 0.1
 
 [node name="hominglauncher" type="AnimatedSprite2D" parent="."]
-position = Vector2(8, 0)
+position = Vector2(3, -2)
 sprite_frames = SubResource("SpriteFrames_c72j7")
 animation = &"missile"
 

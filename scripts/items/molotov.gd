@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var molotov_projectile_scene: PackedScene
-@export var rotation_speed: float = 8.0 # radians per second; higher = faster turn
+@export var rotation_speed: float = 12.0 # radians per second; higher = faster turn
 
 @onready var shoot_point: Node2D = $ShootPoint
 
