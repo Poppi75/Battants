@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfbwvy7kl55e4"]
+
+[ext_resource type="Script" uid="uid://bp3wh7nyqmw6t" path="res://scripts/items/flashbang.gd" id="1_tg6pn"]
+[ext_resource type="PackedScene" uid="uid://biqynnncdhglt" path="res://scenes/items/flashbang_projectile.tscn" id="2_f8orv"]
+[ext_resource type="Texture2D" uid="uid://ol0a7nnbiihl" path="res://assets/item_art/flashbang.png" id="2_w3yb4"]
+[ext_resource type="Texture2D" uid="uid://r0h1csoeod5g" path="res://assets/item_art/tähtäys_viiva.png" id="4_am0ok"]
+
+[node name="flashbang" type="Node2D"]
+script = ExtResource("1_tg6pn")
+flashbang_projectile_scene = ExtResource("2_f8orv")
+
+[node name="flashbang" type="Sprite2D" parent="."]
+texture = ExtResource("2_w3yb4")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+
+[node name="focus_line" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+texture = ExtResource("4_am0ok")
