@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 [autoload]
 
 Global="*res://global.gd"
+Network="*res://Network.gd"
 
 [display]
 
@@ -26,6 +27,10 @@ window/size/viewport_height=1080
 [global_group]
 
 players=""
+
+[gui]
+
+theme/custom_font="uid://bia41aaplsmnw"
 
 [input]
 
