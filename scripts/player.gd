@@ -49,10 +49,6 @@ var device_id: int = -1
 var player_index: int = 0
 var player_number: int = 0
 
-# Networking
-var is_networked: bool = false
-var peer_id: int = 1
-
 # =========================
 # INPUT STATE
 # =========================
@@ -99,37 +95,13 @@ func _ready() -> void:
 # PHYSICS
 # =========================
 func _physics_process(delta: float) -> void:
-	if is_networked:
-		if is_multiplayer_authority():
-			_read_input()
+	_read_input()
 
-			if shoot_held:
-				_attack()
+	if shoot_held:
+		_attack()
 
-			velocity = move_input * speed
-			_update_rotation_from_move(delta)
-			move_and_slide()
+	velocity = move_input * speed
 
-			# Sync state to other peers (position, facing, health, equipped slot)
-			_rpc_sync_state(global_position, _facing_angle, health, equipped_slot)
-		else:
-			# non-authority: movement and state come from _rpc_sync_state
-			if shoot_held:
-				_attack()
-			move_and_slide()
-	else:
-		# Local-only player (no networking)
-		_read_input()
-
-		if shoot_held:
-			_attack()
-
-		velocity = move_input * speed
-		_update_rotation_from_move(delta)
-		move_and_slide()
-
-
-func _update_rotation_from_move(delta: float) -> void:
 	if move_input != Vector2.ZERO:
 		var target_angle := Vector2.UP.angle_to(move_input) + orientation_offset
 		_facing_angle = lerp_angle(_facing_angle, target_angle, turn_speed * delta)
@@ -146,17 +118,14 @@ func _update_rotation_from_move(delta: float) -> void:
 		if anim.animation != "p" + str(player_number) + "_idle":
 			anim.play("p" + str(player_number) + "_idle")
 
+	move_and_slide()
+
 
 # =========================
 # INPUT
 # =========================
 func _read_input() -> void:
-	# Only the authority instance should read input in networked mode
-	if is_networked and not is_multiplayer_authority():
-		return
-
 	if device_id == -1:
-		# Keyboard + mouse
 		move_input = Input.get_vector("left", "right", "up", "down")
 		shoot_held = Input.is_action_pressed("attack")
 
@@ -176,7 +145,6 @@ func _read_input() -> void:
 			aim_direction = dir.normalized()
 		return
 
-	# Gamepad
 	move_input = _get_move_for_device(device_id)
 	aim_direction = _get_aim_for_device(device_id)
 	shoot_held = _get_shoot_for_device(device_id)
@@ -238,38 +206,6 @@ func _get_aim_for_device(pad: int) -> Vector2:
 
 
 # =========================
-# NETWORK SYNC
-# =========================
-@rpc("unreliable")
-func _rpc_sync_state(pos: Vector2, facing_angle: float, hp: int, slot: String) -> void:
-	# Non-authority copies state from the authoritative peer
-	if is_multiplayer_authority():
-		return
-
-	global_position = pos
-	_facing_angle = facing_angle
-	health = hp
-	equipped_slot = slot
-
-	# Apply rotation
-	anim.rotation = _facing_angle
-	col_shape.rotation = _facing_angle
-	melee_socket.rotation = _facing_angle
-	ability_socket.rotation = _facing_angle
-	utility_socket.rotation = _facing_angle
-
-	update_health_bars()
-
-
-@rpc("any_peer", "reliable")
-func rpc_take_damage(damage: int) -> void:
-	# Allow any peer to request damage, but only authority applies it
-	if not is_multiplayer_authority() and is_networked:
-		return
-	take_damage(damage)
-
-
-# =========================
 # DAMAGE / DEATH
 # =========================
 func take_damage(damage: int) -> void:
@@ -284,9 +220,11 @@ func take_damage(damage: int) -> void:
 
 
 func die() -> void:
-	print("Player", player_index, "(device", device_id, "peer", peer_id, ") died")
+	print("Player", player_index, "(device", device_id, ") died")
 
+	# 🔔 TELL MAIN WE DIED
 	died.emit(self)
+
 	queue_free()
 
 
