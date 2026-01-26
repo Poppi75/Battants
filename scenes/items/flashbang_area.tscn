@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1m2fvw8o708l"]
+
+[ext_resource type="Script" uid="uid://diir6o5luc55k" path="res://scripts/items/flashbang_area.gd" id="1_ih5df"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
+radius = 56.008926
+
+[node name="flashbang_area" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ih5df")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fseui")
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]
