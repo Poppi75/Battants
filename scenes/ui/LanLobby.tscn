@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3c0d7yvek877"]
+
+[ext_resource type="Texture2D" uid="uid://4p77cgkigpw6" path="res://assets/ui art/mainmenu_art.png" id="1_e3c6b"]
+[ext_resource type="Script" uid="uid://dnfaboj0xi0nh" path="res://scripts/lan_lobby.gd" id="1_rhpoa"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_rhpoa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_07gii"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_sekor"]
+font = ExtResource("2_rhpoa")
+font_size = 64
+
+[sub_resource type="Theme" id="Theme_e3c6b"]
+
+[node name="LanLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rhpoa")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1760.0
+offset_bottom = -990.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(12.050273, 12.050273)
+texture = ExtResource("1_e3c6b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -526.0
+offset_top = -304.0
+offset_right = 526.0
+offset_bottom = 304.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Lan_Lobby" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "LAN Lobby"
+label_settings = SubResource("LabelSettings_07gii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Server" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Server name:"
+label_settings = SubResource("LabelSettings_sekor")
+
+[node name="ServerNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_e3c6b")
+theme_override_font_sizes/font_size = 64
+placeholder_text = "paska"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="HostButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Host"
+
+[node name="FindButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Find Games"
+
+[node name="GamesList" type="ItemList" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonsBottom" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 400
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBottom"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsBottom"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Back"
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "status"
+horizontal_alignment = 1

@@ -63,4 +63,3 @@ func _on_player_died(player: Player) -> void:
 		await get_tree().create_timer(5.0).timeout
 		var chosen: String = maps[randi() % maps.size()]
 		get_tree().change_scene_to_file(chosen)
-		
