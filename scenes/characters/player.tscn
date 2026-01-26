@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=37 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="6_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="7_2l4js"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
+[ext_resource type="AudioStream" uid="uid://cmxo1h144p8rx" path="res://assets/sounds/stun-grenade-flashbang-458535.mp3" id="14_k4v7y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
 atlas = ExtResource("6_jk2m4")
@@ -241,3 +242,13 @@ texture_progress = ExtResource("6_ea28a")
 [node name="AbilitySocket" type="Node2D" parent="."]
 
 [node name="UtilitySocket" type="Node2D" parent="."]
+
+[node name="stunTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="stunSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_k4v7y")
+volume_db = 24.0
+
+[connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]

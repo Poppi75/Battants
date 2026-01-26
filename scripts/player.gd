@@ -14,6 +14,7 @@ signal died(player: Player)
 @export var max_health: int = 100
 var health: int
 var _damage_update_seq: int = 0
+var stunned = null
 
 @onready var health_bar: TextureProgressBar = $health
 @onready var damageTaken_bar: TextureProgressBar = $damagetaken
@@ -37,6 +38,8 @@ var _damage_update_seq: int = 0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
+@onready var stunTimer: Timer = $stunTimer
+@onready var stunSound: AudioStreamPlayer2D = $stunSound
 
 var equipped_slot := "melee"
 var _facing_angle: float = 0.0
@@ -78,6 +81,8 @@ const TRIGGER_PRESS_THRESHOLD := 0.50
 # READY
 # =========================
 func _ready() -> void:
+	stunned = false
+	
 	health = max_health
 
 	if health_bar:
@@ -238,6 +243,23 @@ func update_health_bars() -> void:
 	if seq == _damage_update_seq and damageTaken_bar:
 		damageTaken_bar.value = health
 
+func apply_stun() -> void:
+	stunTimer.start()
+
+	# Reset volume before playing
+	stunSound.volume_db = 24.0
+	stunSound.play()
+
+	var tween := create_tween()
+	tween.tween_property(stunSound, "volume_db", -20.0, 5.0)  # fade out
+	tween.tween_callback(stunSound.stop)                        # stop after fade
+
+
+
+	stunned = true
+
+func _on_stun_timer_timeout() -> void:
+	stunned = false
 
 # =========================
 # PICKUP / EQUIP
@@ -299,14 +321,14 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 # ATTACK
 # =========================
 func _attack() -> void:
-	if equipped["melee"] and equipped["melee"].has_method("attack") and equipped_slot == "melee":
+	if equipped["melee"] and equipped["melee"].has_method("attack") and equipped_slot == "melee" and stunned == false:
 		equipped["melee"].attack()
 
-	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged":
+	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged" and stunned == false:
 		equipped["ranged"]._shoot()
 
-	if equipped["ability"] and equipped["ability"].has_method("attack") and equipped_slot == "ability":
+	if equipped["ability"] and equipped["ability"].has_method("attack") and equipped_slot == "ability" and stunned == false:
 		equipped["ability"].attack()
 
-	if equipped["utility"] and equipped["utility"].has_method("attack") and equipped_slot == "utility":
+	if equipped["utility"] and equipped["utility"].has_method("attack") and equipped_slot == "utility" and stunned == false:
 		equipped["utility"].attack()

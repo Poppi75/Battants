@@ -1,9 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1m2fvw8o708l"]
+[gd_scene load_steps=9 format=3 uid="uid://d1m2fvw8o708l"]
 
 [ext_resource type="Script" uid="uid://diir6o5luc55k" path="res://scripts/items/flashbang_area.gd" id="1_ih5df"]
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_6pufl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
-radius = 56.008926
+radius = 131.00381
+
+[sub_resource type="Gradient" id="Gradient_y5xb2"]
+offsets = PackedFloat32Array(0, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.472, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2m7mx"]
+gradient = SubResource("Gradient_y5xb2")
+
+[sub_resource type="Curve" id="Curve_ttxbe"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1523179, 0.30337083), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y1v3a"]
+curve = SubResource("Curve_ttxbe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_60a76"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_y1v3a")
+color_ramp = SubResource("GradientTexture1D_2m7mx")
 
 [node name="flashbang_area" type="Area2D"]
 collision_layer = 4
@@ -11,10 +37,22 @@ collision_mask = 3
 script = ExtResource("1_ih5df")
 
 [node name="LifetimeTimer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
+autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fseui")
 
+[node name="FlashParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+texture = ExtResource("2_6pufl")
+lifetime = 0.4
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_60a76")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]
