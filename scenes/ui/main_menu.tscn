@@ -30,12 +30,12 @@ texture = ExtResource("1_fe2o3")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 76.0
-offset_top = 702.0
+offset_top = 669.0
 offset_right = 332.0
-offset_bottom = 878.0
+offset_bottom = 917.0
 theme_override_constants/separation = 40
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="OnlineButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
@@ -46,7 +46,20 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
-text = "Play"
+text = "Online"
+
+[node name="LocalButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
+theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
+theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_1g8jr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
+text = "Local"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -73,6 +86,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
 text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LocalButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
