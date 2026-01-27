@@ -24,7 +24,7 @@ emission_sphere_radius = 8.0
 direction = Vector3(0, -1, 0)
 spread = 180.0
 initial_velocity_min = 60.0
-initial_velocity_max = 120.0
+initial_velocity_max = 220.0
 angular_velocity_min = 4.999984
 angular_velocity_max = 19.999983
 gravity = Vector3(0, 0, 0)
@@ -66,7 +66,7 @@ scale_curve = SubResource("CurveTexture_81qaj")
 color_ramp = SubResource("GradientTexture1D_jkola")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
-radius = 16.0
+radius = 30.0
 
 [node name="MolotovBurnArea" type="Area2D"]
 z_index = 5
@@ -80,7 +80,7 @@ one_shot = true
 
 [node name="Flames" type="GPUParticles2D" parent="."]
 scale = Vector2(0.2, 0.2)
-amount = 120
+amount = 500
 texture = ExtResource("2_fseui")
 preprocess = 0.4
 randomness = 0.45

@@ -97,7 +97,8 @@ func explode() -> void:
 	if flash_scene:
 		var flash: Node2D = flash_scene.instantiate()
 		flash.global_position = global_position
-		flash.owner_player = owner_player
+		if owner_player:
+			flash.owner_player = owner_player
 		get_tree().current_scene.add_child(flash)
 
 	queue_free()
