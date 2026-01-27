@@ -4,8 +4,14 @@ extends Node2D
 @export var rotation_speed: float = 6.0
 
 @onready var shoot_point: Node2D = $ShootPoint
+@onready var shootCooldown: Timer = $shootCooldown
+
+var canShoot = null
 
 var owner_player: Player = null
+
+func _ready() -> void:
+	canShoot = true
 
 func _process(delta: float) -> void:
 	if owner_player == null:
@@ -36,9 +42,17 @@ func _shoot() -> void:
 	if bullet_scene == null:
 		push_warning("Assign a Bullet scene.")
 		return
-
+	
+	if canShoot == false:
+		return
+		
 	var bullet := bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
 
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = rotation
+	shootCooldown.start()
+	canShoot = false
+
+func _on_shoot_cooldown_timeout() -> void:
+	canShoot = true

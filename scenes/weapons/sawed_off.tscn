@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfot2p3kwhpe1"]
+
+[ext_resource type="Script" uid="uid://b2ufnf4584aq7" path="res://scripts/weapons/sawed_off.gd" id="1_c12p3"]
+[ext_resource type="PackedScene" uid="uid://crvln6hqp2nxk" path="res://scenes/weapons/sawedoff_bullet.tscn" id="2_5a612"]
+[ext_resource type="Texture2D" uid="uid://q7htofvkfnam" path="res://assets/weapons/sawed_off_animsheet.png" id="2_myxxq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a612"]
+atlas = ExtResource("2_myxxq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alt2p"]
+atlas = ExtResource("2_myxxq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hp3a"]
+atlas = ExtResource("2_myxxq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw2ni"]
+atlas = ExtResource("2_myxxq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y60ew"]
+atlas = ExtResource("2_myxxq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_khwbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a612")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alt2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hp3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw2ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y60ew")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 25.0
+}]
+
+[node name="sawedoff" type="Node2D"]
+script = ExtResource("1_c12p3")
+bullet_scene = ExtResource("2_5a612")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(23, 0)
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="sawedoff_anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, -1)
+sprite_frames = SubResource("SpriteFrames_khwbl")
+animation = &"shoot"
+
+[connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]

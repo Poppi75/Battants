@@ -14,3 +14,9 @@ position = Vector2(28, 0)
 [node name="TestiKapula" type="Sprite2D" parent="."]
 position = Vector2(12, 0)
 texture = ExtResource("1_5pr8m")
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]
