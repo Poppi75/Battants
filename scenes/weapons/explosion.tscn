@@ -7,7 +7,7 @@
 radius = 112.0714
 
 [sub_resource type="Gradient" id="Gradient_4u5ba"]
-offsets = PackedFloat32Array(0, 0.21698113, 0.4528302, 0.7358491, 1)
+offsets = PackedFloat32Array(0, 0.3962264, 0.7264151, 0.8962264, 1)
 colors = PackedColorArray(0.99160606, 1, 0.4961443, 1, 1, 0.52156866, 0, 1, 1, 0, 0, 1, 0.24115604, 0.24115604, 0.24115604, 1, 0.23921569, 0.23921569, 0.23921569, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_10feb"]
@@ -51,6 +51,6 @@ amount = 200
 texture = ExtResource("2_llixc")
 lifetime = 0.6
 one_shot = true
-speed_scale = 2.0
+speed_scale = 2.4
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_2q87t")

@@ -59,6 +59,5 @@ func _explode_now() -> void:
 
 	explosion.global_position = global_position
 	explosion.damage_amount = damage_amount
-	
 
 	queue_free()
