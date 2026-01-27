@@ -30,12 +30,13 @@ texture = ExtResource("1_fe2o3")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 76.0
-offset_top = 669.0
+offset_top = 703.0
 offset_right = 332.0
-offset_bottom = 917.0
+offset_bottom = 951.0
 theme_override_constants/separation = 40
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
@@ -59,7 +60,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
-text = "Local"
+text = "Play"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

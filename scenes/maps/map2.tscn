@@ -112,6 +112,7 @@ script = ExtResource("2_jni2o")
 
 [node name="win_text" type="Label" parent="Camera2D"]
 visible = false
+z_index = 4096
 offset_left = -154.0
 offset_top = -82.0
 offset_right = 166.0
