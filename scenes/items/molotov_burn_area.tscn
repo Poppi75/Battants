@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_fseui"]
 
 [sub_resource type="Gradient" id="Gradient_fseui"]
-offsets = PackedFloat32Array(0, 0.3015873, 0.6984127, 1)
+offsets = PackedFloat32Array(0, 0.33962265, 0.8490566, 1)
 colors = PackedColorArray(1, 1, 0.7490196, 1, 1, 0.48235294, 0, 1, 1, 0, 0, 0.6901961, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bhtjl"]
@@ -80,7 +80,7 @@ one_shot = true
 
 [node name="Flames" type="GPUParticles2D" parent="."]
 scale = Vector2(0.2, 0.2)
-amount = 500
+amount = 1000
 texture = ExtResource("2_fseui")
 preprocess = 0.4
 randomness = 0.45
