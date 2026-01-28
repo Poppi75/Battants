@@ -11,11 +11,23 @@ var total_lifetime: float
 var bodies_in_fire: = {}      # just used as a set: body -> true
 var damage_accumulator: = {}  # body -> accumulated float damage
 
+@onready var break_sound: AudioStreamPlayer2D = $break_sound
+@onready var burning_sound: AudioStreamPlayer2D = $burning_sound
 @onready var flames: GPUParticles2D = $Flames
 @onready var embers: GPUParticles2D = $Embers
 
 func _ready() -> void:
+	randomize()
 	total_lifetime = expand_time + full_size_time + fade_time
+
+	break_sound.pitch_scale = randf_range(0.9, 1.1)
+	break_sound.play()
+
+	burning_sound.play()
+	
+	var tween := create_tween()
+	tween.tween_property(burning_sound, "volume_db", -20.0, 5)  # fade out
+	tween.tween_callback(burning_sound.stop)                        # stop after fade
 
 	var lifetime_timer: Timer = $LifetimeTimer
 	lifetime_timer.wait_time = total_lifetime

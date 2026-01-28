@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dupqqac1cbd2t"]
 
-[ext_resource type="Script" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_qwlqv"]
+[ext_resource type="Script" uid="uid://bbeidlcq27csk" path="res://scripts/weapons/script_bullet_ak47.gd" id="1_qwlqv"]
 [ext_resource type="Texture2D" uid="uid://cdsggvbbvegtk" path="res://assets/weapons/bullet_ak47.png" id="2_qwlqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piwja"]
@@ -11,6 +11,7 @@ z_index = 5
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_qwlqv")
+damage_amount = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 0)

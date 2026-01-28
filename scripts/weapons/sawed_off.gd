@@ -9,10 +9,13 @@ extends Node2D
 @onready var shoot_point: Node2D = $ShootPoint
 @onready var shoot_cooldown: Timer = $shootCooldown
 @onready var shotgunAnim: AnimatedSprite2D = $sawedoff_anim
+@onready var shoot_sound: AudioStreamPlayer2D = $shootSound
 
 var owner_player: Player = null  # set this when equipping the weapon
 
 var canShoot = null
+
+var total_ammo = 7
 
 func _ready() -> void:
 	canShoot = true
@@ -48,7 +51,9 @@ func _shoot() -> void:
 		return
 	
 	canShoot = false
-	shoot_cooldown.start()
+	
+	shoot_sound.pitch_scale = randf_range(0.95, 1.05)
+	shoot_sound.play()
 	
 	shotgunAnim.play("shoot")
 
@@ -58,6 +63,12 @@ func _shoot() -> void:
 		get_tree().current_scene.add_child(pellet)
 		pellet.global_position = shoot_point.global_position
 		pellet.rotation = rotation + randf_range(-half_spread_rad, half_spread_rad)
+	
+	total_ammo -= 1
+	if total_ammo <= 0:
+		queue_free()
+	
+	shoot_cooldown.start()
 
 
 func _on_shoot_cooldown_timeout() -> void:

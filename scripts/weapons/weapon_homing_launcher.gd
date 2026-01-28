@@ -14,6 +14,8 @@ var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
 var is_reloading: bool = false
 
+var total_ammo = 1
+
 func _ready() -> void:
 	# Shoot cooldown setup
 	shoot_cooldown.wait_time = cooldown_time
@@ -70,6 +72,10 @@ func _shoot() -> void:
 
 	# Lock shooting until cooldown ends
 	can_shoot = false
+	total_ammo -= 1
+	if total_ammo <= 0:
+		queue_free()
+			
 	shoot_cooldown.start()
 
 func _on_shoot_cooldown_timeout() -> void:

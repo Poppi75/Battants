@@ -10,7 +10,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		body.apply_stun()
-		monitoring = false
+		set_deferred("monitoring", false)
 
 
 func _on_lifetime_timer_timeout() -> void:

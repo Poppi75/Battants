@@ -58,6 +58,7 @@ func _shoot() -> void:
 	# 3) Mark as used and consume (one-time use)
 	has_been_used = true
 	_consume()
+	
 
 func attack() -> void:
 	# So Player._attack() works with this utility
@@ -67,4 +68,4 @@ func _consume() -> void:
 	if owner_player != null and owner_player.equipped["utility"] == self:
 		owner_player.equipped["utility"] = null
 
-	#queue_free()
+	queue_free()

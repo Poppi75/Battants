@@ -10,6 +10,8 @@ var canShoot = null
 
 var owner_player: Player = null
 
+var total_ammo = 75
+
 func _ready() -> void:
 	canShoot = true
 
@@ -51,8 +53,13 @@ func _shoot() -> void:
 
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = rotation
-	shootCooldown.start()
 	canShoot = false
+	total_ammo -= 1
+	if total_ammo <= 0:
+		queue_free()
+		
+	shootCooldown.start()
+	
 
 func _on_shoot_cooldown_timeout() -> void:
 	canShoot = true
