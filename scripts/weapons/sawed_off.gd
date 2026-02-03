@@ -3,8 +3,8 @@ extends Node2D
 @export var bullet_scene: PackedScene
 @export var rotation_speed: float = 3.0 # radians per second; higher = faster turn
 
-@export var pellets_per_shot: int = 14
-@export var spread_degrees: float = 30.0 # total cone width in degrees
+@export var pellets_per_shot: int = 19
+@export var spread_degrees: float = 45.0 # total cone width in degrees
 
 @onready var shoot_point: Node2D = $ShootPoint
 @onready var shoot_cooldown: Timer = $shootCooldown
