@@ -3,7 +3,7 @@ extends Area2D
 @export var speed: float = 550.0
 @export var auto_free_time: float = 0.42 # pellets despawn fast
 
-@export var damage_amount: int = 9
+@export var damage_amount: int = 6
 
 # Optional: extra variation so pellets don't form a perfect arc
 @export var speed_variance: float = 120.0 # 0 = disabled

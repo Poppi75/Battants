@@ -3,7 +3,7 @@ extends Area2D
 @export var speed: float = 800.0
 @export var auto_free_time: float = 3.0  # Optional: bullet despawns after this many seconds. Set to 0 to disable.
 
-@export var damage_amount: int = 7
+@export var damage_amount: int = 9
 
 func _physics_process(delta: float) -> void:
 	# Move forward based on current rotation (0 rad faces right).
