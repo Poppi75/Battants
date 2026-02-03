@@ -81,6 +81,7 @@ const TRIGGER_PRESS_THRESHOLD := 0.50
 # READY
 # =========================
 func _ready() -> void:
+	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 	
 	health = max_health
@@ -100,6 +101,7 @@ func _ready() -> void:
 # PHYSICS
 # =========================
 func _physics_process(delta: float) -> void:
+	await get_tree().create_timer(5.0).timeout
 	_read_input()
 
 	if shoot_held:
