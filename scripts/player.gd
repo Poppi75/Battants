@@ -112,7 +112,7 @@ func _ready() -> void:
 # PHYSICS
 # =========================
 func _physics_process(delta: float) -> void:
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	_read_input()
 
 	if shoot_held:
