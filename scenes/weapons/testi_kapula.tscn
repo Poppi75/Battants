@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://dty5q2paghe2d"]
 
-[ext_resource type="Texture2D" uid="uid://bupi4lic484ui" path="res://assets/weapons/testikapula.png" id="1_5pr8m"]
 [ext_resource type="Script" uid="uid://cb82medicrauj" path="res://scripts/weapons/testi_kapula.gd" id="2_y6uwb"]
 [ext_resource type="PackedScene" uid="uid://bfnfq3yhmdykk" path="res://scenes/weapons/testi_kapula_bullet.tscn" id="3_5pr8m"]
+[ext_resource type="Texture2D" uid="uid://ccd38pg1awnvs" path="res://assets/weapons/minigun.png" id="3_kew5s"]
 
 [node name="TestiKapula" type="Node2D"]
 script = ExtResource("2_y6uwb")
 bullet_scene = ExtResource("3_5pr8m")
 
 [node name="ShootPoint" type="Node2D" parent="."]
-position = Vector2(28, 0)
+position = Vector2(25, 0)
 
 [node name="TestiKapula" type="Sprite2D" parent="."]
 position = Vector2(12, 0)
-texture = ExtResource("1_5pr8m")
+texture = ExtResource("3_kew5s")
 
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 0.05
