@@ -1,12 +1,13 @@
 extends Node2D
 
 @export var bullet_scene: PackedScene
-@export var rotation_speed: float = 6.0
+@export var rotation_speed: float = 2.0
 
 @onready var shoot_point: Node2D = $ShootPoint
 @onready var shootCooldown: Timer = $shootCooldown
 @onready var icon = load("res://assets/weapons/minigun.png")
 @onready var testi_kapula: Sprite2D = $TestiKapula
+@onready var shoot_sound: AudioStreamPlayer2D = $shoot_sound
 
 var canShoot = null
 
@@ -15,6 +16,7 @@ var owner_player: Player = null
 var total_ammo = 75
 
 func _ready() -> void:
+	randomize()
 	canShoot = true
 
 func _process(delta: float) -> void:
@@ -50,7 +52,9 @@ func _shoot() -> void:
 	
 	if canShoot == false:
 		return
-		
+	
+	shoot_sound_play()
+	
 	var bullet := bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
 
@@ -67,3 +71,7 @@ func _shoot() -> void:
 
 func _on_shoot_cooldown_timeout() -> void:
 	canShoot = true
+
+func shoot_sound_play():
+	shoot_sound.pitch_scale = randf_range(0.95, 1.05)
+	shoot_sound.play()
