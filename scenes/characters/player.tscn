@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=39 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="7_2l4js"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="AudioStream" uid="uid://cmxo1h144p8rx" path="res://assets/sounds/stun-grenade-flashbang-458535.mp3" id="14_k4v7y"]
+[ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
 atlas = ExtResource("6_jk2m4")
@@ -251,5 +252,114 @@ one_shot = true
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_k4v7y")
 volume_db = 24.0
+
+[node name="slots" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ability" type="ColorRect" parent="slots"]
+z_index = 100
+layout_mode = 0
+offset_left = -20.0
+offset_top = -69.0
+offset_right = 20.0
+offset_bottom = -29.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="ability" type="TextureRect" parent="slots/ability"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="highlight" type="TextureRect" parent="slots/ability"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_d6tgn")
+
+[node name="ranged" type="ColorRect" parent="slots"]
+z_index = 100
+layout_mode = 0
+offset_left = -65.0
+offset_top = -24.0
+offset_right = -25.0
+offset_bottom = 16.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="pyssykkä" type="TextureRect" parent="slots/ranged"]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 22.0
+offset_right = 31.0
+offset_bottom = 62.0
+rotation = -0.7853982
+
+[node name="highlight" type="TextureRect" parent="slots/ranged"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_d6tgn")
+
+[node name="melee" type="ColorRect" parent="slots"]
+z_index = 100
+layout_mode = 0
+offset_left = 25.0
+offset_top = -24.0
+offset_right = 65.0
+offset_bottom = 16.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="melee" type="TextureRect" parent="slots/melee"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="highlight" type="TextureRect" parent="slots/melee"]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_d6tgn")
+
+[node name="utility" type="ColorRect" parent="slots"]
+z_index = 100
+layout_mode = 0
+offset_left = -20.0
+offset_top = 21.0
+offset_right = 20.0
+offset_bottom = 61.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="utility" type="TextureRect" parent="slots/utility"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="highlight" type="TextureRect" parent="slots/utility"]
+visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_d6tgn")
 
 [connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]

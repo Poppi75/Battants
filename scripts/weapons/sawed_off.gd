@@ -10,6 +10,7 @@ extends Node2D
 @onready var shoot_cooldown: Timer = $shootCooldown
 @onready var shotgunAnim: AnimatedSprite2D = $sawedoff_anim
 @onready var shoot_sound: AudioStreamPlayer2D = $shootSound
+@onready var icon = load("res://assets/weapons/sawed_off.png")
 
 var owner_player: Player = null  # set this when equipping the weapon
 
@@ -66,6 +67,7 @@ func _shoot() -> void:
 	
 	total_ammo -= 1
 	if total_ammo <= 0:
+		owner_player.ranged_icon.texture = null
 		queue_free()
 	
 	shoot_cooldown.start()

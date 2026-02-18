@@ -4,6 +4,7 @@ extends Node2D
 @export var rotation_speed: float = 12.0 # radians per second; higher = faster turn
 
 @onready var shoot_point: Node2D = $ShootPoint
+@onready var icon = load("res://assets/item_art/molotov_coctail.png")
 
 var owner_player: Player = null
 var has_been_used: bool = false
@@ -67,5 +68,5 @@ func attack() -> void:
 func _consume() -> void:
 	if owner_player != null and owner_player.equipped["utility"] == self:
 		owner_player.equipped["utility"] = null
-
+	owner_player.utility_icon.texture = null
 	queue_free()

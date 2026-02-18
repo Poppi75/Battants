@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var shoot_point: Node2D = $ShootPoint
 @onready var shootCooldown: Timer = $shootCooldown
+@onready var icon = load("res://assets/weapons/testikapula.png")
 
 var canShoot = null
 
@@ -56,6 +57,7 @@ func _shoot() -> void:
 	canShoot = false
 	total_ammo -= 1
 	if total_ammo <= 0:
+		owner_player.ranged_icon.texture = null
 		queue_free()
 		
 	shootCooldown.start()
