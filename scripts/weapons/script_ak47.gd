@@ -8,6 +8,7 @@ extends Node2D
 @onready var shoot_cooldown: Timer = $shootCooldown
 @onready var ak_47_anim: AnimatedSprite2D = $ak47_animation
 @onready var ak_47_anim_skin1: AnimatedSprite2D = $ak47_animation_starskin
+@onready var icon = load("res://assets/weapons/weapon_AK47.png")
 
 var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
@@ -59,6 +60,7 @@ func _shoot() -> void:
 		can_shoot = false
 		total_ammo -= 1
 		if total_ammo <= 0:
+			owner_player.ranged_icon.texture = null
 			queue_free()
 		
 		shoot_cooldown.start()

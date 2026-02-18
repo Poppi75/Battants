@@ -41,8 +41,13 @@ var stunned = null
 @onready var stunTimer: Timer = $stunTimer
 @onready var stunSound: AudioStreamPlayer2D = $stunSound
 
-var equipped_slot := "melee"
+var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
+@onready var current_highlight = $slots/ranged/highlight
+@onready var ranged_icon = $"slots/ranged/pyssykkä"
+@onready var ability_icon = $slots/ability/ability
+@onready var melee_icon = $slots/melee/melee
+@onready var utility_icon = $slots/utility/utility
 
 # =========================
 # PLAYER IDENTITY
@@ -75,6 +80,12 @@ var equipped := {
 const GAMEPAD_LEFT_DEADZONE := 0.20
 const GAMEPAD_RIGHT_DEADZONE := 0.25
 const TRIGGER_PRESS_THRESHOLD := 0.50
+
+# =========================
+# ITEM SELECTION
+# =========================
+const ITEM_SELECTION_DEADZONE := 0.5  # Minimum stick/mouse distance to register selection
+var last_selection_direction: Vector2 = Vector2.ZERO
 
 
 # =========================
@@ -124,6 +135,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		if anim.animation != "p" + str(player_number) + "_idle":
 			anim.play("p" + str(player_number) + "_idle")
+			
+	if $slots.visible == true and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER) and not Input.is_action_pressed("item_slot"):
+			$slots.visible = false
+
 
 	move_and_slide()
 
@@ -132,18 +147,14 @@ func _physics_process(delta: float) -> void:
 # INPUT
 # =========================
 func _read_input() -> void:
+	
 	if device_id == -1:
 		move_input = Input.get_vector("left", "right", "up", "down")
 		shoot_held = Input.is_action_pressed("attack")
 
-		if Input.is_action_just_pressed("melee_slot"):
-			equipped_slot = "melee"
-		if Input.is_action_just_pressed("ranged_slot"):
-			equipped_slot = "ranged"
-		if Input.is_action_just_pressed("ability_slot"):
-			equipped_slot = "ability"
-		if Input.is_action_just_pressed("utility_slot"):
-			equipped_slot = "utility"
+		if Input.is_action_pressed("item_slot"):
+			$slots.visible = true
+			_handle_item_selection_mouse()
 
 		var cam := get_viewport().get_camera_2d()
 		var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
@@ -155,15 +166,11 @@ func _read_input() -> void:
 	move_input = _get_move_for_device(device_id)
 	aim_direction = _get_aim_for_device(device_id)
 	shoot_held = _get_shoot_for_device(device_id)
-
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_B):
-		equipped_slot = "melee"
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
-		equipped_slot = "ranged"
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_X):
-		equipped_slot = "ability"
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_Y):
-		equipped_slot = "utility"
+		
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
+		$slots.visible = true
+		current_highlight.visible = true
+		_handle_item_selection_gamepad(device_id)
 
 
 func _get_shoot_for_device(pad: int) -> bool:
@@ -210,6 +217,76 @@ func _get_aim_for_device(pad: int) -> Vector2:
 		return aim_direction
 
 	return v.normalized()
+
+
+# =========================
+# ITEM SELECTION
+# =========================
+func _handle_item_selection_gamepad(pad: int) -> void:
+	var stick := Vector2(
+		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
+		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
+	)
+	
+	if stick.length() >= ITEM_SELECTION_DEADZONE:
+		_select_item_by_direction(stick.normalized())
+
+
+func _handle_item_selection_mouse() -> void:
+	var cam := get_viewport().get_camera_2d()
+	var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
+	var dir := world_mouse - global_position
+	
+	if dir.length() >= ITEM_SELECTION_DEADZONE * 50:  # Scale deadzone for mouse distance
+		_select_item_by_direction(dir.normalized())
+
+
+func _select_item_by_direction(direction: Vector2) -> void:
+	# Prevent rapid switching - only change if direction has changed significantly
+	if direction.distance_to(last_selection_direction) < 0.5:
+		return
+	
+	last_selection_direction = direction
+	
+	# Calculate angle in degrees (0 = right, 90 = up, 180 = left, 270 = down)
+	var angle := rad_to_deg(atan2(direction.y, direction.x))
+	
+	# Normalize to 0-360
+	if angle < 0:
+		angle += 360
+	
+	# Determine which item slot based on direction
+	# Up (315-45): Utility
+	# Right (45-135): Melee
+	# Down (135-225): Ranged
+	# Left (225-315): Ability
+	
+	var new_slot := equipped_slot
+	
+	if angle >= 315 or angle < 45:
+		current_highlight.visible = false
+		$slots/melee/highlight.visible = true
+		new_slot = "melee"
+		current_highlight = $slots/melee/highlight
+	elif angle >= 45 and angle < 135:
+		current_highlight.visible = false
+		$slots/utility/highlight.visible = true
+		new_slot = "utility"
+		current_highlight = $slots/utility/highlight
+	elif angle >= 135 and angle < 225:
+		current_highlight.visible = false
+		$slots/ranged/highlight.visible = true
+		new_slot = "ranged"
+		current_highlight = $slots/ranged/highlight
+	elif angle >= 225 and angle < 315:
+		current_highlight.visible = false
+		$slots/ability/highlight.visible = true
+		new_slot = "ability"
+		current_highlight = $slots/ability/highlight
+	
+	if new_slot != equipped_slot:
+		equipped_slot = new_slot
+		print("Player ", player_number, " selected: ", equipped_slot)
 
 
 # =========================
@@ -317,6 +394,14 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 		item.owner_player = self
 
 	equipped[item_type] = item
+	if item_type == "ranged":
+		ranged_icon.texture = item.icon
+	if item_type == "melee":
+		melee_icon.texture = item.icon
+	if item_type == "ability":
+		ability_icon.texture = item.icon
+	if item_type == "utility":
+		utility_icon.texture = item.icon
 
 
 # =========================
