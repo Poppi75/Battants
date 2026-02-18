@@ -4,8 +4,9 @@ extends CharacterBody2D
 @export var accel_time: float = 0.04      # how fast it ramps up
 @export var decel: float = 2600.0         # how quickly it slows
 @export var min_speed_to_explode: float = 30.0
-@export var max_lifetime: float = 2.0     # safety timeout
+@export var max_lifetime: float = 1.8     # safety timeout
 @export var fire_scene: PackedScene       # set in editor to MolotovFireArea.tscn
+@onready var flying_sound: AudioStreamPlayer2D = $flying_sound
 
 # How fast it spins at max_speed, in radians/sec
 @export var max_angular_speed: float = 10.0
@@ -16,6 +17,8 @@ var accel_rate: float
 var owner_player: Player = null
 
 func _ready() -> void:
+	flying_sound.play()
+	
 	if accel_time <= 0.0:
 		accel_time = 0.01
 	accel_rate = max_speed / accel_time

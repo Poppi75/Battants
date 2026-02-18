@@ -6,8 +6,11 @@ extends Area2D
 
 var _has_triggered: bool = false
 @onready var particles: GPUParticles2D = $ExplosionParticles
+@onready var explosion: AudioStreamPlayer2D = $explosion
 
 func _ready() -> void:
+	explosion.play()
+	
 	monitoring = true
 	monitorable = true
 

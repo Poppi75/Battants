@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwv6e34q7r0s7"]
+[gd_scene load_steps=10 format=3 uid="uid://dwv6e34q7r0s7"]
 
 [ext_resource type="Script" uid="uid://cl0afss5uspts" path="res://scripts/weapons/bullet_hominglauncher.gd" id="1_bqs3i"]
 [ext_resource type="PackedScene" uid="uid://dvj7kditdrf2q" path="res://scenes/weapons/explosion.tscn" id="2_6pek3"]
 [ext_resource type="Texture2D" uid="uid://dehuplqv5336w" path="res://assets/weapons/homing_rocket_animation.png" id="2_bqs3i"]
+[ext_resource type="AudioStream" uid="uid://cpqc8k00qrkgc" path="res://assets/sounds/constant_rpg_rocket__#1-1771409957344.mp3" id="4_dlt2a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piwja"]
 size = Vector2(4.0845814, 2.3895454)
@@ -56,6 +57,9 @@ autostart = true
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_28ull")
 frame_progress = 0.43744826
+
+[node name="fly_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dlt2a")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]

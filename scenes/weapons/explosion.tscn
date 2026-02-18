@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvj7kditdrf2q"]
+[gd_scene load_steps=11 format=3 uid="uid://dvj7kditdrf2q"]
 
 [ext_resource type="Script" uid="uid://t4n28bjetqrj" path="res://scripts/weapons/explosion.gd" id="1_sxefp"]
 [ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_llixc"]
 [ext_resource type="Texture2D" uid="uid://c26ge7xn876qe" path="res://assets/item_art/ballshapeexp.png" id="3_4u5ba"]
+[ext_resource type="AudioStream" uid="uid://b72rhkjo0ub3n" path="res://assets/sounds/grenade_explosion_#3-1771414454312.mp3" id="4_10feb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nb77e"]
 radius = 112.0714
@@ -60,3 +61,7 @@ one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_2q87t")
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_10feb")
+volume_db = 10.0

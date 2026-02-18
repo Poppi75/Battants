@@ -53,7 +53,7 @@ script = ExtResource("1_c12p3")
 bullet_scene = ExtResource("2_5a612")
 
 [node name="ShootPoint" type="Node2D" parent="."]
-position = Vector2(23, 0)
+position = Vector2(16, 0)
 
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 2.0
@@ -65,6 +65,6 @@ animation = &"shoot"
 
 [node name="shootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_5a612")
-volume_db = 10.0
+volume_db = 5.0
 
 [connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]

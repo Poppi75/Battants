@@ -24,6 +24,8 @@ extends CharacterBody2D
 # FLASH EFFECT
 # =========================
 @export var flash_scene: PackedScene
+@onready var flying_sound: AudioStreamPlayer2D = $flying_sound
+@onready var sokka_sound: AudioStreamPlayer2D = $sokka_sound
 
 # =========================
 # STATE
@@ -40,6 +42,9 @@ var owner_player: Player = null
 # READY
 # =========================
 func _ready() -> void:
+	randomize()
+	play_sokka_and_flying()
+	
 	accel_rate = max_speed / max(accel_time, 0.01)
 
 	var timer: Timer = Timer.new()
@@ -102,3 +107,10 @@ func explode() -> void:
 		get_tree().current_scene.add_child(flash)
 
 	queue_free()
+
+func play_sokka_and_flying():
+	sokka_sound.pitch_scale = randf_range(0.9, 1.1)
+	sokka_sound.play()
+
+	flying_sound.pitch_scale = randf_range(0.9, 1.1)
+	flying_sound.play()

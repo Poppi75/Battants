@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b83f4swpcxo16"]
+[gd_scene load_steps=6 format=3 uid="uid://b83f4swpcxo16"]
 
 [ext_resource type="Script" uid="uid://dchutohfdufrh" path="res://scripts/items/molotov_projectile.gd" id="1_ksao6"]
 [ext_resource type="Texture2D" uid="uid://bc2nbhwhbsudn" path="res://assets/item_art/molotov_onfire.png" id="2_c5dxc"]
 [ext_resource type="PackedScene" uid="uid://bumohh4fq2yc8" path="res://scenes/items/molotov_burn_area.tscn" id="2_d6kqo"]
+[ext_resource type="AudioStream" uid="uid://b648jmcarho52" path="res://assets/sounds/constant_sound_of_a__#1-1771407306168.mp3" id="4_d6kqo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksao6"]
 size = Vector2(7.282564, 9.063667)
@@ -21,3 +22,7 @@ texture = ExtResource("2_c5dxc")
 position = Vector2(0, 1)
 scale = Vector2(0.54925704, 1.1033062)
 shape = SubResource("RectangleShape2D_ksao6")
+
+[node name="flying_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_d6kqo")
+volume_db = -4.0

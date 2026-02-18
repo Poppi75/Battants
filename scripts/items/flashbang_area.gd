@@ -1,10 +1,13 @@
 extends Area2D
 
 @onready var FlashParticles: GPUParticles2D = $FlashParticles
+@onready var explode_sound: AudioStreamPlayer2D = $explode_sound
 
 var owner_player: Player = null
 
 func _ready() -> void:
+	explode_sound.play()
+	
 	FlashParticles.emitting = true
 
 func _on_body_entered(body: Node2D) -> void:

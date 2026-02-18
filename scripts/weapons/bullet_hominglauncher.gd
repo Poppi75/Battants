@@ -6,10 +6,13 @@ extends Area2D
 
 @export var explosion_scene: PackedScene  # assign ExplosionAOE.tscn here
 @onready var life_time: Timer = $LifeTime
+@onready var fly_sound: AudioStreamPlayer2D = $fly_sound
 
 var owner_player: Player = null  # set by launcher
 
 func _ready() -> void:
+	fly_sound.play()
+	
 	life_time.start()
 
 func _physics_process(delta: float) -> void:

@@ -58,7 +58,7 @@ func _get_players() -> Array[CharacterBody2D]:
 	return players
 
 func _collect_character_bodies(node: Node, out_array: Array[CharacterBody2D]) -> void:
-	if node is CharacterBody2D and is_in_group("players"):
+	if node is CharacterBody2D and node.is_in_group("players"):
 		out_array.append(node as CharacterBody2D)
 	for child in node.get_children():
 		_collect_character_bodies(child, out_array)
