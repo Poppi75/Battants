@@ -52,13 +52,13 @@ func _get_players() -> Array[CharacterBody2D]:
 	var root: Node = get_tree().current_scene
 	if root == null:
 		root = get_tree().root
-
+	
 	var players: Array[CharacterBody2D] = []
 	_collect_character_bodies(root, players)
 	return players
 
 func _collect_character_bodies(node: Node, out_array: Array[CharacterBody2D]) -> void:
-	if node is CharacterBody2D:
+	if node is CharacterBody2D and is_in_group("players"):
 		out_array.append(node as CharacterBody2D)
 	for child in node.get_children():
 		_collect_character_bodies(child, out_array)
