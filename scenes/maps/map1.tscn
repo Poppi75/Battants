@@ -103,7 +103,7 @@ sources/0 = SubResource("TileSetAtlasSource_60ioe")
 script = ExtResource("1_tdg3v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-z_index = 23
+z_index = 50
 position = Vector2(574, 319)
 zoom = Vector2(1.5, 1.5)
 process_callback = 0
