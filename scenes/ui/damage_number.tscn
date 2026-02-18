@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://demldhr5ptla3"]
+
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="1_ig17g"]
+[ext_resource type="Script" uid="uid://bcvfvcnawfnn6" path="res://scripts/DamageNumber.gd" id="2_d5aif"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rgqmq"]
+font = ExtResource("1_ig17g")
+font_size = 8
+font_color = Color(1, 0, 0, 1)
+
+[node name="DamageNumber" type="Label"]
+z_index = 23
+offset_right = 8.0
+offset_bottom = 8.0
+text = "1"
+label_settings = SubResource("LabelSettings_rgqmq")
+horizontal_alignment = 1
+script = ExtResource("2_d5aif")
