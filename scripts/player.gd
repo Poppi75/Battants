@@ -7,10 +7,8 @@ class_name Player
 signal died(player: Player)
 
 # =========================
-# ITEM SCENES
+# STATS
 # =========================
-@export_category("Item Scenes")
-
 @export var max_health: int = 100
 var health: int
 var _damage_update_seq: int = 0
@@ -18,6 +16,14 @@ var stunned = null
 
 @onready var health_bar: TextureProgressBar = $health
 @onready var damageTaken_bar: TextureProgressBar = $damagetaken
+
+# Optional: damage numbers
+@export var damage_number_scene: PackedScene
+
+# =========================
+# ITEM SCENES
+# =========================
+@export_category("Item Scenes")
 
 @export var melee_items: Array[PackedScene]
 @export var ranged_items: Array[PackedScene]
@@ -28,6 +34,7 @@ var stunned = null
 @onready var ranged_socket: Node2D = $RangedSocket
 @onready var ability_socket: Node2D = $AbilitySocket
 @onready var utility_socket: Node2D = $UtilitySocket
+@onready var currently_equipped = $RangedSocket
 
 # =========================
 # MOVEMENT
@@ -49,6 +56,10 @@ var _facing_angle: float = 0.0
 @onready var melee_icon = $slots/melee/melee
 @onready var utility_icon = $slots/utility/utility
 
+# Flash tween state
+var _flash_tween: Tween
+var _default_modulate: Color = Color(1, 1, 1, 1)
+
 # =========================
 # PLAYER IDENTITY
 # =========================
@@ -63,6 +74,7 @@ var player_number: int = 0
 var move_input: Vector2 = Vector2.ZERO
 var shoot_held: bool = false
 var aim_direction: Vector2 = Vector2.RIGHT
+var can_move := false
 
 # =========================
 # EQUIPPED ITEMS
@@ -94,7 +106,9 @@ var last_selection_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
-	
+
+	_default_modulate = anim.modulate
+
 	health = max_health
 
 	if health_bar:
@@ -106,13 +120,16 @@ func _ready() -> void:
 		damageTaken_bar.value = health
 
 	randomize()
+	await get_tree().create_timer(3.0).timeout
+	can_move = true
 
 
 # =========================
 # PHYSICS
 # =========================
 func _physics_process(delta: float) -> void:
-	await get_tree().create_timer(3.0).timeout
+	if not can_move:
+		return
 	_read_input()
 
 	if shoot_held:
@@ -126,19 +143,17 @@ func _physics_process(delta: float) -> void:
 
 		anim.rotation = _facing_angle
 		col_shape.rotation = _facing_angle
-		# melee_socket.rotation = _facing_angle
-		# ability_socket.rotation = _facing_angle
-		# utility_socket.rotation = _facing_angle
 
 		if anim.animation != "p" + str(player_number) + "_walk":
 			anim.play("p" + str(player_number) + "_walk")
 	else:
 		if anim.animation != "p" + str(player_number) + "_idle":
 			anim.play("p" + str(player_number) + "_idle")
-			
-	if $slots.visible == true and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER) and not Input.is_action_pressed("item_slot"):
-			$slots.visible = false
 
+	if $slots.visible == true \
+	and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER) \
+	and not Input.is_action_pressed("item_slot"):
+		$slots.visible = false
 
 	move_and_slide()
 
@@ -147,7 +162,6 @@ func _physics_process(delta: float) -> void:
 # INPUT
 # =========================
 func _read_input() -> void:
-	
 	if device_id == -1:
 		move_input = Input.get_vector("left", "right", "up", "down")
 		shoot_held = Input.is_action_pressed("attack")
@@ -166,7 +180,7 @@ func _read_input() -> void:
 	move_input = _get_move_for_device(device_id)
 	aim_direction = _get_aim_for_device(device_id)
 	shoot_held = _get_shoot_for_device(device_id)
-		
+
 	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
 		$slots.visible = true
 		current_highlight.visible = true
@@ -227,7 +241,7 @@ func _handle_item_selection_gamepad(pad: int) -> void:
 		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
 		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
 	)
-	
+
 	if stick.length() >= ITEM_SELECTION_DEADZONE:
 		_select_item_by_direction(stick.normalized())
 
@@ -236,8 +250,8 @@ func _handle_item_selection_mouse() -> void:
 	var cam := get_viewport().get_camera_2d()
 	var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
 	var dir := world_mouse - global_position
-	
-	if dir.length() >= ITEM_SELECTION_DEADZONE * 50:  # Scale deadzone for mouse distance
+
+	if dir.length() >= ITEM_SELECTION_DEADZONE * 50:
 		_select_item_by_direction(dir.normalized())
 
 
@@ -245,45 +259,55 @@ func _select_item_by_direction(direction: Vector2) -> void:
 	# Prevent rapid switching - only change if direction has changed significantly
 	if direction.distance_to(last_selection_direction) < 0.5:
 		return
-	
+
 	last_selection_direction = direction
-	
+
 	# Calculate angle in degrees (0 = right, 90 = up, 180 = left, 270 = down)
 	var angle := rad_to_deg(atan2(direction.y, direction.x))
-	
+
 	# Normalize to 0-360
 	if angle < 0:
 		angle += 360
-	
-	# Determine which item slot based on direction
-	# Up (315-45): Utility
-	# Right (45-135): Melee
+
+	var new_slot := equipped_slot
+
+	# Up (315-45): Melee
+	# Right (45-135): Utility
 	# Down (135-225): Ranged
 	# Left (225-315): Ability
-	
-	var new_slot := equipped_slot
-	
 	if angle >= 315 or angle < 45:
+		currently_equipped.visible = false
 		current_highlight.visible = false
 		$slots/melee/highlight.visible = true
+		melee_socket.visible = true
 		new_slot = "melee"
 		current_highlight = $slots/melee/highlight
+		currently_equipped = melee_socket
 	elif angle >= 45 and angle < 135:
+		currently_equipped.visible = false
 		current_highlight.visible = false
 		$slots/utility/highlight.visible = true
+		utility_socket.visible = true
 		new_slot = "utility"
 		current_highlight = $slots/utility/highlight
+		currently_equipped = utility_socket
 	elif angle >= 135 and angle < 225:
+		currently_equipped.visible = false
 		current_highlight.visible = false
 		$slots/ranged/highlight.visible = true
+		ranged_socket.visible = true
 		new_slot = "ranged"
 		current_highlight = $slots/ranged/highlight
+		currently_equipped = ranged_socket
 	elif angle >= 225 and angle < 315:
+		currently_equipped.visible = false
 		current_highlight.visible = false
 		$slots/ability/highlight.visible = true
+		ability_socket.visible = true
 		new_slot = "ability"
 		current_highlight = $slots/ability/highlight
-	
+		currently_equipped = ability_socket
+
 	if new_slot != equipped_slot:
 		equipped_slot = new_slot
 		print("Player ", player_number, " selected: ", equipped_slot)
@@ -299,16 +323,16 @@ func take_damage(damage: int) -> void:
 	health -= damage
 	update_health_bars()
 
+	_flash_on_damage()
+	_spawn_damage_number(damage)
+
 	if health <= 0:
 		die()
 
 
 func die() -> void:
 	print("Player", player_index, "(device", device_id, ") died")
-
-	# 🔔 TELL MAIN WE DIED
 	died.emit(self)
-
 	queue_free()
 
 
@@ -322,6 +346,50 @@ func update_health_bars() -> void:
 	if seq == _damage_update_seq and damageTaken_bar:
 		damageTaken_bar.value = health
 
+
+# --- Flash when hit ---
+func _flash_on_damage() -> void:
+	if not anim:
+		return
+
+	# Kill previous flash tween so its "return to normal" can't override a new hit
+	if _flash_tween and _flash_tween.is_valid():
+		_flash_tween.kill()
+
+	# Snap to bright white each time we're hit
+	anim.modulate = Color(1.7, 1.7, 1.7, 1.0)
+
+	_flash_tween = create_tween()
+	_flash_tween.tween_property(
+		anim,
+		"modulate",
+		_default_modulate,
+		0.1          # fade-back duration
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+# --- Optional damage numbers ---
+func _spawn_damage_number(amount: int) -> void:
+	if damage_number_scene == null or health_bar == null:
+		return
+
+	var num := damage_number_scene.instantiate()
+	# Put it in the same canvas as the player; change this if your UI is elsewhere
+	add_child(num)
+
+	num.global_position = health_bar.global_position + Vector2(0, -8)
+
+	if num.has_method("show_damage"):
+		num.show_damage(amount)
+	elif num is Label:
+		# Basic fallback if you didn't add show_damage()
+		num.text = str(amount)
+		var tween := num.create_tween()
+		tween.tween_property(num, "position:y", num.position.y - 24.0, 0.6)
+		tween.parallel().tween_property(num, "modulate:a", 0.0, 0.6)
+		tween.tween_callback(num.queue_free)
+
+
 func apply_stun() -> void:
 	stunTimer.start()
 
@@ -331,14 +399,14 @@ func apply_stun() -> void:
 
 	var tween := create_tween()
 	tween.tween_property(stunSound, "volume_db", -20.0, 5.0)  # fade out
-	tween.tween_callback(stunSound.stop)                        # stop after fade
-
-
+	tween.tween_callback(stunSound.stop)                      # stop after fade
 
 	stunned = true
 
+
 func _on_stun_timer_timeout() -> void:
 	stunned = false
+
 
 # =========================
 # PICKUP / EQUIP
