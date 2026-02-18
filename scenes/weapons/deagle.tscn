@@ -9,10 +9,11 @@ script = ExtResource("1_6coyp")
 bullet_scene = ExtResource("2_y30l8")
 
 [node name="ShootPoint" type="Node2D" parent="."]
-position = Vector2(5, 0)
+position = Vector2(8, 0)
 
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 0.1
 
 [node name="DeagleSprite" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
 texture = ExtResource("1_kf5ds")
