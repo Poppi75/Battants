@@ -5,7 +5,8 @@ extends Node2D
 
 @onready var shoot_point: Node2D = $ShootPoint
 @onready var shootCooldown: Timer = $shootCooldown
-@onready var icon = load("res://assets/weapons/testikapula.png")
+@onready var icon = load("res://assets/weapons/minigun.png")
+@onready var testi_kapula: Sprite2D = $TestiKapula
 
 var canShoot = null
 
@@ -33,6 +34,7 @@ func _aim_from_owner(delta: float) -> void:
 		return
 
 	var target_angle := dir.angle()
+	testi_kapula.flip_v = (dir.x < 0)
 	var diff := wrapf(target_angle - rotation, -PI, PI)
 	var step = clamp(diff, -rotation_speed * delta, rotation_speed * delta)
 	rotation += step
