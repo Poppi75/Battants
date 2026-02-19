@@ -30,18 +30,21 @@ func _process(delta: float) -> void:
 	if owner_player == null:
 		return
 
-	if _active:
-		_update_position_and_rotation(delta)
+	# Freeze rotation/position updates unless the ability slot is currently selected
+	if not _active or owner_player.equipped_slot != "ability":
+		return
+
+	_update_position_and_rotation(delta)
 
 func _update_position_and_rotation(delta: float) -> void:
 	var dir: Vector2 = owner_player.aim_direction
 	if dir == Vector2.ZERO:
 		return
 
-	# 1) Put the shield "in front" of the player (pivoting from player center)
+	# Put the shield in front of the player
 	global_position = owner_player.global_position + dir.normalized() * forward_distance
 
-	# 2) Aim the shield parts (sprite + collision) toward that direction (with optional offset)
+	# Aim shield
 	var target_angle: float = dir.angle() + rotation_offset
 
 	var current_angle: float = shield_sprite.rotation
@@ -52,9 +55,6 @@ func _update_position_and_rotation(delta: float) -> void:
 	shield_sprite.rotation = new_angle
 	shield_collision.rotation = new_angle
 
-	# Optional flip (keep if your art needs it; otherwise remove)
-	# shield_sprite.flip_v = (dir.x < 0)
-
 func attack() -> void:
 	if _active:
 		return
@@ -63,6 +63,8 @@ func attack() -> void:
 		return
 
 	_active = true
+
+	reparent(owner_player, true)
 
 	shield_sprite.visible = true
 	shield_icon.visible = false
