@@ -1,35 +1,74 @@
-extends Node2D
+extends Area2D
 
-@export var shield_ability_scene: PackedScene
+@export var rotation_speed: float = 20.0 # radians/sec
+@export var rotation_offset: float = 0.0 # radians (tweak so art faces correctly)
+@export var forward_distance: float = 24.0 # how far in front of the player the shield sits
 
 @onready var icon = load("res://assets/ability_art/shield_icon.png")
+@onready var shield_icon: Sprite2D = $shield_icon
+@onready var shield_collision: CollisionShape2D = $shield_collision
+@onready var shield_sprite: Sprite2D = $shield_sprite
+@onready var shield_time: Timer = $shield_time
 
-var owner_player: Player = null # set by your _equip_item() via item.owner_player = self
+var owner_player: Player = null
+var _active: bool = false
 
-func _process(_delta: float) -> void:
+func _ready() -> void:
+	shield_sprite.visible = false
+	shield_collision.disabled = true
+
+	shield_time.one_shot = true
+	if not shield_time.timeout.is_connected(_on_shield_time_timeout):
+		shield_time.timeout.connect(_on_shield_time_timeout)
+
+func _process(delta: float) -> void:
 	if owner_player == null:
 		return
 
-	# "shield ability is used (shoot is pressed)"
-	if Input.is_action_just_pressed("shoot"):
-		_activate_shield()
+	if _active:
+		_update_position_and_rotation(delta)
 
-func _activate_shield() -> void:
-	if shield_ability_scene == null:
-		push_warning("Assign a scene to 'shield_ability_scene' in the Inspector.")
+func _update_position_and_rotation(delta: float) -> void:
+	var dir: Vector2 = owner_player.aim_direction
+	if dir == Vector2.ZERO:
 		return
 
-	# activate at the previous shield_ability_icon position (player's ability icon)
-	if owner_player.ability_icon == null:
-		push_warning("owner_player.ability_icon is missing.")
+	# 1) Put the shield "in front" of the player (pivoting from player center)
+	global_position = owner_player.global_position + dir.normalized() * forward_distance
+
+	# 2) Aim the shield parts (sprite + collision) toward that direction (with optional offset)
+	var target_angle: float = dir.angle() + rotation_offset
+
+	var current_angle: float = shield_sprite.rotation
+	var diff: float = wrapf(target_angle - current_angle, -PI, PI)
+	var step: float = clamp(diff, -rotation_speed * delta, rotation_speed * delta)
+	var new_angle: float = current_angle + step
+
+	shield_sprite.rotation = new_angle
+	shield_collision.rotation = new_angle
+
+	# Optional flip (keep if your art needs it; otherwise remove)
+	#shield_sprite.flip_v = (dir.x < 0)
+
+func attack() -> void:
+	if _active:
+		return
+	if owner_player == null or owner_player.ability_icon == null:
+		push_warning("owner_player or owner_player.ability_icon is missing.")
 		return
 
-	var shield = shield_ability_scene.instantiate()
-	get_tree().current_scene.add_child(shield)
+	_active = true
 
-	# place it where the icon currently is (i.e., the icon's "previous" position until it moves)
-	shield.global_position = owner_player.ability_icon.global_position
+	shield_sprite.visible = true
+	shield_collision.disabled = false
+	shield_icon.visible = false
 
-	# optional: follow the same owner pattern as your weapon script/equip function
-	if "owner_player" in shield:
-		shield.owner_player = owner_player
+	shield_time.start()
+
+func _on_shield_time_timeout() -> void:
+	if owner_player != null:
+		owner_player.ability_icon.texture = null
+		if owner_player.equipped.has("ability") and owner_player.equipped["ability"] == self:
+			owner_player.equipped["ability"] = null
+
+	queue_free()

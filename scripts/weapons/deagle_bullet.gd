@@ -39,6 +39,9 @@ func _on_body_entered(body: Node2D) -> void:
 # HEADSHOT HIT
 # =========================
 func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("shield"):
+		queue_free()
+		
 	# Prevent self-hit
 	if area.get_parent() == owner_player:
 		return
@@ -55,7 +58,8 @@ func _on_area_entered(area: Area2D) -> void:
 			player.take_damage(damage_amount, true)
 
 			queue_free()  # Bullet can die immediately
-			
+
+
 func play_dink_sound() -> void:
 	var sound_player := AudioStreamPlayer2D.new()
 	sound_player.stream = dink_sound.stream

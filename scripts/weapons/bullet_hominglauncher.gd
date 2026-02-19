@@ -64,3 +64,11 @@ func _explode_now() -> void:
 	explosion.damage_amount = damage_amount
 
 	queue_free()
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("shield"):
+		queue_free()
+	
+	else:
+		return

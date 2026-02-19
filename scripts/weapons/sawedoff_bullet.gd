@@ -34,3 +34,11 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage_amount)
 
 	queue_free()
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("shield"):
+		queue_free()
+	
+	else:
+		return
