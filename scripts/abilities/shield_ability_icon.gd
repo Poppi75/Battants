@@ -15,7 +15,12 @@ var _active: bool = false
 
 func _ready() -> void:
 	shield_sprite.visible = false
-	shield_collision.disabled = true
+
+	# Defer these changes to avoid:
+	# "Can't change this state while flushing queries. Use call_deferred() or set_deferred()..."
+	shield_collision.set_deferred("disabled", true)
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
 
 	shield_time.one_shot = true
 	if not shield_time.timeout.is_connected(_on_shield_time_timeout):
@@ -48,7 +53,7 @@ func _update_position_and_rotation(delta: float) -> void:
 	shield_collision.rotation = new_angle
 
 	# Optional flip (keep if your art needs it; otherwise remove)
-	#shield_sprite.flip_v = (dir.x < 0)
+	# shield_sprite.flip_v = (dir.x < 0)
 
 func attack() -> void:
 	if _active:
@@ -60,8 +65,12 @@ func attack() -> void:
 	_active = true
 
 	shield_sprite.visible = true
-	shield_collision.disabled = false
 	shield_icon.visible = false
+
+	# Defer enabling to avoid flushing-queries error
+	shield_collision.set_deferred("disabled", false)
+	set_deferred("monitoring", true)
+	set_deferred("monitorable", true)
 
 	shield_time.start()
 
