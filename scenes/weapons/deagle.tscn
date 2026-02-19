@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://diu5x7xv8y6f8"]
+[gd_scene load_steps=5 format=3 uid="uid://diu5x7xv8y6f8"]
 
 [ext_resource type="Script" uid="uid://2uk2qocnj4x6" path="res://scripts/weapons/deagle.gd" id="1_6coyp"]
 [ext_resource type="Texture2D" uid="uid://dqbacxmrgsbw6" path="res://assets/weapons/deagle.png" id="1_kf5ds"]
 [ext_resource type="PackedScene" uid="uid://drrpov7w8aqco" path="res://scenes/weapons/deagle_bullet.tscn" id="2_y30l8"]
+[ext_resource type="AudioStream" uid="uid://blgatg5pte48x" path="res://assets/sounds/deagle_battants.mp3" id="4_ab5jp"]
 
 [node name="Deagle" type="Node2D"]
 script = ExtResource("1_6coyp")
@@ -17,3 +18,7 @@ wait_time = 0.1
 [node name="DeagleSprite" type="Sprite2D" parent="."]
 position = Vector2(14, 0)
 texture = ExtResource("1_kf5ds")
+
+[node name="shoot_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ab5jp")
+volume_db = 12.0
