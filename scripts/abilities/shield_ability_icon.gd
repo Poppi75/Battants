@@ -13,11 +13,12 @@ extends Area2D
 var owner_player: Player = null
 var _active: bool = false
 
+# Track our own angle around the player so we never "teleport" through the center
+var _orbit_angle: float = 0.0
+
 func _ready() -> void:
 	shield_sprite.visible = false
 
-	# Defer these changes to avoid:
-	# "Can't change this state while flushing queries. Use call_deferred() or set_deferred()..."
 	shield_collision.set_deferred("disabled", true)
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
@@ -30,30 +31,36 @@ func _process(delta: float) -> void:
 	if owner_player == null:
 		return
 
-	# Freeze rotation/position updates unless the ability slot is currently selected
-	if not _active or owner_player.equipped_slot != "ability":
+	# If not active, do nothing
+	if not _active:
 		return
 
-	_update_position_and_rotation(delta)
-
-func _update_position_and_rotation(delta: float) -> void:
-	var dir: Vector2 = owner_player.aim_direction
-	if dir == Vector2.ZERO:
+	# If ability slot not selected, freeze rotation AND keep current position (don't jump)
+	if owner_player.equipped_slot != "ability":
 		return
 
-	# Put the shield in front of the player
-	global_position = owner_player.global_position + dir.normalized() * forward_distance
+	_update_orbit_and_rotation(delta)
 
-	# Aim shield
-	var target_angle: float = dir.angle() + rotation_offset
+func _update_orbit_and_rotation(delta: float) -> void:
+	var aim_dir: Vector2 = owner_player.aim_direction
+	if aim_dir == Vector2.ZERO:
+		return
 
-	var current_angle: float = shield_sprite.rotation
-	var diff: float = wrapf(target_angle - current_angle, -PI, PI)
+	# Target orbit angle based on aim, with optional offset
+	var target_orbit_angle: float = aim_dir.angle() + rotation_offset
+
+	# Smoothly move orbit angle toward target (shortest path)
+	var diff: float = wrapf(target_orbit_angle - _orbit_angle, -PI, PI)
 	var step: float = clamp(diff, -rotation_speed * delta, rotation_speed * delta)
-	var new_angle: float = current_angle + step
+	_orbit_angle += step
 
-	shield_sprite.rotation = new_angle
-	shield_collision.rotation = new_angle
+	# Position is ALWAYS at a fixed radius from player center (never on top)
+	var offset: Vector2 = Vector2.RIGHT.rotated(_orbit_angle) * forward_distance
+	global_position = owner_player.global_position + offset
+
+	# Make the shield face outward (same as orbit direction)
+	shield_sprite.rotation = _orbit_angle
+	shield_collision.rotation = _orbit_angle
 
 func attack() -> void:
 	if _active:
@@ -66,10 +73,19 @@ func attack() -> void:
 
 	reparent(owner_player, true)
 
+	# Initialize orbit angle to current aim so it starts in front immediately
+	if owner_player.aim_direction != Vector2.ZERO:
+		_orbit_angle = owner_player.aim_direction.angle() + rotation_offset
+
+	# Snap once so it doesn't start at (0,0) relative
+	var offset: Vector2 = Vector2.RIGHT.rotated(_orbit_angle) * forward_distance
+	global_position = owner_player.global_position + offset
+	shield_sprite.rotation = _orbit_angle
+	shield_collision.rotation = _orbit_angle
+
 	shield_sprite.visible = true
 	shield_icon.visible = false
 
-	# Defer enabling to avoid flushing-queries error
 	shield_collision.set_deferred("disabled", false)
 	set_deferred("monitoring", true)
 	set_deferred("monitorable", true)
