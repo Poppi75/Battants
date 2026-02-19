@@ -423,7 +423,7 @@ func pickup() -> void:
 		"ranged":
 			_equip_item("ranged", ranged_items, ranged_socket)
 		"ability":
-			_equip_item("ability", ability_items, ability_socket)
+			call_deferred("_equip_item", "ability", ability_items, ability_socket)
 		"utility":
 			_equip_item("utility", utility_items, utility_socket)
 
