@@ -35,6 +35,7 @@ var stunned = null
 @onready var ability_socket: Node2D = $AbilitySocket
 @onready var utility_socket: Node2D = $UtilitySocket
 @onready var currently_equipped = $RangedSocket
+@onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
 # =========================
 # MOVEMENT
@@ -316,18 +317,24 @@ func _select_item_by_direction(direction: Vector2) -> void:
 # =========================
 # DAMAGE / DEATH
 # =========================
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, is_headshot: bool = false) -> void:
 	if health <= 0:
 		return
 
 	health -= damage
-	update_health_bars()
+	damage_sound_play()
 
+	_spawn_damage_number(damage, is_headshot)
+
+	update_health_bars()
 	_flash_on_damage()
-	_spawn_damage_number(damage)
 
 	if health <= 0:
 		die()
+
+func damage_sound_play():
+	damage_sound.pitch_scale = randf_range(0.95, 1.05)
+	damage_sound.play()
 
 
 func die() -> void:
@@ -369,25 +376,19 @@ func _flash_on_damage() -> void:
 
 
 # --- Optional damage numbers ---
-func _spawn_damage_number(amount: int) -> void:
-	if damage_number_scene == null or health_bar == null:
+func _spawn_damage_number(amount: int, is_headshot: bool) -> void:
+	if damage_number_scene == null:
 		return
 
-	var num := damage_number_scene.instantiate()
-	# Put it in the same canvas as the player; change this if your UI is elsewhere
-	add_child(num)
+	var num = damage_number_scene.instantiate()
+	get_tree().current_scene.add_child(num)
 
 	num.global_position = health_bar.global_position + Vector2(0, -8)
 
-	if num.has_method("show_damage"):
-		num.show_damage(amount)
-	elif num is Label:
-		# Basic fallback if you didn't add show_damage()
-		num.text = str(amount)
-		var tween := num.create_tween()
-		tween.tween_property(num, "position:y", num.position.y - 24.0, 0.6)
-		tween.parallel().tween_property(num, "modulate:a", 0.0, 0.6)
-		tween.tween_callback(num.queue_free)
+	if num.has_method("setup"):
+		num.setup(amount, is_headshot)
+
+
 
 
 func apply_stun() -> void:

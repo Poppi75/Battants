@@ -8,6 +8,7 @@ extends Node2D
 @onready var shoot_cooldown: Timer = $shootCooldown
 @onready var Deagle: Sprite2D = $DeagleSprite
 @onready var icon = load("res://assets/weapons/deagle.png")
+@onready var shoot_sound: AudioStreamPlayer2D = $shoot_sound
 
 var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
@@ -15,6 +16,7 @@ var can_shoot: bool = true
 var total_ammo = 7
 
 func _ready() -> void:
+	randomize()
 	# Configure the timer
 	shoot_cooldown.wait_time = cooldown_time
 	shoot_cooldown.one_shot = true
@@ -50,6 +52,8 @@ func _shoot() -> void:
 		var bullet = bullet_scene.instantiate()
 		get_tree().current_scene.add_child(bullet)
 		
+		shoot_sound_play()
+		
 		bullet.global_position = shoot_point.global_position
 		bullet.rotation = rotation
 		bullet.owner_player = owner_player
@@ -65,3 +69,7 @@ func _shoot() -> void:
 
 func _on_shoot_cooldown_timeout() -> void:
 	can_shoot = true
+	
+func shoot_sound_play():
+	shoot_sound.pitch_scale = randf_range(0.95, 1.05)
+	shoot_sound.play()
