@@ -27,20 +27,12 @@ func _on_body_entered(body: Node2D) -> void:
 	print("[Bullet] Destroyed")
 	queue_free()
 
-
-<<<<<<< HEAD
-func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("shield"):
-		queue_free()
-	
-	else:
-		return
-=======
 # =========================
 # HEADSHOT HIT
 # =========================
 func _on_area_entered(area: Area2D) -> void:
-
+	if area.is_in_group("shield"):
+		queue_free()
 	# Detect head
 	if area.name == "HeadshotArea":
 		var player := area.get_parent()
@@ -67,4 +59,3 @@ func play_dink_sound() -> void:
 	# Play and free when done
 	sound_player.play()
 	sound_player.finished.connect(Callable(sound_player, "queue_free"))
->>>>>>> ad1c845634cd4d0bf1fbb2857a40213aa4e4d7e6
