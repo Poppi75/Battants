@@ -63,7 +63,7 @@ func _shoot() -> void:
 	canShoot = false
 	total_ammo -= 1
 	if total_ammo <= 0:
-		owner_player.ranged_icon.texture = null
+		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 		queue_free()
 		
 	shootCooldown.start()

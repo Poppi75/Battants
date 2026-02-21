@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=48 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -20,6 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
 [ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
 [ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
+[ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="19_wqk1x"]
+[ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
+[ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
+[ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
 atlas = ExtResource("6_jk2m4")
@@ -295,6 +299,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("19_wqk1x")
 
 [node name="highlight" type="TextureRect" parent="slots/ability"]
 visible = false
@@ -318,11 +323,9 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 
 [node name="pyssykkä" type="TextureRect" parent="slots/ranged"]
 layout_mode = 0
-offset_left = -9.0
-offset_top = 22.0
-offset_right = 31.0
-offset_bottom = 62.0
-rotation = -0.7853982
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("21_dm10o")
 
 [node name="highlight" type="TextureRect" parent="slots/ranged"]
 visible = false
@@ -348,6 +351,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("22_o6auj")
 
 [node name="highlight" type="TextureRect" parent="slots/melee"]
 visible = false
@@ -373,6 +377,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("23_j8g38")
 
 [node name="highlight" type="TextureRect" parent="slots/utility"]
 visible = false

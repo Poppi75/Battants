@@ -56,6 +56,10 @@ var _facing_angle: float = 0.0
 @onready var ability_icon = $slots/ability/ability
 @onready var melee_icon = $slots/melee/melee
 @onready var utility_icon = $slots/utility/utility
+@onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
+@onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
+@onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
+@onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 
 # Flash tween state
 var _flash_tween: Tween

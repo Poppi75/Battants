@@ -94,7 +94,7 @@ func attack() -> void:
 
 func _on_shield_time_timeout() -> void:
 	if owner_player != null:
-		owner_player.ability_icon.texture = null
+		owner_player.ability_icon.texture = owner_player.base_ability_icon
 		if owner_player.equipped.has("ability") and owner_player.equipped["ability"] == self:
 			owner_player.equipped["ability"] = null
 
