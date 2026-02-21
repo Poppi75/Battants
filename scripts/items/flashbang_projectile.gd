@@ -25,7 +25,6 @@ extends CharacterBody2D
 # =========================
 @export var flash_scene: PackedScene
 @onready var flying_sound: AudioStreamPlayer2D = $flying_sound
-@onready var sokka_sound: AudioStreamPlayer2D = $sokka_sound
 
 # =========================
 # STATE
@@ -109,8 +108,5 @@ func explode() -> void:
 	queue_free()
 
 func play_sokka_and_flying():
-	sokka_sound.pitch_scale = randf_range(0.9, 1.1)
-	sokka_sound.play()
-
 	flying_sound.pitch_scale = randf_range(0.9, 1.1)
 	flying_sound.play()

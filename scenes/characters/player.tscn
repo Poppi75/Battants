@@ -17,8 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
-[ext_resource type="AudioStream" uid="uid://cmxo1h144p8rx" path="res://assets/sounds/stun-grenade-flashbang-458535.mp3" id="14_k4v7y"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
+[ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
 [ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
@@ -272,8 +272,8 @@ wait_time = 6.0
 one_shot = true
 
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("14_k4v7y")
-volume_db = 24.0
+stream = ExtResource("18_kmyvj")
+volume_db = 5.0
 
 [node name="slots" type="Control" parent="."]
 visible = false

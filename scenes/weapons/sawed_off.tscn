@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b2ufnf4584aq7" path="res://scripts/weapons/sawed_off.gd" id="1_c12p3"]
 [ext_resource type="PackedScene" uid="uid://crvln6hqp2nxk" path="res://scenes/weapons/sawedoff_bullet.tscn" id="2_5a612"]
 [ext_resource type="Texture2D" uid="uid://q7htofvkfnam" path="res://assets/weapons/sawed_off_animsheet.png" id="2_myxxq"]
-[ext_resource type="AudioStream" uid="uid://cf0hjhtkm0r0e" path="res://assets/sounds/080902_shotgun-39753.mp3" id="4_5a612"]
+[ext_resource type="AudioStream" uid="uid://mq8ot0vpsaj7" path="res://assets/8bit_sounds/battants_shotgun.mp3" id="4_5a612"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5a612"]
 atlas = ExtResource("2_myxxq")
@@ -65,6 +65,6 @@ animation = &"shoot"
 
 [node name="shootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_5a612")
-volume_db = 5.0
+volume_db = 10.0
 
 [connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbeidlcq27csk" path="res://scripts/weapons/script_bullet_ak47.gd" id="1_qwlqv"]
 [ext_resource type="Texture2D" uid="uid://cdsggvbbvegtk" path="res://assets/weapons/bullet_ak47.png" id="2_qwlqv"]
-[ext_resource type="AudioStream" uid="uid://db6y6m5br2efj" path="res://assets/sounds/dink_battants.mp3" id="3_piwja"]
+[ext_resource type="AudioStream" uid="uid://db6y6m5br2efj" path="res://assets/8bit_sounds/dink_battants.mp3" id="3_piwja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piwja"]
 size = Vector2(3.50107, 2.3895454)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://6o5lbavf06x7"]
+[gd_scene load_steps=15 format=4 uid="uid://6o5lbavf06x7"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_tdg3v"]
 [ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="2_ykcni"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="4_7kr2o"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="5_r6505"]
 [ext_resource type="PackedScene" uid="uid://dx5sqqjomivsw" path="res://scenes/items/coinspawner.tscn" id="6_tdg3v"]
+[ext_resource type="AudioStream" uid="uid://bjs53xrjhh512" path="res://assets/8bit_sounds/battants_battlemusic2.mp3" id="8_bou56"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bou56"]
 font = ExtResource("3_ykcni")
@@ -145,3 +146,8 @@ position = Vector2(1105, 42)
 
 [node name="coinspawner" parent="." instance=ExtResource("6_tdg3v")]
 position = Vector2(574, 320)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bou56")
+autoplay = true
+parameters/looping = true

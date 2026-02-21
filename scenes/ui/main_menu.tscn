@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cdryh0itwnklg" path="res://scenes/ui/main_menu.gd" id="1_1g8jr"]
 [ext_resource type="Texture2D" uid="uid://4p77cgkigpw6" path="res://assets/ui art/mainmenu_art.png" id="1_fe2o3"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_1g8jr"]
-[ext_resource type="AudioStream" uid="uid://earvct70vs6c" path="res://assets/8bit_sounds/main_battants.mp3" id="4_m1kxf"]
+[ext_resource type="AudioStream" uid="uid://ccp8sxnngwhlm" path="res://assets/8bit_sounds/battants_music.mp3" id="4_m1kxf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1kxf"]
 
@@ -90,7 +90,7 @@ text = "Quit"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m1kxf")
-volume_db = 10.0
+volume_db = 5.0
 autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
