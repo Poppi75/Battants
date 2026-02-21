@@ -54,5 +54,5 @@ func _shoot() -> void:
 func _consume() -> void:
 	if owner_player != null and owner_player.equipped["utility"] == self:
 		owner_player.equipped["utility"] = null
-	owner_player.utility_icon.texture = null
+	owner_player.utility_icon.texture = owner_player.base_utility_icon
 	queue_free()

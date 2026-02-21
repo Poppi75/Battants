@@ -83,7 +83,7 @@ func _shoot() -> void:
 		# until recoil animation on the last shot has finished.
 		if total_ammo <= 0:
 			if owner_player and owner_player.ranged_icon:
-				owner_player.ranged_icon.texture = null
+				owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 			_pending_free_on_recoil_end = true
 
 		shoot_cooldown.start()
