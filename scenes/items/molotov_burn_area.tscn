@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c2kayr00nggeb" path="res://scripts/items/molotov_burn_area.gd" id="1_f532o"]
 [ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_fseui"]
 [ext_resource type="Texture2D" uid="uid://dayg02mp46c7b" path="res://assets/item_art/ballshape.png" id="3_bhtjl"]
-[ext_resource type="AudioStream" uid="uid://bc421gtjv0fta" path="res://assets/sounds/fire-sound-efftect-21991.mp3" id="4_jkola"]
-[ext_resource type="AudioStream" uid="uid://clspajesahibe" path="res://assets/sounds/glass-bottle-breaking-351297.mp3" id="5_ms25e"]
+[ext_resource type="AudioStream" uid="uid://iwq6i6ug2g1n" path="res://assets/8bit_sounds/fire(1).mp3" id="4_ms25e"]
+[ext_resource type="AudioStream" uid="uid://cmpsfijyo77y0" path="res://assets/8bit_sounds/battants_break.mp3" id="5_ms25e"]
 
 [sub_resource type="Gradient" id="Gradient_fseui"]
 offsets = PackedFloat32Array(0, 0.33962265, 0.8490566, 1)
@@ -109,7 +109,8 @@ process_material = SubResource("ParticleProcessMaterial_bhtjl")
 shape = SubResource("CircleShape2D_fseui")
 
 [node name="burning_sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_jkola")
+stream = ExtResource("4_ms25e")
+volume_db = 8.0
 
 [node name="break_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ms25e")
