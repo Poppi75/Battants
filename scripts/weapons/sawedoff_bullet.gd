@@ -3,9 +3,9 @@ extends Area2D
 @export var speed: float = 550.0
 @export var auto_free_time: float = 0.42 # pellets despawn fast
 
-@export var damage_amount: int = 6
 @export var headshot_damage: int = 7
 @onready var dink_sound: AudioStreamPlayer2D = $dink_sound
+var owner_player = null
 
 # Optional: extra variation so pellets don't form a perfect arc
 @export var speed_variance: float = 120.0 # 0 = disabled
@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
+		var damage_amount := randi_range(3, 6)
 		body.take_damage(damage_amount, false)
 
 	queue_free()
@@ -45,11 +46,11 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.name == "HeadshotArea":
 		var player := area.get_parent()
 
-		if player.is_in_group("players"):
+		if player.is_in_group("players") and player != owner_player:
 			var damage = headshot_damage
 			play_dink_sound()
 
-			print("[Bullet] HEADSHOT for %d" % damage_amount)
+			print("[Bullet] HEADSHOT for %d" % damage)
 			player.take_damage(damage, true)
 
 			queue_free()  # Bullet can die immediately
