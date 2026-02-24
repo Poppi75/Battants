@@ -14,8 +14,8 @@ var health: int
 var _damage_update_seq: int = 0
 var stunned = null
 
-@onready var health_bar: TextureProgressBar = $health
-@onready var damageTaken_bar: TextureProgressBar = $damagetaken
+@onready var health_bar: TextureProgressBar = $UI/health
+@onready var damageTaken_bar: TextureProgressBar = $UI/damagetaken
 
 # Optional: damage numbers
 @export var damage_number_scene: PackedScene
@@ -30,11 +30,11 @@ var stunned = null
 @export var ability_items: Array[PackedScene]
 @export var utility_items: Array[PackedScene]
 
-@onready var melee_socket: Node2D = $MeleeSocket
-@onready var ranged_socket: Node2D = $RangedSocket
-@onready var ability_socket: Node2D = $AbilitySocket
-@onready var utility_socket: Node2D = $UtilitySocket
-@onready var currently_equipped = $RangedSocket
+@onready var melee_socket: Node2D = $UI/MeleeSocket
+@onready var ranged_socket: Node2D = $UI/RangedSocket
+@onready var ability_socket: Node2D = $UI/AbilitySocket
+@onready var utility_socket: Node2D = $UI/UtilitySocket
+@onready var currently_equipped = $UI/RangedSocket
 @onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
 # =========================
@@ -52,15 +52,16 @@ var stunned = null
 
 var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
-@onready var current_highlight = $slots/ranged/highlight
-@onready var ranged_icon = $"slots/ranged/pyssykkä"
-@onready var ability_icon = $slots/ability/ability
-@onready var melee_icon = $slots/melee/melee
-@onready var utility_icon = $slots/utility/utility
+@onready var current_highlight = $UI/slots/ranged/highlight
+@onready var ranged_icon = $"UI/slots/ranged/pyssykkä"
+@onready var ability_icon = $UI/slots/ability/ability
+@onready var melee_icon = $UI/slots/melee/melee
+@onready var utility_icon = $UI/slots/utility/utility
 @onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
 @onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
 @onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
+@onready var ui: Node2D = $UI
 
 # Flash tween state
 var _flash_tween: Tween
@@ -147,8 +148,8 @@ func _physics_process(delta: float) -> void:
 		var target_angle := Vector2.UP.angle_to(move_input) + orientation_offset
 		_facing_angle = lerp_angle(_facing_angle, target_angle, turn_speed * delta)
 
-		anim.rotation = _facing_angle
-		col_shape.rotation = _facing_angle
+		rotation = _facing_angle
+		ui.global_rotation = 0.0
 
 		if anim.animation != "p" + str(player_number) + "_walk":
 			anim.play("p" + str(player_number) + "_walk")
@@ -156,10 +157,10 @@ func _physics_process(delta: float) -> void:
 		if anim.animation != "p" + str(player_number) + "_idle":
 			anim.play("p" + str(player_number) + "_idle")
 
-	if $slots.visible == true \
+	if $UI/slots.visible == true \
 	and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER) \
 	and not Input.is_action_pressed("item_slot"):
-		$slots.visible = false
+		$UI/slots.visible = false
 
 	move_and_slide()
 
@@ -173,7 +174,7 @@ func _read_input() -> void:
 		shoot_held = Input.is_action_pressed("attack")
 
 		if Input.is_action_pressed("item_slot"):
-			$slots.visible = true
+			$UI/slots.visible = true
 			_handle_item_selection_mouse()
 
 		var cam := get_viewport().get_camera_2d()
@@ -188,7 +189,7 @@ func _read_input() -> void:
 	shoot_held = _get_shoot_for_device(device_id)
 
 	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
-		$slots.visible = true
+		$UI/slots.visible = true
 		current_highlight.visible = true
 		_handle_item_selection_gamepad(device_id)
 
@@ -284,34 +285,34 @@ func _select_item_by_direction(direction: Vector2) -> void:
 	if angle >= 315 or angle < 45:
 		currently_equipped.visible = false
 		current_highlight.visible = false
-		$slots/melee/highlight.visible = true
+		$UI/slots/melee/highlight.visible = true
 		melee_socket.visible = true
 		new_slot = "melee"
-		current_highlight = $slots/melee/highlight
+		current_highlight = $UI/slots/melee/highlight
 		currently_equipped = melee_socket
 	elif angle >= 45 and angle < 135:
 		currently_equipped.visible = false
 		current_highlight.visible = false
-		$slots/utility/highlight.visible = true
+		$UI/slots/utility/highlight.visible = true
 		utility_socket.visible = true
 		new_slot = "utility"
-		current_highlight = $slots/utility/highlight
+		current_highlight = $UI/slots/utility/highlight
 		currently_equipped = utility_socket
 	elif angle >= 135 and angle < 225:
 		currently_equipped.visible = false
 		current_highlight.visible = false
-		$slots/ranged/highlight.visible = true
+		$UI/slots/ranged/highlight.visible = true
 		ranged_socket.visible = true
 		new_slot = "ranged"
-		current_highlight = $slots/ranged/highlight
+		current_highlight = $UI/slots/ranged/highlight
 		currently_equipped = ranged_socket
 	elif angle >= 225 and angle < 315:
 		currently_equipped.visible = false
 		current_highlight.visible = false
-		$slots/ability/highlight.visible = true
+		$UI/slots/ability/highlight.visible = true
 		ability_socket.visible = true
 		new_slot = "ability"
-		current_highlight = $slots/ability/highlight
+		current_highlight = $UI/slots/ability/highlight
 		currently_equipped = ability_socket
 
 	if new_slot != equipped_slot:
