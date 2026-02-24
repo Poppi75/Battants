@@ -1,15 +1,22 @@
-[gd_scene load_steps=47 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=54 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
+[ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
 [ext_resource type="PackedScene" uid="uid://demldhr5ptla3" path="res://scenes/ui/damage_number.tscn" id="2_rpnd8"]
+[ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="3_6eyoc"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
+[ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_eojnx"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
+[ext_resource type="PackedScene" uid="uid://bfbwvy7kl55e4" path="res://scenes/items/flashbang.tscn" id="5_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://d1kffgd6w0sr1" path="res://scenes/weapons/weapon_homing_launcher.tscn" id="5_qgnko"]
+[ext_resource type="PackedScene" uid="uid://dfot2p3kwhpe1" path="res://scenes/weapons/sawed_off.tscn" id="5_xrqxk"]
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="6_7vyk4"]
 [ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_ea28a"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="6_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="7_2l4js"]
+[ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
+[ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
 [ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
@@ -250,7 +257,9 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_it4js")
 damage_number_scene = ExtResource("2_rpnd8")
-ranged_items = Array[PackedScene]([ExtResource("5_qgnko")])
+ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn")])
+ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
+utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a46ul")
@@ -260,7 +269,7 @@ animation = &"p1_idle"
 visible = false
 sprite_frames = SubResource("SpriteFrames_s1x7u")
 autoplay = "default"
-frame_progress = 0.039272707
+frame_progress = 0.27646363
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.2)
