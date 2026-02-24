@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://crvln6hqp2nxk"]
+[gd_scene load_steps=5 format=3 uid="uid://crvln6hqp2nxk"]
 
 [ext_resource type="Script" uid="uid://c7euyr0aa4ytm" path="res://scripts/weapons/sawedoff_bullet.gd" id="1_2rgvh"]
 [ext_resource type="Texture2D" uid="uid://dnurcongjkh63" path="res://assets/weapons/sawedoff_papana.png" id="2_2rgvh"]
+[ext_resource type="AudioStream" uid="uid://db6y6m5br2efj" path="res://assets/8bit_sounds/dink_battants.mp3" id="3_p0nop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piwja"]
 size = Vector2(1.1670232, 2.3895454)
@@ -24,6 +25,10 @@ shape = SubResource("RectangleShape2D_piwja")
 [node name="LifeTime" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="dink_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p0nop")
+volume_db = 24.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfnfq3yhmdykk"]
+[gd_scene load_steps=5 format=3 uid="uid://bfnfq3yhmdykk"]
 
 [ext_resource type="Script" uid="uid://b765prips40x1" path="res://scripts/weapons/testi_kapula_bullet.gd" id="1_7l757"]
 [ext_resource type="Texture2D" uid="uid://h17fquqynfkb" path="res://assets/weapons/minigun_bullet.png" id="2_7l757"]
+[ext_resource type="AudioStream" uid="uid://db6y6m5br2efj" path="res://assets/8bit_sounds/dink_battants.mp3" id="3_et2lq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_et2lq"]
 size = Vector2(4.6680927, 2.3895454)
@@ -24,6 +25,10 @@ shape = SubResource("RectangleShape2D_et2lq")
 [node name="LifeTime" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="Dink_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_et2lq")
+volume_db = 24.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
