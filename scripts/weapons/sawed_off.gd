@@ -61,6 +61,7 @@ func _shoot() -> void:
 	var half_spread_rad := deg_to_rad(spread_degrees) * 0.5
 	for i in range(pellets_per_shot):
 		var pellet = bullet_scene.instantiate()
+		pellet.owner_player = owner_player
 		get_tree().current_scene.add_child(pellet)
 		pellet.global_position = shoot_point.global_position
 		pellet.rotation = rotation + randf_range(-half_spread_rad, half_spread_rad)

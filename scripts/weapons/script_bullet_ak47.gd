@@ -3,7 +3,6 @@ extends Area2D
 @export var speed: float = 800.0
 @export var auto_free_time: float = 3.0  # Optional: bullet despawns after this many seconds. Set to 0 to disable.
 
-@export var damage_amount: int = 11
 @export var headshot_damage: int = 25
 @onready var dink_sound: AudioStreamPlayer2D = $dink_sound
 
@@ -21,6 +20,7 @@ func _on_life_time_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("players"):
+		var damage_amount := randi_range(6, 13)
 		print("[Bullet] Body hit for %d" % damage_amount)
 		body.take_damage(damage_amount, false)
 
@@ -41,7 +41,7 @@ func _on_area_entered(area: Area2D) -> void:
 			var damage := headshot_damage
 			play_dink_sound()
 
-			print("[Bullet] HEADSHOT for %d" % damage_amount)
+			print("[Bullet] HEADSHOT for %d" % damage)
 			player.take_damage(damage, true)
 
 			queue_free()  # Bullet can die immediately
