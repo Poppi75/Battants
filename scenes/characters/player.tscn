@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=54 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
+[ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
 [ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
 [ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
@@ -208,6 +209,42 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg40j"]
+atlas = ExtResource("15_dm10o")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xgtv"]
+atlas = ExtResource("15_dm10o")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rclf"]
+atlas = ExtResource("15_dm10o")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0anf"]
+atlas = ExtResource("15_dm10o")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s1x7u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg40j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xgtv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rclf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0anf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wewdl"]
 radius = 4.0
 
@@ -227,6 +264,12 @@ utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a46ul")
 animation = &"p1_idle"
+
+[node name="stun_effect" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_s1x7u")
+autoplay = "default"
+frame_progress = 0.5280082
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.2)

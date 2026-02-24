@@ -48,6 +48,7 @@ var stunned = null
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
 @onready var stunTimer: Timer = $stunTimer
 @onready var stunSound: AudioStreamPlayer2D = $stunSound
+@onready var stun_effect: AnimatedSprite2D = $stun_effect
 
 var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
@@ -407,10 +408,12 @@ func apply_stun() -> void:
 	tween.tween_callback(stunSound.stop)                      # stop after fade
 
 	stunned = true
+	stun_effect.visible = true
 
 
 func _on_stun_timer_timeout() -> void:
 	stunned = false
+	stun_effect.visible = false
 
 
 # =========================
