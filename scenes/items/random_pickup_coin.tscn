@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbxe716fia0hc"]
+[gd_scene load_steps=5 format=3 uid="uid://cbxe716fia0hc"]
 
 [ext_resource type="Script" uid="uid://bvgmcyeue8yys" path="res://scripts/items/random_pickup_coin.gd" id="1_udbg2"]
 [ext_resource type="Texture2D" uid="uid://d25j3m1jvke27" path="res://assets/item_art/pickup_coin.png" id="2_udbg2"]
+[ext_resource type="AudioStream" uid="uid://cbu3fodmx58l" path="res://assets/8bit_sounds/battants_pickupsound.mp3" id="3_2amps"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udbg2"]
 radius = 8.0
@@ -17,5 +18,9 @@ texture = ExtResource("2_udbg2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_udbg2")
+
+[node name="pickup_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2amps")
+volume_db = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

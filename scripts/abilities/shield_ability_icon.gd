@@ -9,6 +9,7 @@ extends Area2D
 @onready var shield_collision: CollisionShape2D = $shield_collision
 @onready var shield_sprite: Sprite2D = $shield_sprite
 @onready var shield_time: Timer = $shield_time
+@onready var activate_sound: AudioStreamPlayer2D = $activate_sound
 
 var owner_player: Player = null
 var _active: bool = false
@@ -89,7 +90,9 @@ func attack() -> void:
 	shield_collision.set_deferred("disabled", false)
 	set_deferred("monitoring", true)
 	set_deferred("monitorable", true)
-
+	
+	activate_sound.play()
+	
 	shield_time.start()
 
 func _on_shield_time_timeout() -> void:
