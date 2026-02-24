@@ -4,13 +4,15 @@ extends Area2D
 @export var explosion_duration: float = 0.1
 @export var particle_lifetime: float = 0.6
 
-var _has_triggered: bool = false
+# Tracks bodies we've already damaged so we never double-hit the same target
+var _damaged: Dictionary = {}
+
 @onready var particles: GPUParticles2D = $ExplosionParticles
 @onready var explosion: AudioStreamPlayer2D = $explosion
 
 func _ready() -> void:
 	explosion.play()
-	
+
 	monitoring = true
 	set_deferred("monitorable", true)
 
@@ -18,10 +20,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	_do_initial_overlap_damage()
 
-	# Then also damage anything new that enters during the short explosion duration
-	body_entered.connect(_on_body_entered)
-
-	# Timer to end the explosion area
+	# Timer to end the explosion area damage phase
 	var damage_timer := Timer.new()
 	damage_timer.wait_time = explosion_duration
 	damage_timer.one_shot = true
@@ -32,10 +31,6 @@ func _ready() -> void:
 	_start_particles()
 
 func _do_initial_overlap_damage() -> void:
-	if _has_triggered:
-		return
-	_has_triggered = true
-
 	var bodies := get_overlapping_bodies()
 	print("[Explosion] initial overlapping bodies: ", bodies.size())
 	for body in bodies:
@@ -45,6 +40,11 @@ func _on_body_entered(body: Node2D) -> void:
 	_apply_damage(body)
 
 func _apply_damage(body: Node2D) -> void:
+	# Prevent double damage from initial overlap + body_entered
+	if _damaged.has(body):
+		return
+	_damaged[body] = true
+
 	if body.is_in_group("players"):
 		print("[Explosion] Damaging player: ", body.name)
 		body.take_damage(damage_amount)

@@ -66,3 +66,5 @@ process_material = SubResource("ParticleProcessMaterial_2q87t")
 [node name="explosion" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_10feb")
 volume_db = 12.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
