@@ -12,7 +12,7 @@ func _ready() -> void:
 	explosion.play()
 	
 	monitoring = true
-	monitorable = true
+	set_deferred("monitorable", true)
 
 	# Damage anything already overlapping on first physics frame
 	await get_tree().physics_frame
