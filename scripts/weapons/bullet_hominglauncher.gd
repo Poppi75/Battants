@@ -70,7 +70,10 @@ func _on_area_entered(area: Area2D) -> void:
 	if explosion_scene == null:
 		queue_free()
 		return
-
+	
+	if area.is_in_group("explosion") or area.name == "HeadshotArea":
+		return
+	
 	var explosion = explosion_scene.instantiate()
 	get_tree().current_scene.call_deferred("add_child", explosion)
 
