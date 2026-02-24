@@ -284,7 +284,21 @@ collision_mask = 5
 position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_d6tgn")
 
-[node name="health" type="TextureProgressBar" parent="."]
+[node name="stunTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="stunSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_kmyvj")
+volume_db = 5.0
+
+[node name="damage_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_3wg1y")
+volume_db = 12.0
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="health" type="TextureProgressBar" parent="UI"]
 z_index = 21
 offset_left = -8.0
 offset_top = -24.0
@@ -293,7 +307,7 @@ offset_bottom = 16.0
 value = 100.0
 texture_progress = ExtResource("4_aod5d")
 
-[node name="damagetaken" type="TextureProgressBar" parent="."]
+[node name="damagetaken" type="TextureProgressBar" parent="UI"]
 z_index = 20
 offset_left = -8.0
 offset_top = -24.0
@@ -303,33 +317,25 @@ value = 100.0
 texture_under = ExtResource("5_a46ul")
 texture_progress = ExtResource("6_ea28a")
 
-[node name="MeleeSocket" type="Node2D" parent="."]
+[node name="MeleeSocket" type="Node2D" parent="UI"]
 visible = false
 
-[node name="RangedSocket" type="Node2D" parent="."]
+[node name="RangedSocket" type="Node2D" parent="UI"]
 
-[node name="AbilitySocket" type="Node2D" parent="."]
+[node name="AbilitySocket" type="Node2D" parent="UI"]
 visible = false
 
-[node name="UtilitySocket" type="Node2D" parent="."]
+[node name="UtilitySocket" type="Node2D" parent="UI"]
 visible = false
 
-[node name="stunTimer" type="Timer" parent="."]
-wait_time = 6.0
-one_shot = true
-
-[node name="stunSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("18_kmyvj")
-volume_db = 5.0
-
-[node name="slots" type="Control" parent="."]
+[node name="slots" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ability" type="ColorRect" parent="slots"]
+[node name="ability" type="ColorRect" parent="UI/slots"]
 z_index = 100
 layout_mode = 0
 offset_left = -20.0
@@ -338,13 +344,13 @@ offset_right = 20.0
 offset_bottom = -29.0
 color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 
-[node name="ability" type="TextureRect" parent="slots/ability"]
+[node name="ability" type="TextureRect" parent="UI/slots/ability"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("19_wqk1x")
 
-[node name="highlight" type="TextureRect" parent="slots/ability"]
+[node name="highlight" type="TextureRect" parent="UI/slots/ability"]
 visible = false
 z_index = 2
 layout_mode = 0
@@ -355,7 +361,7 @@ offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_d6tgn")
 
-[node name="ranged" type="ColorRect" parent="slots"]
+[node name="ranged" type="ColorRect" parent="UI/slots"]
 z_index = 100
 layout_mode = 0
 offset_left = -65.0
@@ -364,13 +370,13 @@ offset_right = -25.0
 offset_bottom = 16.0
 color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 
-[node name="pyssykkä" type="TextureRect" parent="slots/ranged"]
+[node name="pyssykkä" type="TextureRect" parent="UI/slots/ranged"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("21_dm10o")
 
-[node name="highlight" type="TextureRect" parent="slots/ranged"]
+[node name="highlight" type="TextureRect" parent="UI/slots/ranged"]
 visible = false
 z_index = 2
 layout_mode = 0
@@ -381,7 +387,7 @@ offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_d6tgn")
 
-[node name="melee" type="ColorRect" parent="slots"]
+[node name="melee" type="ColorRect" parent="UI/slots"]
 z_index = 100
 layout_mode = 0
 offset_left = 25.0
@@ -390,13 +396,13 @@ offset_right = 65.0
 offset_bottom = 16.0
 color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 
-[node name="melee" type="TextureRect" parent="slots/melee"]
+[node name="melee" type="TextureRect" parent="UI/slots/melee"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("22_o6auj")
 
-[node name="highlight" type="TextureRect" parent="slots/melee"]
+[node name="highlight" type="TextureRect" parent="UI/slots/melee"]
 visible = false
 z_index = 1
 layout_mode = 0
@@ -407,7 +413,7 @@ offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_d6tgn")
 
-[node name="utility" type="ColorRect" parent="slots"]
+[node name="utility" type="ColorRect" parent="UI/slots"]
 z_index = 100
 layout_mode = 0
 offset_left = -20.0
@@ -416,13 +422,13 @@ offset_right = 20.0
 offset_bottom = 61.0
 color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 
-[node name="utility" type="TextureRect" parent="slots/utility"]
+[node name="utility" type="TextureRect" parent="UI/slots/utility"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("23_j8g38")
 
-[node name="highlight" type="TextureRect" parent="slots/utility"]
+[node name="highlight" type="TextureRect" parent="UI/slots/utility"]
 visible = false
 layout_mode = 0
 offset_left = -2.0
@@ -431,9 +437,5 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_d6tgn")
-
-[node name="damage_sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("19_3wg1y")
-volume_db = 12.0
 
 [connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]
