@@ -316,7 +316,6 @@ func _select_item_by_direction(direction: Vector2) -> void:
 
 	if new_slot != equipped_slot:
 		equipped_slot = new_slot
-		print("Player ", player_number, " selected: ", equipped_slot)
 
 
 # =========================
@@ -343,7 +342,6 @@ func damage_sound_play():
 
 
 func die() -> void:
-	print("Player", player_index, "(device", device_id, ") died")
 	died.emit(self)
 	queue_free()
 

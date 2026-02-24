@@ -12,7 +12,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_life_time_timeout() -> void:
 	
-	print("[Bullet] Lifetime ended")
 	queue_free()
 
 
@@ -20,10 +19,8 @@ func _on_life_time_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		
-		print("[Bullet] Hit a player")
 		body.take_damage(damage_amount, false)
 	
-	print("[Bullet] Destroyed")
 	queue_free()
 
 
@@ -39,7 +36,6 @@ func _on_area_entered(area: Area2D) -> void:
 			var damage = headshot_damage
 			play_dink_sound()
 
-			print("[Bullet] HEADSHOT for %d" % damage)
 			player.take_damage(damage, true)
 
 			queue_free()  # Bullet can die immediately

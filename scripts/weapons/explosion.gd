@@ -32,7 +32,6 @@ func _ready() -> void:
 
 func _do_initial_overlap_damage() -> void:
 	var bodies := get_overlapping_bodies()
-	print("[Explosion] initial overlapping bodies: ", bodies.size())
 	for body in bodies:
 		_apply_damage(body)
 

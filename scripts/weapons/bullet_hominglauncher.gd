@@ -68,12 +68,11 @@ func _explode_now() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if explosion_scene == null:
-		print("no explosion scene :((")
 		queue_free()
 		return
 
 	var explosion = explosion_scene.instantiate()
-	get_tree().current_scene.add_child(explosion)
+	get_tree().current_scene.call_deferred("add_child", explosion)
 
 	explosion.global_position = global_position
 	explosion.damage_amount = damage_amount
