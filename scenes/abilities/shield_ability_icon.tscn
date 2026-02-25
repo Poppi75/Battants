@@ -17,16 +17,17 @@ script = ExtResource("1_nx0ob")
 texture = ExtResource("3_phhif")
 
 [node name="shield_sprite" type="Sprite2D" parent="."]
+position = Vector2(26, 0)
 texture = ExtResource("4_mce28")
 
 [node name="shield_collision" type="CollisionShape2D" parent="."]
-position = Vector2(-1.9999999, 0)
+position = Vector2(23.999998, 0)
 scale = Vector2(0.37232953, -0.9863677)
 shape = SubResource("CircleShape2D_n34aa")
 one_way_collision_margin = 15.0
 
 [node name="shield_time" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 
 [node name="activate_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_n34aa")
