@@ -85,6 +85,8 @@ func _shoot() -> void:
 			if owner_player and owner_player.ranged_icon:
 				owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 			_pending_free_on_recoil_end = true
+			
+			
 
 		shoot_cooldown.start()
 
