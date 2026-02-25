@@ -71,6 +71,9 @@ func _shoot() -> void:
 		
 		shoot_sound_play()
 		_apply_recoil()  # barrel kick
+		var cam := get_tree().get_first_node_in_group("main_camera") as Camera2D
+		if cam.has_method("add_shake"):
+			cam.add_shake(0.4)
 
 		bullet.global_position = shoot_point.global_position
 		bullet.rotation = rotation
@@ -85,8 +88,6 @@ func _shoot() -> void:
 			if owner_player and owner_player.ranged_icon:
 				owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 			_pending_free_on_recoil_end = true
-			
-			
 
 		shoot_cooldown.start()
 

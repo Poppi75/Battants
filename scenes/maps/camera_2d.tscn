@@ -11,7 +11,7 @@ font_size = 64
 font = ExtResource("2_v3lps")
 font_size = 64
 
-[node name="Camera2D" type="Camera2D"]
+[node name="Camera2D" type="Camera2D" groups=["main_camera"]]
 z_index = 50
 script = ExtResource("1_2diq6")
 
