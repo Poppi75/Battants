@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bedp52x5ayk0o"]
+
+[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_2diq6"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_v3lps"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dfplr"]
+font = ExtResource("2_v3lps")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_otufr"]
+font = ExtResource("2_v3lps")
+font_size = 64
+
+[node name="Camera2D" type="Camera2D" groups=["main_camera"]]
+z_index = 50
+script = ExtResource("1_2diq6")
+
+[node name="win_text" type="Label" parent="."]
+visible = false
+z_index = 50
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -23.0
+offset_right = 72.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "WINNER P1"
+label_settings = SubResource("LabelSettings_dfplr")
+horizontal_alignment = 1
+
+[node name="CountdownLabel" type="Label" parent="."]
+visible = false
+z_index = 50
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "5"
+label_settings = SubResource("LabelSettings_otufr")
+horizontal_alignment = 1

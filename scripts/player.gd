@@ -127,8 +127,7 @@ func _ready() -> void:
 		damageTaken_bar.value = health
 
 	randomize()
-	await get_tree().create_timer(3.0).timeout
-	can_move = true
+	can_move = false
 
 
 # =========================
