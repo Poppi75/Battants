@@ -1,15 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://bedp52x5ayk0o"]
+[gd_scene load_steps=9 format=3 uid="uid://bedp52x5ayk0o"]
 
 [ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_2diq6"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_v3lps"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dfplr"]
 font = ExtResource("2_v3lps")
-font_size = 64
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_otufr"]
 font = ExtResource("2_v3lps")
 font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_v3lps"]
+font = ExtResource("2_v3lps")
+font_size = 32
+font_color = Color(0.92941177, 0.10980392, 0.14117648, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bkpqn"]
+font = ExtResource("2_v3lps")
+font_size = 32
+font_color = Color(0.3019608, 0.42745098, 0.9529412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lxwd3"]
+font = ExtResource("2_v3lps")
+font_size = 32
+font_color = Color(0.13333334, 0.69411767, 0.29803923, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o1af3"]
+font = ExtResource("2_v3lps")
+font_size = 32
+font_color = Color(1, 0.9490196, 0, 1)
 
 [node name="Camera2D" type="Camera2D" groups=["main_camera"]]
 z_index = 50
@@ -23,9 +43,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -72.0
-offset_top = -23.0
-offset_right = 72.0
+offset_left = -288.0
+offset_top = -64.0
+offset_right = 288.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "WINNER P1"
@@ -48,3 +68,53 @@ grow_vertical = 0
 text = "5"
 label_settings = SubResource("LabelSettings_otufr")
 horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="player1wins" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 202.0
+offset_bottom = 42.0
+text = "Wins:0"
+label_settings = SubResource("LabelSettings_v3lps")
+horizontal_alignment = 1
+
+[node name="player2wins" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -202.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 42.0
+grow_horizontal = 0
+text = "Wins:0"
+label_settings = SubResource("LabelSettings_bkpqn")
+
+[node name="player3wins" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -42.0
+offset_right = 202.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "Wins:0"
+label_settings = SubResource("LabelSettings_lxwd3")
+
+[node name="player4wins" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -42.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Wins:0"
+label_settings = SubResource("LabelSettings_o1af3")
