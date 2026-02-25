@@ -1,16 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://dhp0h3g8ow8et"]
+[gd_scene load_steps=12 format=4 uid="uid://dhp0h3g8ow8et"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_alcy6"]
-[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="2_vg4vg"]
-[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_k0i4m"]
+[ext_resource type="PackedScene" uid="uid://bedp52x5ayk0o" path="res://scenes/maps/camera_2d.tscn" id="2_l83eb"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="4_cvqkm"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="5_xttyw"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="6_87glr"]
 [ext_resource type="PackedScene" uid="uid://dx5sqqjomivsw" path="res://scenes/items/coinspawner.tscn" id="7_26too"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_cb40e"]
-font = ExtResource("3_k0i4m")
-font_size = 32
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("4_cvqkm")
@@ -75,26 +70,11 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_60ioe")
 
-[node name="map2" type="Node2D"]
+[node name="map3" type="Node2D"]
 script = ExtResource("1_alcy6")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 23
-position = Vector2(574, 319)
-zoom = Vector2(1.5, 1.5)
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("2_vg4vg")
-
-[node name="win_text" type="Label" parent="Camera2D"]
-visible = false
-z_index = 4096
-offset_left = -154.0
-offset_top = -82.0
-offset_right = 166.0
-offset_bottom = -50.0
-text = "winner: p1"
-label_settings = SubResource("LabelSettings_cb40e")
+[node name="Camera2D" parent="." instance=ExtResource("2_l83eb")]
+position = Vector2(573, 319)
 
 [node name="walls" type="TileMapLayer" parent="."]
 z_index = 22

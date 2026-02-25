@@ -1,17 +1,12 @@
-[gd_scene load_steps=15 format=4 uid="uid://6o5lbavf06x7"]
+[gd_scene load_steps=13 format=4 uid="uid://6o5lbavf06x7"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_tdg3v"]
-[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="2_ykcni"]
+[ext_resource type="PackedScene" uid="uid://bedp52x5ayk0o" path="res://scenes/maps/camera_2d.tscn" id="2_ykcni"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="3_bou56"]
-[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_ykcni"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="4_7kr2o"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="5_r6505"]
 [ext_resource type="PackedScene" uid="uid://dx5sqqjomivsw" path="res://scenes/items/coinspawner.tscn" id="6_tdg3v"]
 [ext_resource type="AudioStream" uid="uid://bjs53xrjhh512" path="res://assets/8bit_sounds/battants_battlemusic2.mp3" id="8_bou56"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_bou56"]
-font = ExtResource("3_ykcni")
-font_size = 32
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("3_bou56")
@@ -79,23 +74,8 @@ sources/0 = SubResource("TileSetAtlasSource_60ioe")
 [node name="map1" type="Node2D"]
 script = ExtResource("1_tdg3v")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 50
-position = Vector2(574, 319)
-zoom = Vector2(1.5, 1.5)
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("2_ykcni")
-
-[node name="win_text" type="Label" parent="Camera2D"]
-visible = false
-z_index = 4096
-offset_left = -154.0
-offset_top = -82.0
-offset_right = 166.0
-offset_bottom = -50.0
-text = "winner: p1"
-label_settings = SubResource("LabelSettings_bou56")
+[node name="Camera2D" parent="." instance=ExtResource("2_ykcni")]
+position = Vector2(574, 320)
 
 [node name="walls" type="TileMapLayer" parent="."]
 z_index = 26

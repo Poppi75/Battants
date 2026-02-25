@@ -1,18 +1,13 @@
-[gd_scene load_steps=17 format=4 uid="uid://yokstfo3jdm4"]
+[gd_scene load_steps=15 format=4 uid="uid://yokstfo3jdm4"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_2e2a5"]
-[ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="2_10fy5"]
-[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_n78ol"]
+[ext_resource type="PackedScene" uid="uid://bedp52x5ayk0o" path="res://scenes/maps/camera_2d.tscn" id="2_10fy5"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="4_onm0b"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="5_qkp2g"]
 [ext_resource type="Texture2D" uid="uid://d0rwvl8ijgdoi" path="res://assets/tilemaps/matto_green_tiles.png" id="6_10fy5"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="6_yd2di"]
 [ext_resource type="PackedScene" uid="uid://dx5sqqjomivsw" path="res://scenes/items/coinspawner.tscn" id="7_3imlm"]
 [ext_resource type="PackedScene" uid="uid://bdrxjptm2n0ud" path="res://scenes/maps/platforms/moving_plat_1.tscn" id="9_n78ol"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ma4cn"]
-font = ExtResource("3_n78ol")
-font_size = 32
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("4_onm0b")
@@ -100,23 +95,8 @@ sources/0 = SubResource("TileSetAtlasSource_60ioe")
 [node name="map4" type="Node2D"]
 script = ExtResource("1_2e2a5")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 23
-position = Vector2(574, 319)
-zoom = Vector2(1.5, 1.5)
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("2_10fy5")
-
-[node name="win_text" type="Label" parent="Camera2D"]
-visible = false
-z_index = 4096
-offset_left = -154.0
-offset_top = -82.0
-offset_right = 166.0
-offset_bottom = -50.0
-text = "winner: p1"
-label_settings = SubResource("LabelSettings_ma4cn")
+[node name="Camera2D" parent="." instance=ExtResource("2_10fy5")]
+position = Vector2(579, 319)
 
 [node name="walls" type="TileMapLayer" parent="."]
 z_index = 22
@@ -142,7 +122,7 @@ position = Vector2(494, 401)
 position = Vector2(659, 239)
 
 [node name="coinspawner" parent="." instance=ExtResource("7_3imlm")]
-position = Vector2(573, 319)
+position = Vector2(579, 319)
 
 [node name="moving_plat_1" parent="." instance=ExtResource("9_n78ol")]
 position = Vector2(351, 254)
