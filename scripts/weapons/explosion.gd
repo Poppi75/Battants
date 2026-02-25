@@ -9,6 +9,7 @@ var _damaged: Dictionary = {}
 
 @onready var particles: GPUParticles2D = $ExplosionParticles
 @onready var explosion: AudioStreamPlayer2D = $explosion
+@onready var explosions: CollisionShape2D = $Explosions
 
 func _ready() -> void:
 	explosion.play()
@@ -69,3 +70,6 @@ func _start_particles() -> void:
 
 func _on_particles_done() -> void:
 	queue_free()
+
+func _on_collision_timer_timeout() -> void:
+	explosions.disabled = true

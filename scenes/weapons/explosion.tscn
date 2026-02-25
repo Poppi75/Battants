@@ -59,7 +59,7 @@ amount = 200
 texture = ExtResource("2_llixc")
 lifetime = 0.6
 one_shot = true
-speed_scale = 2.0
+speed_scale = 7.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_2q87t")
 
@@ -67,4 +67,10 @@ process_material = SubResource("ParticleProcessMaterial_2q87t")
 stream = ExtResource("4_10feb")
 volume_db = 12.0
 
+[node name="collision_timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="collision_timer" to="." method="_on_collision_timer_timeout"]

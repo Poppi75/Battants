@@ -14,7 +14,7 @@ colors = PackedColorArray(1, 1, 0.7490196, 1, 1, 0.48235294, 0, 1, 1, 0, 0, 0.69
 gradient = SubResource("Gradient_fseui")
 
 [sub_resource type="Curve" id="Curve_jkola"]
-_data = [Vector2(0, 0.10112369), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.10112369), 0.0, 0.0, 0, 0, Vector2(0.5, 0.764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_ms25e"]
@@ -23,16 +23,14 @@ curve = SubResource("Curve_jkola")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fseui"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 8.0
+emission_sphere_radius = 150.0
 direction = Vector3(0, -1, 0)
 spread = 180.0
-initial_velocity_min = 60.0
-initial_velocity_max = 220.0
 angular_velocity_min = 4.999984
 angular_velocity_max = 19.999983
 gravity = Vector3(0, 0, 0)
-radial_accel_min = 4.9999976
-radial_accel_max = 9.999997
+damping_min = 25.000002
+damping_max = 45.000004
 scale_curve = SubResource("CurveTexture_ms25e")
 color_ramp = SubResource("GradientTexture1D_bhtjl")
 
@@ -53,16 +51,14 @@ curve = SubResource("Curve_ms25e")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhtjl"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 1.0
+emission_sphere_radius = 150.0
 direction = Vector3(0, -1, 0)
 spread = 180.0
-initial_velocity_min = 90.0
-initial_velocity_max = 200.0
 orbit_velocity_min = -0.09999991
 orbit_velocity_max = 0.1000001
 gravity = Vector3(0, 0, 0)
-linear_accel_min = 4.9999976
-linear_accel_max = 14.999997
+damping_min = 15.000001
+damping_max = 35.0
 scale_min = 0.19999999
 scale_max = 0.39999998
 scale_curve = SubResource("CurveTexture_81qaj")
@@ -89,20 +85,22 @@ texture = ExtResource("3_bhtjl")
 
 [node name="Flames" type="GPUParticles2D" parent="."]
 scale = Vector2(0.2, 0.2)
-amount = 1000
+amount = 3000
 texture = ExtResource("2_fseui")
+lifetime = 0.8
 preprocess = 0.4
 randomness = 0.45
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_fseui")
 
 [node name="Embers" type="GPUParticles2D" parent="."]
 scale = Vector2(0.2, 0.2)
-amount = 30
+amount = 400
 texture = ExtResource("2_fseui")
-lifetime = 1.6
 preprocess = 0.45
 explosiveness = 0.15
 randomness = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_bhtjl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
