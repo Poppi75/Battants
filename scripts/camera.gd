@@ -17,18 +17,36 @@ extends Camera2D
 @export var max_shake_rotation_deg: float = 4.0 # optional rotation shake at full strength
 @export var shake_noise_speed: float = 35.0     # how "fast" it jitters (used for modulation)
 
+@onready var p_wins = [
+	$CanvasLayer/player1wins,
+	$CanvasLayer/player2wins,
+	$CanvasLayer/player3wins,
+	$CanvasLayer/player4wins
+]
+
 var _shake_trauma: float = 0.0   # 0..1
 var _shake_time: float = 0.0
 
 func _ready() -> void:
 	randomize()
+	await get_tree().process_frame
+	_update_player_ui_visibility()
 
 # Call this from weapons/explosions: camera.add_shake(0.2)
 # strength is additive; typical values: 0.05 (small) .. 0.4 (big)
 func add_shake(strength: float) -> void:
 	_shake_trauma = clamp(_shake_trauma + strength, 0.0, 1.0)
+	
+func _update_player_ui_visibility() -> void:
+	var players := _get_players()
+	for i in range(min(players.size(), p_wins.size())):
+		p_wins[i].visible = true
 
 func _process(delta: float) -> void:
+	p_wins[0].text = "WINS:" + str(Global.playerwins[0])
+	p_wins[1].text = "WINS:" + str(Global.playerwins[1])
+	p_wins[2].text = "WINS:" + str(Global.playerwins[2])
+	p_wins[3].text = "WINS:" + str(Global.playerwins[3])
 	var players := _get_players()
 	if players.is_empty():
 		# also clear shake if no players (optional)
