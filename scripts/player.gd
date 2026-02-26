@@ -62,6 +62,7 @@ var _facing_angle: float = 0.0
 @onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
+@onready var pickup_label: CanvasItem = $UI/pickup
 
 # Flash tween state
 var _flash_tween: Tween
@@ -105,7 +106,7 @@ const TRIGGER_PRESS_THRESHOLD := 0.50
 # =========================
 const ITEM_SELECTION_DEADZONE := 0.5  # Minimum stick/mouse distance to register selection
 var last_selection_direction: Vector2 = Vector2.ZERO
-
+var _pickup_overlap_count: int = 0
 
 # =========================
 # READY
@@ -417,6 +418,28 @@ func _on_stun_timer_timeout() -> void:
 # =========================
 # PICKUP / EQUIP
 # =========================
+func set_pickup_hint(visible: bool) -> void:
+	if not pickup_label:
+		return
+	pickup_label.visible = visible
+
+func _pickup_area_entered() -> void:
+	_pickup_overlap_count += 1
+	set_pickup_hint(_pickup_overlap_count > 0)
+
+func _pickup_area_exited() -> void:
+	_pickup_overlap_count = max(0, _pickup_overlap_count - 1)
+	set_pickup_hint(_pickup_overlap_count > 0)
+func is_pickup_pressed() -> bool:
+	# Keyboard/mouse player
+	if device_id == -1:
+		return Input.is_action_just_pressed("pickup")
+
+	# Gamepad player (Square on PlayStation layout)
+	# In Godot constants, this is typically JOY_BUTTON_X (left face button).
+	# (On Xbox pads this physical button is "X", on PS it's "Square".)
+	return Input.is_joy_button_pressed(device_id, JOY_BUTTON_X)
+
 func pickup() -> void:
 	var item_type := _pick_random_item_type()
 	if item_type == "":

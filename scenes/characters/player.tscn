@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=56 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
 atlas = ExtResource("6_jk2m4")
@@ -251,6 +252,10 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_d6tgn"]
 radius = 3.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_j8g38"]
+font = ExtResource("26_o6auj")
+font_size = 8
+
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
@@ -316,6 +321,17 @@ offset_bottom = 16.0
 value = 100.0
 texture_under = ExtResource("5_a46ul")
 texture_progress = ExtResource("6_ea28a")
+
+[node name="pickup" type="Label" parent="UI"]
+visible = false
+z_index = 21
+offset_left = -18.0
+offset_top = -31.000002
+offset_right = 38.0
+offset_bottom = -23.000002
+scale = Vector2(0.7254638, 0.7254638)
+text = "pickup!"
+label_settings = SubResource("LabelSettings_j8g38")
 
 [node name="MeleeSocket" type="Node2D" parent="UI"]
 visible = false
