@@ -63,6 +63,8 @@ var _facing_angle: float = 0.0
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
 @onready var pickup_label: CanvasItem = $UI/pickup
+@onready var bullet_count: Label = $UI/slots/ranged/bullet_count
+@onready var bullet_count_icon: TextureRect = $UI/slots/ranged/bullet_count_icon
 
 # Flash tween state
 var _flash_tween: Tween
@@ -418,10 +420,10 @@ func _on_stun_timer_timeout() -> void:
 # =========================
 # PICKUP / EQUIP
 # =========================
-func set_pickup_hint(visible: bool) -> void:
+func set_pickup_hint(_visible: bool) -> void:
 	if not pickup_label:
 		return
-	pickup_label.visible = visible
+	pickup_label.visible = _visible
 
 func _pickup_area_entered() -> void:
 	_pickup_overlap_count += 1
@@ -450,6 +452,7 @@ func pickup() -> void:
 			_equip_item("melee", melee_items, melee_socket)
 		"ranged":
 			_equip_item("ranged", ranged_items, ranged_socket)
+			update_bullet_count()
 		"ability":
 			call_deferred("_equip_item", "ability", ability_items, ability_socket)
 		"utility":
@@ -493,6 +496,7 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 	equipped[item_type] = item
 	if item_type == "ranged":
 		ranged_icon.texture = item.icon
+		bullet_count_icon.visible = true
 	if item_type == "melee":
 		melee_icon.texture = item.icon
 	if item_type == "ability":
@@ -516,3 +520,10 @@ func _attack() -> void:
 
 	if equipped["utility"] and equipped["utility"].has_method("attack") and equipped_slot == "utility" and stunned == false:
 		equipped["utility"].attack()
+
+func update_bullet_count() -> void:
+	if equipped["ranged"].total_ammo <= 0:
+		bullet_count.text = ""
+		bullet_count_icon.visible = false
+	else:
+		bullet_count.text = str(equipped["ranged"].total_ammo) + "/" + str(equipped["ranged"].original_ammo)

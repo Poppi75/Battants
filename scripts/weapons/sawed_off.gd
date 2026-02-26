@@ -16,6 +16,7 @@ var owner_player: Player = null  # set this when equipping the weapon
 
 var canShoot = null
 
+var original_ammo = 7
 var total_ammo = 7
 
 func _ready() -> void:
@@ -70,11 +71,10 @@ func _shoot() -> void:
 		pellet.rotation = rotation + randf_range(-half_spread_rad, half_spread_rad)
 	
 	total_ammo -= 1
+	owner_player.update_bullet_count()
 	if total_ammo <= 0:
-		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
-		
 		await shoot_sound.finished
-		
+		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 		queue_free()
 	
 	shoot_cooldown.start()

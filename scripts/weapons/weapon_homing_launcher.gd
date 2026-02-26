@@ -15,6 +15,7 @@ var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
 var is_reloading: bool = false
 
+var original_ammo = 1
 var total_ammo = 1
 
 func _ready() -> void:
@@ -74,6 +75,7 @@ func _shoot() -> void:
 	# Lock shooting until cooldown ends
 	can_shoot = false
 	total_ammo -= 1
+	owner_player.update_bullet_count()
 	if total_ammo <= 0:
 		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 		queue_free()

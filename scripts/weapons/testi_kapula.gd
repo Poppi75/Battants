@@ -13,6 +13,7 @@ var canShoot = null
 
 var owner_player: Player = null
 
+var original_ammo = 75
 var total_ammo = 75
 
 func _ready() -> void:
@@ -65,11 +66,10 @@ func _shoot() -> void:
 	bullet.rotation = rotation
 	canShoot = false
 	total_ammo -= 1
+	owner_player.update_bullet_count()
 	if total_ammo <= 0:
-		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
-		
 		await shoot_sound.finished
-		
+		owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 		queue_free()
 		
 	shootCooldown.start()

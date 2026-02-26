@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=58 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
+[ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
@@ -256,6 +257,10 @@ radius = 3.0
 font = ExtResource("26_o6auj")
 font_size = 8
 
+[sub_resource type="LabelSettings" id="LabelSettings_o6auj"]
+font = ExtResource("26_o6auj")
+font_size = 8
+
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
@@ -391,6 +396,24 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("21_dm10o")
+
+[node name="bullet_count_icon" type="TextureRect" parent="UI/slots/ranged"]
+visible = false
+layout_mode = 0
+offset_top = 34.0
+offset_right = 32.0
+offset_bottom = 66.0
+scale = Vector2(0.17188771, 0.17188771)
+texture = ExtResource("25_j8g38")
+
+[node name="bullet_count" type="Label" parent="UI/slots/ranged"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 35.0
+offset_right = 45.5
+offset_bottom = 43.0
+scale = Vector2(0.6443471, 0.6443471)
+label_settings = SubResource("LabelSettings_o6auj")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ranged"]
 visible = false
