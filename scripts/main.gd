@@ -113,6 +113,8 @@ func _on_player_died(player: Player) -> void:
 			winner.visible = true
 			winner.text = "WINNER: P" + str(players[0].player_number)
 
+		Global.playerwins[players[0].player_number - 1] += 1
+		print(Global.playerwins[players[0].player_number - 1])
 		await get_tree().create_timer(5.0).timeout
 		var chosen: String = maps[randi() % maps.size()]
 		get_tree().change_scene_to_file(chosen)

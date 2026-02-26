@@ -8,3 +8,10 @@ var maps: Array[String] = [
 	"res://scenes/maps/map3.tscn",
 	"res://scenes/maps/map4.tscn",
 ]
+
+var playerwins = [
+	0,
+	0,
+	0,
+	0
+]
