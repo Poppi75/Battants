@@ -19,6 +19,7 @@ extends Node2D
 
 var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
+var original_ammo = 7
 var total_ammo: int = 7
 
 # Internal recoil state
@@ -81,6 +82,7 @@ func _shoot() -> void:
 		
 		can_shoot = false
 		total_ammo -= 1
+		owner_player.update_bullet_count()
 
 		# Hide icon immediately when empty, but don't delete the gun
 		# until recoil animation on the last shot has finished.

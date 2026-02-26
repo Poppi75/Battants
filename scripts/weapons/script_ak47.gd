@@ -14,6 +14,7 @@ extends Node2D
 var owner_player: Player = null  # set this when equipping the weapon
 var can_shoot: bool = true
 
+var original_ammo = 30
 var total_ammo = 30
 
 func _ready() -> void:
@@ -67,11 +68,10 @@ func _shoot() -> void:
 		# Start cooldown
 		can_shoot = false
 		total_ammo -= 1
+		owner_player.update_bullet_count()
 		if total_ammo <= 0:
-			owner_player.ranged_icon.texture = owner_player.base_ranged_icon
-			
 			await shoot_sound.finished
-			
+			owner_player.ranged_icon.texture = owner_player.base_ranged_icon
 			queue_free()
 		
 		shoot_cooldown.start()
