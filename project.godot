@@ -13,6 +13,8 @@ config_version=5
 config/name="Battants"
 run/main_scene="uid://cfd6rqamqp50e"
 config/features=PackedStringArray("4.5", "Forward Plus")
+run/snap/snap_2d_vertices_to_pixel=false
+run/snap/snap_2d_transforms_to_pixel=false
 
 [autoload]
 
