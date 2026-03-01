@@ -75,21 +75,26 @@ func add_shake(strength: float) -> void:
 
 
 # =====================================================
-# PHYSICS (LOGIC ONLY)
+# PHYSICS (LOGIC + APPLY SMOOTHING HERE)
 # =====================================================
 func _physics_process(delta: float) -> void:
+	# Filter to valid players (prevents invalid refs causing jumps)
+	var valid_players: Array[Player] = []
+	for p in players:
+		if is_instance_valid(p):
+			valid_players.append(p)
 
-	if players.is_empty():
+	if valid_players.is_empty():
 		return
 
-	var rect := _get_players_rect()
+	var rect := _get_players_rect(valid_players)
 
 	rect.position -= Vector2(padding, padding)
 	rect.size += Vector2(padding, padding) * 2.0
 
 	# --- Position ---
 	var rect_center := rect.get_center()
-	var avg_center := _get_average_position()
+	var avg_center := _get_average_position(valid_players)
 
 	# Soft bias to reduce jitter
 	_target_position = rect_center.lerp(avg_center, 0.3)
@@ -112,24 +117,18 @@ func _physics_process(delta: float) -> void:
 
 	_target_zoom = Vector2(z, z)
 
-	# Shake decay
-	_shake_trauma = max(_shake_trauma - shake_decay * delta, 0.0)
-
-
-# =====================================================
-# RENDER STEP (SMOOTHING)
-# =====================================================
-func _process(delta: float) -> void:
-
+	# --- Apply smoothing on fixed timestep (prevents render/physics jitter) ---
 	var pos_weight := 1.0 - exp(-move_speed * delta)
 	global_position = global_position.lerp(_target_position, pos_weight)
 
 	var zoom_weight := 1.0 - exp(-zoom_speed * delta)
 	zoom = zoom.lerp(_target_zoom, zoom_weight)
 
+	# Shake decay + visuals
+	_shake_trauma = max(_shake_trauma - shake_decay * delta, 0.0)
 	_update_shake_visual(delta)
 
-	# Update win UI
+	# Update win UI (still fine to do here; move to _process if you prefer)
 	for i in range(min(p_wins.size(), Global.playerwins.size())):
 		p_wins[i].text = "WINS:" + str(Global.playerwins[i])
 
@@ -160,22 +159,20 @@ func _update_shake_visual(delta: float) -> void:
 
 
 # =====================================================
-# HELPERS
+# HELPERS (VALID PLAYERS ONLY)
 # =====================================================
-func _get_average_position() -> Vector2:
+func _get_average_position(valid_players: Array[Player]) -> Vector2:
 	var sum := Vector2.ZERO
-	for p in players:
-		if is_instance_valid(p):
-			sum += p.global_position
-	return sum / players.size()
+	for p in valid_players:
+		sum += p.global_position
+	return sum / float(valid_players.size())
 
 
-func _get_players_rect() -> Rect2:
-	var rect := Rect2(players[0].global_position, Vector2.ZERO)
+func _get_players_rect(valid_players: Array[Player]) -> Rect2:
+	var rect := Rect2(valid_players[0].global_position, Vector2.ZERO)
 
-	for i in range(1, players.size()):
-		if is_instance_valid(players[i]):
-			rect = rect.expand(players[i].global_position)
+	for i in range(1, valid_players.size()):
+		rect = rect.expand(valid_players[i].global_position)
 
 	rect.size.x = max(rect.size.x, 1.0)
 	rect.size.y = max(rect.size.y, 1.0)
