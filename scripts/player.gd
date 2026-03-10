@@ -62,7 +62,8 @@ var _facing_angle: float = 0.0
 @onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
-@onready var pickup_label: CanvasItem = $UI/pickup
+@onready var controller_pickup_label: Label = $UI/controller_pickup
+@onready var pc_pickup_label: CanvasItem = $UI/pc_pickup
 @onready var bullet_count: Label = $UI/slots/ranged/bullet_count
 @onready var bullet_count_icon: TextureRect = $UI/slots/ranged/bullet_count_icon
 
@@ -421,9 +422,10 @@ func _on_stun_timer_timeout() -> void:
 # PICKUP / EQUIP
 # =========================
 func set_pickup_hint(_visible: bool) -> void:
-	if not pickup_label:
-		return
-	pickup_label.visible = _visible
+	if device_id == -1:
+		pc_pickup_label.visible = _visible
+	else:
+		controller_pickup_label.visible = _visible
 
 func _pickup_area_entered() -> void:
 	_pickup_overlap_count += 1
