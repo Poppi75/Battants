@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="3_6eyoc"]
 [ext_resource type="PackedScene" uid="uid://d3vkn7oktrgq8" path="res://scenes/ui/pickup_popup.tscn" id="3_tswxa"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
+[ext_resource type="PackedScene" uid="uid://bpj1f0gd8rmf4" path="res://scenes/characters/grave.tscn" id="4_aqa0x"]
 [ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_eojnx"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
 [ext_resource type="PackedScene" uid="uid://bfbwvy7kl55e4" path="res://scenes/items/flashbang.tscn" id="5_jk2m4"]
@@ -270,6 +271,7 @@ collision_mask = 5
 script = ExtResource("1_it4js")
 damage_number_scene = ExtResource("2_rpnd8")
 pickup_popup_scene = ExtResource("3_tswxa")
+grave_scene = ExtResource("4_aqa0x")
 ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn")])
 ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
 utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx"), ExtResource("12_aqa0x")])

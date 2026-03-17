@@ -20,6 +20,7 @@ var stunned = null
 # Optional: damage numbers
 @export var damage_number_scene: PackedScene
 @export var pickup_popup_scene: PackedScene
+@export var grave_scene: PackedScene
 
 # =========================
 # ITEM SCENES
@@ -348,6 +349,12 @@ func damage_sound_play():
 
 func die() -> void:
 	died.emit(self)
+	if grave_scene:
+		var grave = grave_scene.instantiate()
+		grave.global_position = global_position
+
+		# Add to the current level/world (NOT to the player, since player is about to be freed)
+		get_tree().current_scene.add_child(grave)
 	queue_free()
 
 
