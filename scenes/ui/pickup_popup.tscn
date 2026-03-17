@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3vkn7oktrgq8"]
+
+[ext_resource type="Script" uid="uid://crkrmbxgon2t4" path="res://scripts/pickup_popup.gd" id="1_gspo2"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_vtkib"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hjenw"]
+font = ExtResource("2_vtkib")
+
+[node name="PickupPopup" type="Node2D"]
+z_index = 50
+script = ExtResource("1_gspo2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -20.0
+offset_right = 26.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_hjenw")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+stretch_mode = 5
