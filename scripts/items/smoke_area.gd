@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var expand_time: float = 0.6        # time to grow to full size
-@export var full_size_time: float = 5.0     # time it stays max size
-@export var fade_time: float = 1.0          # time to shrink/fade out
+@export var expand_time: float = 4.0        # time to grow to full size
+@export var full_size_time: float = 9.0     # time it stays max size
+@export var fade_time: float = 3.0          # time to shrink/fade out
 @export var max_scale: float = 5.0          # how big the patch gets
 @export var damage_per_second: float = 35.0 # damage over time
 
@@ -10,6 +10,8 @@ var time_alive: float = 0.0
 var total_lifetime: float
 var bodies_in_fire: = {}      # just used as a set: body -> true
 var damage_accumulator: = {}  # body -> accumulated float damage
+
+var owner_player = null
 
 @onready var break_sound: AudioStreamPlayer2D = $break_sound
 @onready var burning_sound: AudioStreamPlayer2D = $burning_sound
@@ -44,7 +46,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time_alive += delta
 	_update_scale_and_fade()
-	_apply_damage(delta)
+	# _apply_damage(delta) # no damage should be done
 
 func _update_scale_and_fade() -> void:
 	var s: float
@@ -90,27 +92,8 @@ func _set_particles_alpha(alpha: float) -> void:
 		col2.a = alpha
 		mat2.color = col2
 
-func _apply_damage(delta: float) -> void:
-	if damage_per_second <= 0.0:
-		return
-
-	for body in bodies_in_fire.keys():
-		if not is_instance_valid(body):
-			continue
-		if not body.has_method("take_damage"):
-			continue
-
-		var dmg: float = damage_per_second * delta
-
-		if not damage_accumulator.has(body):
-			damage_accumulator[body] = 0.0
-
-		damage_accumulator[body] += dmg
-
-		var whole: int = int(damage_accumulator[body])
-		if whole > 0:
-			damage_accumulator[body] -= float(whole)
-			body.take_damage(whole)
+func _apply_damage(_delta: float) -> void:
+	pass
 
 func _on_body_entered(body: Node) -> void:
 	if bodies_in_fire.has(body):

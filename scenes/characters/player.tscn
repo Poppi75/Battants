@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=60 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
+[ext_resource type="PackedScene" uid="uid://f2dn24clrfbt" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
 [ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
@@ -271,7 +272,7 @@ damage_number_scene = ExtResource("2_rpnd8")
 pickup_popup_scene = ExtResource("3_tswxa")
 ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn")])
 ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
-utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx")])
+utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx"), ExtResource("12_aqa0x")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a46ul")
