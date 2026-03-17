@@ -62,6 +62,8 @@ func register_player(p: Player) -> void:
 
 	players.append(p)
 	p.died.connect(_on_player_died)
+	for i in range(players.size()):
+		p_wins[i].visible = true
 
 func _on_player_died(p: Player) -> void:
 	players.erase(p)
@@ -128,9 +130,8 @@ func _physics_process(delta: float) -> void:
 	_shake_trauma = max(_shake_trauma - shake_decay * delta, 0.0)
 	_update_shake_visual(delta)
 
-	# Update win UI (still fine to do here; move to _process if you prefer)
 	for i in range(min(p_wins.size(), Global.playerwins.size())):
-		p_wins[i].text = "WINS:" + str(Global.playerwins[i])
+		p_wins[i].text = str(Global.playerwins[i])
 
 
 # =====================================================

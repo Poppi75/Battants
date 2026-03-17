@@ -19,6 +19,7 @@ var stunned = null
 
 # Optional: damage numbers
 @export var damage_number_scene: PackedScene
+@export var pickup_popup_scene: PackedScene
 
 # =========================
 # ITEM SCENES
@@ -62,7 +63,8 @@ var _facing_angle: float = 0.0
 @onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
-@onready var pickup_label: CanvasItem = $UI/pickup
+@onready var controller_pickup_label: Label = $UI/controller_pickup
+@onready var pc_pickup_label: CanvasItem = $UI/pc_pickup
 @onready var bullet_count: Label = $UI/slots/ranged/bullet_count
 @onready var bullet_count_icon: TextureRect = $UI/slots/ranged/bullet_count_icon
 
@@ -421,9 +423,10 @@ func _on_stun_timer_timeout() -> void:
 # PICKUP / EQUIP
 # =========================
 func set_pickup_hint(_visible: bool) -> void:
-	if not pickup_label:
-		return
-	pickup_label.visible = _visible
+	if device_id == -1:
+		pc_pickup_label.visible = _visible
+	else:
+		controller_pickup_label.visible = _visible
 
 func _pickup_area_entered() -> void:
 	_pickup_overlap_count += 1
@@ -478,22 +481,29 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 	if item_list.is_empty():
 		return
 
+	# Remove old equipped item in that slot
 	if equipped[item_type]:
 		equipped[item_type].queue_free()
 		equipped[item_type] = null
 
+	# Pick + instance new item
 	var item = item_list.pick_random().instantiate()
 	socket.add_child(item)
 
+	# Reset local transform in socket
 	if item is Node2D:
 		item.position = Vector2.ZERO
 		item.rotation = 0.0
 		item.scale = Vector2.ONE
 
+	# Give item access to player if it supports it
 	if "owner_player" in item:
 		item.owner_player = self
 
+	# Store equipped reference
 	equipped[item_type] = item
+
+	# Update UI slot icons (your existing logic)
 	if item_type == "ranged":
 		ranged_icon.texture = item.icon
 		bullet_count_icon.visible = true
@@ -504,7 +514,31 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 	if item_type == "utility":
 		utility_icon.texture = item.icon
 
+	# Spawn pickup popup using same icon
+	# Requires: @export var pickup_popup_scene: PackedScene
+	# and a helper func: _spawn_pickup_popup(text, icon)
+	var popup_text := "+"
+	if "display_name" in item and str(item.display_name) != "":
+		popup_text = "+"
 
+	var popup_icon: Texture2D = null
+	if "icon" in item:
+		popup_icon = item.icon
+
+	_spawn_pickup_popup(popup_text, popup_icon)
+
+func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
+	if pickup_popup_scene == null:
+		return
+
+	var popup = pickup_popup_scene.instantiate()
+	get_tree().current_scene.add_child(popup)
+
+	# Spawn near player (or above head). Adjust as needed.
+	popup.global_position = global_position + Vector2(0, -20)
+
+	if popup.has_method("setup"):
+		popup.setup(text, icon)
 # =========================
 # ATTACK
 # =========================

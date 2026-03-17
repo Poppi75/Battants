@@ -38,19 +38,21 @@ script = ExtResource("1_2diq6")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="player1wins" type="Label" parent="CanvasLayer"]
+visible = false
+z_index = 50
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 202.0
+offset_right = 13.0
 offset_bottom = 42.0
 label_settings = SubResource("LabelSettings_v3lps")
-horizontal_alignment = 1
 
 [node name="player2wins" type="Label" parent="CanvasLayer"]
 visible = false
+z_index = 50
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -202.0
+offset_left = -11.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 42.0
@@ -59,24 +61,26 @@ label_settings = SubResource("LabelSettings_bkpqn")
 
 [node name="player3wins" type="Label" parent="CanvasLayer"]
 visible = false
+z_index = 50
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = -42.0
-offset_right = 202.0
+offset_right = 18.0
 offset_bottom = -10.0
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_lxwd3")
 
 [node name="player4wins" type="Label" parent="CanvasLayer"]
 visible = false
+z_index = 50
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -202.0
+offset_left = -17.0
 offset_top = -42.0
 offset_right = -10.0
 offset_bottom = -10.0
