@@ -8,13 +8,13 @@
 
 [sub_resource type="Gradient" id="Gradient_fseui"]
 offsets = PackedFloat32Array(0, 0.33962265, 0.8490566, 1)
-colors = PackedColorArray(0.22, 0.22, 0.22, 1, 0.44, 0.44, 0.44, 1, 0.65, 0.65, 0.65, 0.6901961, 1, 1, 1, 0)
+colors = PackedColorArray(0.3366076, 0.33660764, 0.33660752, 1, 0.44, 0.44, 0.44, 1, 0.65, 0.65, 0.65, 0.6901961, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bhtjl"]
 gradient = SubResource("Gradient_fseui")
 
 [sub_resource type="Curve" id="Curve_jkola"]
-_data = [Vector2(0, 0.10112369), 0.0, 0.0, 0, 0, Vector2(0.5, 0.764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.34831464), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.44943827), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_ms25e"]
@@ -31,6 +31,7 @@ angular_velocity_max = 19.999983
 gravity = Vector3(0, 0, 0)
 damping_min = 25.000002
 damping_max = 45.000004
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_ms25e")
 color_ramp = SubResource("GradientTexture1D_bhtjl")
 
@@ -65,10 +66,10 @@ scale_curve = SubResource("CurveTexture_81qaj")
 color_ramp = SubResource("GradientTexture1D_jkola")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
-radius = 30.0
+radius = 20.024984
 
 [node name="SmokeBurnArea" type="Area2D"]
-z_index = 5
+z_index = 30
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_vndcy")
@@ -84,16 +85,18 @@ scale = Vector2(0.038, 0.038)
 texture = ExtResource("2_wa8ja")
 
 [node name="Flames" type="GPUParticles2D" parent="."]
+z_index = 30
 scale = Vector2(0.2, 0.2)
-amount = 3000
+amount = 1500
 texture = ExtResource("3_ch8a5")
-lifetime = 1.5
+lifetime = 1.2
 preprocess = 0.4
 randomness = 0.45
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_fseui")
 
 [node name="Embers" type="GPUParticles2D" parent="."]
+visible = false
 scale = Vector2(0.2, 0.2)
 amount = 400
 texture = ExtResource("3_ch8a5")
@@ -104,6 +107,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_bhtjl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 50
 shape = SubResource("CircleShape2D_fseui")
 
 [node name="burning_sound" type="AudioStreamPlayer2D" parent="."]
