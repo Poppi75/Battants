@@ -1,0 +1,117 @@
+[gd_scene load_steps=17 format=3 uid="uid://d4ujbokqnf6"]
+
+[ext_resource type="Script" uid="uid://d0qdicgc6k1ph" path="res://scripts/items/smoke_area.gd" id="1_vndcy"]
+[ext_resource type="Texture2D" uid="uid://dayg02mp46c7b" path="res://assets/item_art/ballshape.png" id="2_wa8ja"]
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="3_ch8a5"]
+[ext_resource type="AudioStream" uid="uid://iwq6i6ug2g1n" path="res://assets/8bit_sounds/fire(1).mp3" id="4_vgsch"]
+[ext_resource type="AudioStream" uid="uid://cmpsfijyo77y0" path="res://assets/8bit_sounds/battants_break.mp3" id="5_hniod"]
+
+[sub_resource type="Gradient" id="Gradient_fseui"]
+offsets = PackedFloat32Array(0, 0.33962265, 0.8490566, 1)
+colors = PackedColorArray(0.22, 0.22, 0.22, 1, 0.44, 0.44, 0.44, 1, 0.65, 0.65, 0.65, 0.6901961, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bhtjl"]
+gradient = SubResource("Gradient_fseui")
+
+[sub_resource type="Curve" id="Curve_jkola"]
+_data = [Vector2(0, 0.10112369), 0.0, 0.0, 0, 0, Vector2(0.5, 0.764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ms25e"]
+curve = SubResource("Curve_jkola")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fseui"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 150.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+angular_velocity_min = 4.999984
+angular_velocity_max = 19.999983
+gravity = Vector3(0, 0, 0)
+damping_min = 25.000002
+damping_max = 45.000004
+scale_curve = SubResource("CurveTexture_ms25e")
+color_ramp = SubResource("GradientTexture1D_bhtjl")
+
+[sub_resource type="Gradient" id="Gradient_bhtjl"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.43137255, 0, 1, 1, 1, 0, 1, 0.69803923, 0, 0, 0.45882353)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jkola"]
+gradient = SubResource("Gradient_bhtjl")
+
+[sub_resource type="Curve" id="Curve_ms25e"]
+_data = [Vector2(0, 0.20224726), 0.0, 0.0, 0, 0, Vector2(0.49999997, 0.4044944), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_81qaj"]
+curve = SubResource("Curve_ms25e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhtjl"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 150.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+orbit_velocity_min = -0.09999991
+orbit_velocity_max = 0.1000001
+gravity = Vector3(0, 0, 0)
+damping_min = 15.000001
+damping_max = 35.0
+scale_min = 0.19999999
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_81qaj")
+color_ramp = SubResource("GradientTexture1D_jkola")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fseui"]
+radius = 30.0
+
+[node name="SmokeBurnArea" type="Area2D"]
+z_index = 5
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_vndcy")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+scale = Vector2(0.038, 0.038)
+texture = ExtResource("2_wa8ja")
+
+[node name="Flames" type="GPUParticles2D" parent="."]
+scale = Vector2(0.2, 0.2)
+amount = 3000
+texture = ExtResource("3_ch8a5")
+lifetime = 1.5
+preprocess = 0.4
+randomness = 0.45
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fseui")
+
+[node name="Embers" type="GPUParticles2D" parent="."]
+scale = Vector2(0.2, 0.2)
+amount = 400
+texture = ExtResource("3_ch8a5")
+preprocess = 0.45
+explosiveness = 0.15
+randomness = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_bhtjl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fseui")
+
+[node name="burning_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vgsch")
+volume_db = 8.0
+
+[node name="break_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hniod")
+volume_db = 10.0
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]

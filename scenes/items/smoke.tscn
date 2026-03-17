@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://f2dn24clrfbt"]
+
+[ext_resource type="Script" uid="uid://d27wxdf06iul" path="res://scripts/items/smoke.gd" id="1_7pmlm"]
+[ext_resource type="PackedScene" uid="uid://dk7tj1lyp5xm8" path="res://scenes/items/smoke_projectile.tscn" id="2_tyidm"]
+[ext_resource type="Texture2D" uid="uid://ddw7ujvb470ev" path="res://assets/item_art/battants_smoke_grenade.png" id="3_tyidm"]
+[ext_resource type="Texture2D" uid="uid://r0h1csoeod5g" path="res://assets/item_art/tähtäys_viiva.png" id="4_7bqfi"]
+
+[node name="smoke" type="Node2D"]
+script = ExtResource("1_7pmlm")
+smoke_projectile_scene = ExtResource("2_tyidm")
+
+[node name="smoke" type="Sprite2D" parent="."]
+texture = ExtResource("3_tyidm")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+
+[node name="focus_line" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+texture = ExtResource("4_7bqfi")
