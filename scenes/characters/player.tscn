@@ -1,9 +1,10 @@
-[gd_scene load_steps=58 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=59 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
 [ext_resource type="PackedScene" uid="uid://demldhr5ptla3" path="res://scenes/ui/damage_number.tscn" id="2_rpnd8"]
 [ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="3_6eyoc"]
+[ext_resource type="PackedScene" uid="uid://d3vkn7oktrgq8" path="res://scenes/ui/pickup_popup.tscn" id="3_tswxa"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
 [ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_eojnx"]
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
@@ -267,6 +268,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_it4js")
 damage_number_scene = ExtResource("2_rpnd8")
+pickup_popup_scene = ExtResource("3_tswxa")
 ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn")])
 ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
 utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx")])
@@ -327,16 +329,29 @@ value = 100.0
 texture_under = ExtResource("5_a46ul")
 texture_progress = ExtResource("6_ea28a")
 
-[node name="pickup" type="Label" parent="UI"]
+[node name="pc_pickup" type="Label" parent="UI"]
 visible = false
 z_index = 21
-offset_left = -18.0
+offset_left = -31.000002
 offset_top = -31.000002
-offset_right = 38.0
+offset_right = 57.0
 offset_bottom = -23.000002
 scale = Vector2(0.7254638, 0.7254638)
-text = "pickup!"
+text = "E to pickup"
 label_settings = SubResource("LabelSettings_j8g38")
+horizontal_alignment = 1
+
+[node name="controller_pickup" type="Label" parent="UI"]
+visible = false
+z_index = 21
+offset_left = -52.0
+offset_top = -31.000002
+offset_right = 84.0
+offset_bottom = -23.000002
+scale = Vector2(0.7254638, 0.7254638)
+text = " square to pickup"
+label_settings = SubResource("LabelSettings_j8g38")
+horizontal_alignment = 1
 
 [node name="MeleeSocket" type="Node2D" parent="UI"]
 visible = false
