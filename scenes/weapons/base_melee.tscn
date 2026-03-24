@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cf42u3xh0a26"]
+
+[node name="BaseMelee" type="Node2D"]

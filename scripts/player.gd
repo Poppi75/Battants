@@ -88,6 +88,7 @@ var move_input: Vector2 = Vector2.ZERO
 var shoot_held: bool = false
 var aim_direction: Vector2 = Vector2.RIGHT
 var can_move := false
+var prev_pickup_pressed := false
 
 # =========================
 # EQUIPPED ITEMS
@@ -442,15 +443,18 @@ func _pickup_area_entered() -> void:
 func _pickup_area_exited() -> void:
 	_pickup_overlap_count = max(0, _pickup_overlap_count - 1)
 	set_pickup_hint(_pickup_overlap_count > 0)
+	
 func is_pickup_pressed() -> bool:
 	# Keyboard/mouse player
 	if device_id == -1:
 		return Input.is_action_just_pressed("pickup")
 
-	# Gamepad player (Square on PlayStation layout)
-	# In Godot constants, this is typically JOY_BUTTON_X (left face button).
-	# (On Xbox pads this physical button is "X", on PS it's "Square".)
-	return Input.is_joy_button_pressed(device_id, JOY_BUTTON_X)
+	var pressed := Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER)
+
+	var just_pressed := pressed and not prev_pickup_pressed
+	prev_pickup_pressed = pressed
+
+	return just_pressed
 
 func pickup() -> void:
 	var item_type := _pick_random_item_type()
