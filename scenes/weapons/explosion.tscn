@@ -16,7 +16,7 @@ colors = PackedColorArray(0.99160606, 1, 0.4961443, 1, 1, 0.52156866, 0, 1, 1, 0
 gradient = SubResource("Gradient_4u5ba")
 
 [sub_resource type="Curve" id="Curve_wbm2e"]
-_data = [Vector2(0, 0.10112357), 0.0, 0.0, 0, 0, Vector2(0.5986842, 0.5955056), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.10112357), 0.0, 0.0, 0, 0, Vector2(0.6287879, 0.73033714), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_mbvir"]
@@ -59,8 +59,9 @@ amount = 200
 texture = ExtResource("2_llixc")
 lifetime = 0.6
 one_shot = true
-speed_scale = 7.0
+speed_scale = 2.5
 explosiveness = 1.0
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_2q87t")
 
 [node name="explosion" type="AudioStreamPlayer2D" parent="."]

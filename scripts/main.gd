@@ -2,6 +2,7 @@ extends Node2D
 
 const PlayerScene := preload("res://scenes/characters/player.tscn")
 
+
 # =====================================================
 # CAMERA / UI
 # =====================================================
@@ -11,6 +12,7 @@ const PlayerScene := preload("res://scenes/characters/player.tscn")
 var camera: Camera2D
 var winner: Label
 var countdown_label: Label
+
 
 # =====================================================
 # SPAWNING
@@ -28,6 +30,7 @@ var player_number := 1
 var player_count := 0
 var match_started := false
 var maps = Global.maps
+
 
 # =====================================================
 # READY

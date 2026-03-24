@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dm8nkfq406wio"]
+
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="1_vnsas"]
+
+[resource]
+default_font = ExtResource("1_vnsas")

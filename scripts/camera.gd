@@ -1,6 +1,13 @@
 extends Camera2D
 
 # =====================================================
+# MOD MENU
+# =====================================================
+@onready var antler: VBoxContainer = $CanvasLayer/Antler
+@onready var kill_all: Button = $CanvasLayer/Antler/KillAll
+
+
+# =====================================================
 # ZOOM SETTINGS
 # =====================================================
 @export var zoom_out: float = 3.0
@@ -80,6 +87,9 @@ func add_shake(strength: float) -> void:
 # PHYSICS (LOGIC + APPLY SMOOTHING HERE)
 # =====================================================
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("modMenu"):
+		_toggle_mod_menu()
+	
 	# Filter to valid players (prevents invalid refs causing jumps)
 	var valid_players: Array[Player] = []
 	for p in players:
@@ -179,3 +189,16 @@ func _get_players_rect(valid_players: Array[Player]) -> Rect2:
 	rect.size.y = max(rect.size.y, 1.0)
 
 	return rect
+
+
+# =====================================================
+# MOD MENU
+# =====================================================
+func _toggle_mod_menu():
+	if antler.visible == false:
+		antler.visible = true
+		return
+	
+	if antler.visible == true:
+		antler.visible = false
+		return

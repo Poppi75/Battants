@@ -49,6 +49,7 @@ theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
 text = "Online"
+flat = true
 
 [node name="LocalButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -62,6 +63,7 @@ theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
 text = "Play"
+flat = true
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -74,6 +76,7 @@ theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
 text = "Options"
+flat = true
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -87,6 +90,7 @@ theme_override_fonts/font = ExtResource("2_1g8jr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
 text = "Quit"
+flat = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m1kxf")

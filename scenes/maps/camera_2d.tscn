@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bedp52x5ayk0o"]
+[gd_scene load_steps=10 format=3 uid="uid://bedp52x5ayk0o"]
 
 [ext_resource type="Script" uid="uid://cni5875kptjhx" path="res://scripts/camera.gd" id="1_2diq6"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_v3lps"]
+[ext_resource type="Theme" uid="uid://dm8nkfq406wio" path="res://assets/themes/camera_2d.tres" id="3_dfplr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v3lps"]
 font = ExtResource("2_v3lps")
@@ -123,3 +124,27 @@ grow_vertical = 2
 text = "5"
 label_settings = SubResource("LabelSettings_otufr")
 horizontal_alignment = 1
+
+[node name="Antler" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 44.0
+offset_top = 45.0
+offset_right = 300.0
+offset_bottom = 333.0
+theme_override_constants/separation = 40
+
+[node name="quickMods" type="Button" parent="CanvasLayer/Antler"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("3_dfplr")
+toggle_mode = true
+text = "-Quick Mods"
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Antler"]
+layout_mode = 2
+
+[node name="KillAll" type="Button" parent="CanvasLayer/Antler/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("3_dfplr")
+text = "Kill all players"
