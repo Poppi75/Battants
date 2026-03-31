@@ -36,21 +36,6 @@ offset_right = 333.0
 offset_bottom = 951.0
 theme_override_constants/separation = 40
 
-[node name="OnlineButton" type="Button" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
-theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
-theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_1g8jr")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
-text = "Online"
-flat = true
-
 [node name="LocalButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
@@ -97,7 +82,6 @@ stream = ExtResource("4_m1kxf")
 volume_db = 5.0
 autoplay = true
 
-[connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LocalButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
