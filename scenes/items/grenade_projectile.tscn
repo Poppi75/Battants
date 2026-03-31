@@ -13,6 +13,10 @@ z_index = 5
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_5jpuf")
+max_speed = 250.0
+decel = 2200.0
+max_travel_distance = 750.0
+max_lifetime = 2.0
 explode_scene = ExtResource("2_fhf7t")
 
 [node name="flashbang" type="Sprite2D" parent="."]

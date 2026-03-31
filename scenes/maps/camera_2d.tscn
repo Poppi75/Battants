@@ -126,6 +126,7 @@ label_settings = SubResource("LabelSettings_otufr")
 horizontal_alignment = 1
 
 [node name="Antler" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
 offset_left = 44.0
 offset_top = 45.0
 offset_right = 300.0
