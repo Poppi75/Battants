@@ -13,6 +13,10 @@ z_index = 5
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_wukjg")
+bounciness = 0.4
+max_travel_distance = 900.0
+distance_drag = 2.0
+max_lifetime = 2.5
 smoke_scene = ExtResource("2_hdpd4")
 
 [node name="smoke" type="Sprite2D" parent="."]

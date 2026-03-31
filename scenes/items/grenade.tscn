@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwewln63uqkbp"]
+
+[ext_resource type="Script" uid="uid://jom1mhv0iae8" path="res://scripts/items/grenade.gd" id="1_5wihj"]
+[ext_resource type="PackedScene" uid="uid://bxlkoahu5eusa" path="res://scenes/items/grenade_projectile.tscn" id="2_kvwp7"]
+[ext_resource type="Texture2D" uid="uid://cfqsd7pv156rd" path="res://assets/item_art/he_grenade.png" id="2_w026k"]
+[ext_resource type="Texture2D" uid="uid://r0h1csoeod5g" path="res://assets/item_art/tähtäys_viiva.png" id="4_mifc7"]
+
+[node name="grenade" type="Node2D"]
+script = ExtResource("1_5wihj")
+grenade_projectile_scene = ExtResource("2_kvwp7")
+
+[node name="grenade" type="Sprite2D" parent="."]
+texture = ExtResource("2_w026k")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+
+[node name="focus_line" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+texture = ExtResource("4_mifc7")

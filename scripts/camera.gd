@@ -4,7 +4,7 @@ extends Camera2D
 # MOD MENU
 # =====================================================
 @onready var antler: VBoxContainer = $CanvasLayer/Antler
-@onready var kill_all: Button = $CanvasLayer/Antler/KillAll
+@onready var kill_all: Button = $CanvasLayer/Antler/VBoxContainer/KillAll
 
 
 # =====================================================

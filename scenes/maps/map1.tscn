@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=4 uid="uid://6o5lbavf06x7"]
+[gd_scene load_steps=16 format=4 uid="uid://6o5lbavf06x7"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_tdg3v"]
 [ext_resource type="PackedScene" uid="uid://bedp52x5ayk0o" path="res://scenes/maps/camera_2d.tscn" id="2_ykcni"]
 [ext_resource type="Texture2D" uid="uid://c2yixj142shhl" path="res://assets/tilemaps/mattopeli_tilemap_best.png" id="3_bou56"]
 [ext_resource type="Texture2D" uid="uid://d30psi7s36ry" path="res://assets/tilemaps/matto_proto_parempi.png" id="4_7kr2o"]
+[ext_resource type="Texture2D" uid="uid://cif4k2l8p0y1h" path="res://assets/tilemaps/battants_textured_brown.png" id="5_bou56"]
 [ext_resource type="Texture2D" uid="uid://chlyxd6sapijb" path="res://assets/tilemaps/matto_tile_proto.png" id="5_r6505"]
 [ext_resource type="PackedScene" uid="uid://dx5sqqjomivsw" path="res://scenes/items/coinspawner.tscn" id="6_tdg3v"]
 [ext_resource type="AudioStream" uid="uid://bjs53xrjhh512" path="res://assets/8bit_sounds/battants_battlemusic2.mp3" id="8_bou56"]
+[ext_resource type="Texture2D" uid="uid://be0wsq1ikp8rv" path="res://assets/props/battants_root1.png" id="9_7kr2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("3_bou56")
@@ -46,12 +48,32 @@ texture_region_size = Vector2i(32, 32)
 5:1/0 = 0
 6:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7kr2o"]
+texture = ExtResource("5_bou56")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:1/0 = 0
+6:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_vnhni"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 15
 sources/1 = SubResource("TileSetAtlasSource_8cefm")
 sources/0 = SubResource("TileSetAtlasSource_fhurw")
+sources/2 = SubResource("TileSetAtlasSource_7kr2o")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_60ioe"]
 texture = ExtResource("5_r6505")
@@ -101,9 +123,14 @@ position = Vector2(43, 602)
 position = Vector2(1105, 42)
 
 [node name="coinspawner" parent="." instance=ExtResource("6_tdg3v")]
-position = Vector2(574, 320)
+position = Vector2(590, 347)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_bou56")
 autoplay = true
 parameters/looping = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 26
+position = Vector2(80, 302)
+texture = ExtResource("9_7kr2o")

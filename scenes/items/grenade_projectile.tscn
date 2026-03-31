@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxlkoahu5eusa"]
+
+[ext_resource type="Script" uid="uid://cke0o3x214uus" path="res://scripts/items/grenade_projectile.gd" id="1_5jpuf"]
+[ext_resource type="PackedScene" uid="uid://dvj7kditdrf2q" path="res://scenes/weapons/explosion.tscn" id="2_fhf7t"]
+[ext_resource type="Texture2D" uid="uid://cfqsd7pv156rd" path="res://assets/item_art/he_grenade.png" id="3_fhf7t"]
+[ext_resource type="AudioStream" uid="uid://ebfssrb7bpem" path="res://assets/8bit_sounds/battants_flysound.mp3" id="4_y31vb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksao6"]
+size = Vector2(12.744488, 7.2509336)
+
+[node name="flashbang_projectile" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_5jpuf")
+explode_scene = ExtResource("2_fhf7t")
+
+[node name="flashbang" type="Sprite2D" parent="."]
+texture = ExtResource("3_fhf7t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 2)
+scale = Vector2(0.54925704, 1.1033062)
+shape = SubResource("RectangleShape2D_ksao6")
+
+[node name="flying_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_y31vb")
+volume_db = -4.0

@@ -13,6 +13,8 @@ z_index = 5
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_3d3xu")
+bounciness = 0.4
+distance_drag = 2.0
 flash_scene = ExtResource("2_180fq")
 
 [node name="flashbang" type="Sprite2D" parent="."]

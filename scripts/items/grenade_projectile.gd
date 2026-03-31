@@ -11,8 +11,8 @@ extends CharacterBody2D
 @export var bounciness: float = 0.7
 
 # Distance-based slowdown
-@export var max_travel_distance: float = 3000.0
-@export var distance_drag: float = 1.5
+@export var max_travel_distance: float = 900.0
+@export var distance_drag: float = 2.5
 
 # Lifetime
 @export var max_lifetime: float = 1.8
@@ -21,9 +21,9 @@ extends CharacterBody2D
 @export var max_angular_speed: float = 14.0
 
 # =========================
-# SMOKE EFFECT
+# FLASH EFFECT
 # =========================
-@export var smoke_scene: PackedScene
+@export var explode_scene: PackedScene
 @onready var flying_sound: AudioStreamPlayer2D = $flying_sound
 
 # =========================
@@ -34,6 +34,7 @@ var current_speed: float = 0.0
 var accel_rate: float = 0.0
 var traveled_distance: float = 0.0
 var exploded: bool = false
+var damage_amount = 32
 
 var owner_player: Player = null
 
@@ -98,12 +99,11 @@ func explode() -> void:
 
 	exploded = true
 
-	if smoke_scene:
-		var smoke: Node2D = smoke_scene.instantiate()
-		smoke.global_position = global_position
-		if owner_player:
-			smoke.owner_player = owner_player
-		get_tree().current_scene.add_child(smoke)
+	if explode_scene:
+		var explosion: Node2D = explode_scene.instantiate()
+		explosion.global_position = global_position
+		get_tree().current_scene.add_child(explosion)
+		explosion.damage_amount = damage_amount
 
 	queue_free()
 
