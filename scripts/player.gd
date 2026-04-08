@@ -51,6 +51,7 @@ var stunned = null
 @onready var stunTimer: Timer = $stunTimer
 @onready var stunSound: AudioStreamPlayer2D = $stunSound
 @onready var stun_effect: AnimatedSprite2D = $stun_effect
+@onready var checker: Area2D = $checker
 
 var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
@@ -183,6 +184,9 @@ func _read_input() -> void:
 			$UI/slots.visible = true
 			_handle_item_selection_mouse()
 
+		if Input.is_action_pressed("flooverer"):
+			flowering()
+
 		var cam := get_viewport().get_camera_2d()
 		var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
 		var dir := world_mouse - global_position
@@ -198,8 +202,11 @@ func _read_input() -> void:
 		$UI/slots.visible = true
 		current_highlight.visible = true
 		_handle_item_selection_gamepad(device_id)
+
 	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
-		flower = true
+		flowering()
+
+
 
 
 func _get_shoot_for_device(pad: int) -> bool:
@@ -337,7 +344,7 @@ func take_damage(damage: int, is_headshot: bool = false) -> void:
 	health -= damage
 	damage_sound_play()
 
-	_spawn_damage_number(damage, is_headshot)
+	_spawn_damage_number(damage, is_headshot, false)
 
 	update_health_bars()
 	_flash_on_damage()
@@ -360,6 +367,15 @@ func die() -> void:
 		get_tree().current_scene.add_child(grave)
 	queue_free()
 
+func flower_heal() -> void:
+	health += 25
+	_spawn_damage_number(25, false, true)
+	update_health_bars()
+	
+func flowering() -> void:
+	for overlapped_area in checker.get_overlapping_areas():
+		if overlapped_area.has_method("apply_flowers"):
+			overlapped_area.call("apply_flowers", self)
 
 func update_health_bars() -> void:
 	if health_bar:
@@ -394,7 +410,7 @@ func _flash_on_damage() -> void:
 
 
 # --- Optional damage numbers ---
-func _spawn_damage_number(amount: int, is_headshot: bool) -> void:
+func _spawn_damage_number(amount: int, is_headshot: bool, is_heal: bool) -> void:
 	if damage_number_scene == null:
 		return
 
@@ -404,7 +420,7 @@ func _spawn_damage_number(amount: int, is_headshot: bool) -> void:
 	num.global_position = health_bar.global_position + Vector2(0, -8)
 
 	if num.has_method("setup"):
-		num.setup(amount, is_headshot)
+		num.setup(amount, is_headshot, is_heal)
 
 
 
