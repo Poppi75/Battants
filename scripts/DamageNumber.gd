@@ -6,12 +6,14 @@ var float_speed := 40
 var lifetime := 0.8
 var velocity := Vector2.ZERO
 
-func setup(damage: int, is_crit: bool = false):
+func setup(damage: int, is_crit: bool = false, is_heal: bool = false):
 	# Set text
 	label.text = str(damage)
 
 	# Color logic
-	if is_crit:
+	if is_heal:
+		label.modulate = Color(0.0, 1.0, 0.0, 1.0) # GREEN
+	elif is_crit:
 		label.modulate = Color(1.0, 0.85, 0.2) # GOLD
 		label.scale = Vector2(1.4, 1.4)
 	else:

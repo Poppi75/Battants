@@ -30,6 +30,7 @@ script = ExtResource("2_o60vs")
 
 [node name="flowers" type="Sprite2D" parent="apply_flowers"]
 visible = false
+z_index = 2
 position = Vector2(-1, 1)
 texture = ExtResource("3_ms84t")
 
