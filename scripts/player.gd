@@ -198,6 +198,8 @@ func _read_input() -> void:
 		$UI/slots.visible = true
 		current_highlight.visible = true
 		_handle_item_selection_gamepad(device_id)
+	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
+		flower = true
 
 
 func _get_shoot_for_device(pad: int) -> bool:

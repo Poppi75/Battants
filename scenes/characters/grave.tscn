@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpj1f0gd8rmf4"]
+[gd_scene load_steps=5 format=3 uid="uid://bpj1f0gd8rmf4"]
 
 [ext_resource type="Texture2D" uid="uid://svbd6sbtp36d" path="res://assets/player/grave.png" id="1_eilyl"]
+[ext_resource type="Script" uid="uid://3gkc6cnfxky1" path="res://scripts/apply_flowers.gd" id="2_o60vs"]
+[ext_resource type="Texture2D" uid="uid://bi8p73uoaxen0" path="res://assets/props/bouquet_battants.png" id="3_ms84t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_am12w"]
+radius = 13.5
+height = 32.0
 
 [node name="grave" type="Node2D"]
 z_index = 1
@@ -18,3 +24,18 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_eilyl")
+
+[node name="apply_flowers" type="Area2D" parent="."]
+script = ExtResource("2_o60vs")
+
+[node name="flowers" type="Sprite2D" parent="apply_flowers"]
+visible = false
+position = Vector2(-1, 1)
+texture = ExtResource("3_ms84t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="apply_flowers"]
+position = Vector2(-0.5, 2)
+shape = SubResource("CapsuleShape2D_am12w")
+
+[connection signal="body_entered" from="apply_flowers" to="apply_flowers" method="_on_body_entered"]
+[connection signal="body_exited" from="apply_flowers" to="apply_flowers" method="_on_body_exited"]

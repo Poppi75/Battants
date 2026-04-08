@@ -34,7 +34,7 @@ var current_speed: float = 0.0
 var accel_rate: float = 0.0
 var traveled_distance: float = 0.0
 var exploded: bool = false
-var damage_amount = 32
+var damage_amount = 43
 
 var owner_player: Player = null
 
