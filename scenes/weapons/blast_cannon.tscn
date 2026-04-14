@@ -1,0 +1,111 @@
+[gd_scene load_steps=17 format=3 uid="uid://bd2h6av3wtpy7"]
+
+[ext_resource type="Script" uid="uid://ctsvoscbfb68s" path="res://scripts/weapons/script_blastcannon.gd" id="1_jldo0"]
+[ext_resource type="Texture2D" uid="uid://bkxwucxn2erig" path="res://assets/weapons/blast_cannon_charge.png" id="2_2f1kq"]
+[ext_resource type="PackedScene" uid="uid://bcdg1hmkh00ob" path="res://scenes/weapons/bullet_blast_cannon.tscn" id="2_ojk3f"]
+[ext_resource type="Texture2D" uid="uid://bjaadt6tr1yjr" path="res://assets/weapons/blast_cannon_shoot.png" id="3_ojk3f"]
+[ext_resource type="AudioStream" uid="uid://chyupl83rpa7f" path="res://assets/8bit_sounds/ak47shoot_battants.mp3" id="5_06ja1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdpov"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omaxk"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51x78"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06ja1"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwthd"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj6o4"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx5mm"]
+atlas = ExtResource("2_2f1kq")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54qa4"]
+atlas = ExtResource("3_ojk3f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyx3b"]
+atlas = ExtResource("3_ojk3f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1moes"]
+atlas = ExtResource("3_ojk3f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_khwbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdpov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omaxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51x78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06ja1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwthd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj6o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx5mm")
+}],
+"loop": false,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54qa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyx3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1moes")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[node name="blast_cannon" type="Node2D"]
+script = ExtResource("1_jldo0")
+bullet_scene = ExtResource("2_ojk3f")
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(15, 0)
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="cannon_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, 0)
+sprite_frames = SubResource("SpriteFrames_khwbl")
+animation = &"shoot"
+frame = 2
+frame_progress = 1.0
+
+[node name="shoot_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_06ja1")
+volume_db = 12.0
