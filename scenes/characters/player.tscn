@@ -341,11 +341,10 @@ texture_progress = ExtResource("4_aod5d")
 
 [node name="extra_health" type="TextureProgressBar" parent="UI"]
 z_index = 21
-offset_left = -8.0
+offset_left = 8.0
 offset_top = -24.0
-offset_right = 32.0
+offset_right = 48.0
 offset_bottom = 16.0
-value = 100.0
 allow_greater = true
 texture_progress = ExtResource("24_6rclf")
 

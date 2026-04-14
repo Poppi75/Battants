@@ -386,7 +386,8 @@ func flowering() -> void:
 func update_health_bars() -> void:
 	if health_bar:
 		health_bar.value = health
-		extra_health.value = health
+		if health_bar.value >= 100:
+			extra_health.value = health - 100
 
 	_damage_update_seq += 1
 	var seq := _damage_update_seq
