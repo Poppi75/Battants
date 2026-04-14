@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=65 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
+[ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="26_dg40j"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="26_vwwfy"]
 
@@ -342,24 +343,43 @@ value = 100.0
 texture_under = ExtResource("5_a46ul")
 texture_progress = ExtResource("6_ea28a")
 
-[node name="pc_pickup" type="Label" parent="UI"]
+[node name="pc_pickup" type="Control" parent="UI"]
 visible = false
 z_index = 21
-offset_left = -31.000002
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="pc_pickup" type="Label" parent="UI/pc_pickup"]
+z_index = 21
+layout_mode = 0
+offset_left = -15.392579
 offset_top = -31.000002
-offset_right = 57.0
+offset_right = 56.60742
 offset_bottom = -23.000002
 scale = Vector2(0.7254638, 0.7254638)
-text = "E to pickup"
+text = "to pickup"
 label_settings = SubResource("LabelSettings_j8g38")
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/pc_pickup"]
+z_index = 21
+layout_mode = 0
+offset_left = -30.0
+offset_top = -33.0
+offset_right = -14.0
+offset_bottom = -17.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_dg40j")
 
 [node name="controller_pickup" type="Control" parent="UI"]
 visible = false
 z_index = 21
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
+offset_left = -9.0
+offset_right = 31.0
 offset_bottom = 40.0
 
 [node name="controller_pickup" type="Label" parent="UI/controller_pickup"]
