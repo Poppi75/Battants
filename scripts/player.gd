@@ -65,8 +65,8 @@ var _facing_angle: float = 0.0
 @onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
-@onready var controller_pickup_label: Label = $UI/controller_pickup
-@onready var pc_pickup_label: CanvasItem = $UI/pc_pickup
+@onready var controller_pickup_label = $UI/controller_pickup
+@onready var pc_pickup_label = $UI/pc_pickup
 @onready var bullet_count: Label = $UI/slots/ranged/bullet_count
 @onready var bullet_count_icon: TextureRect = $UI/slots/ranged/bullet_count_icon
 
@@ -358,13 +358,16 @@ func damage_sound_play():
 
 
 func die() -> void:
+	call_deferred("_die_deferred")
+
+func _die_deferred() -> void:
 	died.emit(self)
+
 	if grave_scene:
 		var grave = grave_scene.instantiate()
 		grave.global_position = global_position
-
-		# Add to the current level/world (NOT to the player, since player is about to be freed)
 		get_tree().current_scene.add_child(grave)
+
 	queue_free()
 
 func flower_heal() -> void:

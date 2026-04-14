@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=64 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
+[ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="26_vwwfy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jukt"]
 radius = 4.0
@@ -353,17 +354,34 @@ text = "E to pickup"
 label_settings = SubResource("LabelSettings_j8g38")
 horizontal_alignment = 1
 
-[node name="controller_pickup" type="Label" parent="UI"]
+[node name="controller_pickup" type="Control" parent="UI"]
 visible = false
 z_index = 21
-offset_left = -52.0
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="controller_pickup" type="Label" parent="UI/controller_pickup"]
+z_index = 21
+layout_mode = 0
+offset_left = -5.5703163
 offset_top = -31.000002
-offset_right = 84.0
+offset_right = 66.42969
 offset_bottom = -23.000002
 scale = Vector2(0.7254638, 0.7254638)
-text = " square to pickup"
+text = "to pickup"
 label_settings = SubResource("LabelSettings_j8g38")
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/controller_pickup"]
+z_index = 21
+layout_mode = 0
+offset_left = -25.0
+offset_top = -40.0
+offset_right = -9.0
+offset_bottom = -24.0
+texture = ExtResource("26_vwwfy")
 
 [node name="MeleeSocket" type="Node2D" parent="UI"]
 visible = false
