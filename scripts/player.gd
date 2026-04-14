@@ -27,12 +27,13 @@ var stunned = null
 # =========================
 @export_category("Item Scenes")
 
+@export var base_melee: PackedScene
 @export var melee_items: Array[PackedScene]
 @export var ranged_items: Array[PackedScene]
 @export var ability_items: Array[PackedScene]
 @export var utility_items: Array[PackedScene]
 
-@onready var melee_socket: Node2D = $UI/MeleeSocket
+@onready var melee_socket: Node2D = $MeleeSocket
 @onready var ranged_socket: Node2D = $UI/RangedSocket
 @onready var ability_socket: Node2D = $UI/AbilitySocket
 @onready var utility_socket: Node2D = $UI/UtilitySocket
@@ -53,9 +54,9 @@ var stunned = null
 @onready var stun_effect: AnimatedSprite2D = $stun_effect
 @onready var checker: Area2D = $checker
 
-var equipped_slot := "ranged"
+var equipped_slot := "melee"
 var _facing_angle: float = 0.0
-@onready var current_highlight = $UI/slots/ranged/highlight
+@onready var current_highlight = $UI/slots/melee/highlight
 @onready var ranged_icon = $"UI/slots/ranged/pyssykkä"
 @onready var ability_icon = $UI/slots/ability/ability
 @onready var melee_icon = $UI/slots/melee/melee
@@ -119,6 +120,7 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
+	equip_base_melee()
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
@@ -141,7 +143,7 @@ func _ready() -> void:
 # =========================
 # PHYSICS
 # =========================
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void: 
 	if not can_move:
 		return
 	_read_input()
@@ -558,6 +560,12 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 		popup_icon = item.icon
 
 	_spawn_pickup_popup(popup_text, popup_icon)
+
+func equip_base_melee():
+	var item = base_melee.instantiate()
+	melee_socket.add_child(item)
+	equipped["melee"] = item
+	item.owner_player = self
 
 func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 	if pickup_popup_scene == null:
