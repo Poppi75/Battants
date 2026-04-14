@@ -1,3 +1,23 @@
-[gd_scene format=3 uid="uid://cf42u3xh0a26"]
+[gd_scene load_steps=3 format=3 uid="uid://cf42u3xh0a26"]
+
+[ext_resource type="Script" uid="uid://uhcripabjwip" path="res://scripts/weapons/base_melee.gd" id="1_8fj4j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fnepr"]
+radius = 1.0
+height = 6.0
 
 [node name="BaseMelee" type="Node2D"]
+script = ExtResource("1_8fj4j")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_fnepr")
+
+[node name="BiteCooldown" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="BiteCooldown" to="." method="_on_bite_cooldown_timeout"]
