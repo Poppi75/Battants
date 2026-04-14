@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=67 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
-[ext_resource type="PackedScene" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
+[ext_resource type="PackedScene" uid="uid://f2dn24clrfbt" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
 [ext_resource type="PackedScene" uid="uid://cwewln63uqkbp" path="res://scenes/items/grenade.tscn" id="14_5jukt"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
+[ext_resource type="Texture2D" uid="uid://csxexb5tswdx4" path="res://assets/player/extra_health_bar.png" id="24_6rclf"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
 [ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="26_dg40j"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
@@ -337,6 +338,16 @@ offset_right = 32.0
 offset_bottom = 16.0
 value = 100.0
 texture_progress = ExtResource("4_aod5d")
+
+[node name="extra_health" type="TextureProgressBar" parent="UI"]
+z_index = 21
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 32.0
+offset_bottom = 16.0
+value = 100.0
+allow_greater = true
+texture_progress = ExtResource("24_6rclf")
 
 [node name="damagetaken" type="TextureProgressBar" parent="UI"]
 z_index = 20

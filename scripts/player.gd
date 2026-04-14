@@ -15,6 +15,7 @@ var _damage_update_seq: int = 0
 var stunned = null
 
 @onready var health_bar: TextureProgressBar = $UI/health
+@onready var extra_health: TextureProgressBar = $UI/extra_health
 @onready var damageTaken_bar: TextureProgressBar = $UI/damagetaken
 
 # Optional: damage numbers
@@ -385,6 +386,7 @@ func flowering() -> void:
 func update_health_bars() -> void:
 	if health_bar:
 		health_bar.value = health
+		extra_health.value = health
 
 	_damage_update_seq += 1
 	var seq := _damage_update_seq

@@ -142,6 +142,3 @@ parameters/looping = true
 z_index = 26
 position = Vector2(80, 302)
 texture = ExtResource("9_7kr2o")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.6542321, 0.6542321, 0.654232, 1)
