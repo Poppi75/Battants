@@ -20,7 +20,7 @@ func _on_life_time_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("players"):
-		var damage_amount := randi_range(8, 32)
+		var damage_amount := randi_range(15, 38)
 		print("[Bullet] Body hit for %d" % damage_amount)
 		body.take_damage(damage_amount, false)
 
