@@ -72,6 +72,7 @@ func _shoot() -> void:
 	
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = rotation
+	bullet.owner_player = owner_player
 	
 	total_ammo -= 1
 	owner_player.update_bullet_count()
