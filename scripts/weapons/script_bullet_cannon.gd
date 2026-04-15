@@ -8,7 +8,8 @@ extends Area2D
 @export var bullet_scene: PackedScene = preload("res://scenes/weapons/bullet_blast_cannon.tscn")
 @export var bullet_count: int = 5
 
-# 0 = no split. 1 = split once. 2 = split, and children split once, etc.
+# How many times THIS bullet instance can split on separate collisions.
+# Children will be spawned with splits_remaining = 0 (no splitting).
 @export var splits_remaining: int = 2
 
 # If true, this bullet will be destroyed immediately after it successfully splits once.
@@ -37,7 +38,7 @@ func spawn_split_bullets() -> bool:
 	if splits_remaining <= 0:
 		return false
 
-	# Consume one split "charge" on THIS bullet; children inherit the remainder.
+	# Consume one split "charge" on THIS bullet
 	splits_remaining -= 1
 	_has_split_once = true
 
@@ -47,16 +48,18 @@ func spawn_split_bullets() -> bool:
 
 	for i in range(bullet_count):
 		var new_bullet := bullet_scene.instantiate()
-		get_parent().add_child(new_bullet)
+		get_parent().call_deferred("add_child", new_bullet)
 
 		new_bullet.global_position = global_position
 		new_bullet.rotation = start_angle + deg_to_rad(spread_angle * float(i))
+		
+		if owner_player != null:
+			new_bullet.owner_player = owner_player
 
-		# Inherit ownership + remaining splits (THIS is what allows children to split)
-		new_bullet.owner_player = owner_player
-		new_bullet.splits_remaining = splits_remaining
+		# IMPORTANT: children cannot split
+		new_bullet.splits_remaining = 0
 
-		# Optional: inherit the same behavior to destroy-after-split
+		# Optional: keep same destroy-after-split setting (won't matter since splits_remaining=0)
 		new_bullet.destroy_after_first_split = destroy_after_first_split
 
 	return true
