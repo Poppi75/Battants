@@ -483,39 +483,44 @@ func is_pickup_pressed() -> bool:
 	return just_pressed
 
 func pickup() -> void:
-	var item_type := _pick_random_item_type()
-	if item_type == "":
+	var chosen := _pick_random_item_from_pool()
+	if chosen.is_empty():
 		return
+
+	var item_type: String = chosen["type"]
 
 	match item_type:
 		"melee":
-			_equip_item("melee", melee_items, melee_socket)
+			_equip_specific_item("melee", chosen["scene"], melee_socket)
 		"ranged":
-			_equip_item("ranged", ranged_items, ranged_socket)
+			_equip_specific_item("ranged", chosen["scene"], ranged_socket)
 			update_bullet_count()
 		"ability":
-			call_deferred("_equip_item", "ability", ability_items, ability_socket)
+			call_deferred("_equip_specific_item", "ability", chosen["scene"], ability_socket)
 		"utility":
-			_equip_item("utility", utility_items, utility_socket)
+			_equip_specific_item("utility", chosen["scene"], utility_socket)
 
 
-func _pick_random_item_type() -> String:
-	var available: Array[String] = []
+func _pick_random_item_from_pool() -> Dictionary:
+	var pool: Array[Dictionary] = []
 
-	if not melee_items.is_empty():
-		available.append("melee")
-	if not ranged_items.is_empty():
-		available.append("ranged")
-	if not ability_items.is_empty():
-		available.append("ability")
-	if not utility_items.is_empty():
-		available.append("utility")
+	for item in melee_items:
+		pool.append({ "type": "melee", "scene": item })
 
-	return available.pick_random() if not available.is_empty() else ""
+	for item in ranged_items:
+		pool.append({ "type": "ranged", "scene": item })
+
+	for item in ability_items:
+		pool.append({ "type": "ability", "scene": item })
+
+	for item in utility_items:
+		pool.append({ "type": "utility", "scene": item })
+
+	return pool.pick_random() if not pool.is_empty() else {}
 
 
-func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2D) -> void:
-	if item_list.is_empty():
+func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: Node2D) -> void:
+	if item_scene == null:
 		return
 
 	# Remove old equipped item in that slot
@@ -523,8 +528,8 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 		equipped[item_type].queue_free()
 		equipped[item_type] = null
 
-	# Pick + instance new item
-	var item = item_list.pick_random().instantiate()
+	# Instance chosen item
+	var item = item_scene.instantiate()
 	socket.add_child(item)
 
 	# Reset local transform in socket
@@ -540,21 +545,23 @@ func _equip_item(item_type: String, item_list: Array[PackedScene], socket: Node2
 	# Store equipped reference
 	equipped[item_type] = item
 
-	# Update UI slot icons (your existing logic)
+	# Update UI slot icons
 	if item_type == "ranged":
 		ranged_icon.texture = item.icon
 		bullet_count_icon.visible = true
+
 	if item_type == "melee":
 		melee_icon.texture = item.icon
+
 	if item_type == "ability":
 		ability_icon.texture = item.icon
+
 	if item_type == "utility":
 		utility_icon.texture = item.icon
 
-	# Spawn pickup popup using same icon
-	# Requires: @export var pickup_popup_scene: PackedScene
-	# and a helper func: _spawn_pickup_popup(text, icon)
+	# Pickup popup
 	var popup_text := "+"
+
 	if "display_name" in item and str(item.display_name) != "":
 		popup_text = "+"
 
