@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxgdfdphoeh55"]
+
+[ext_resource type="Script" uid="uid://8s2mfnbtfllv" path="res://scenes/ui/options.gd" id="1_hhwow"]
+[ext_resource type="Texture2D" uid="uid://4p77cgkigpw6" path="res://assets/ui art/mainmenu_art.png" id="2_wby6m"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_pykmj"]
+[ext_resource type="AudioStream" uid="uid://ccp8sxnngwhlm" path="res://assets/8bit_sounds/battants_music.mp3" id="4_gdfy8"]
+[ext_resource type="Texture2D" uid="uid://be3vo1g3ofawl" path="res://assets/ui art/controller_input_map.png" id="5_wby6m"]
+[ext_resource type="Texture2D" uid="uid://ck4edi4gmaw3q" path="res://assets/ui art/maybe_keyboard_input_map.png" id="6_pykmj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1kxf"]
+
+[node name="options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hhwow")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1760.0
+offset_bottom = -990.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(12.050273, 12.050273)
+texture = ExtResource("2_wby6m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 703.0
+offset_right = 333.0
+offset_bottom = 951.0
+theme_override_constants/separation = 40
+
+[node name="LocalButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
+theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
+theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_pykmj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
+text = "KBM"
+flat = true
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
+theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
+theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
+theme_override_fonts/font = ExtResource("3_pykmj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
+text = "CON"
+flat = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_pykmj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1kxf")
+text = "Back"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gdfy8")
+volume_db = 5.0
+autoplay = true
+
+[node name="controller_input_map" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 379.0
+offset_top = 441.0
+offset_right = 507.0
+offset_bottom = 569.0
+scale = Vector2(5, 5)
+texture = ExtResource("5_wby6m")
+
+[node name="keyboard_input_map" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 397.00003
+offset_top = 520.0
+offset_right = 525.0
+offset_bottom = 648.0
+scale = Vector2(5, 5)
+texture = ExtResource("6_pykmj")
+
+[connection signal="pressed" from="VBoxContainer/LocalButton" to="." method="_on_local_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
