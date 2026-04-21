@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="6_7vyk4"]
 [ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_ea28a"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="6_jk2m4"]
+[ext_resource type="PackedScene" uid="uid://dppnx51cugxd" path="res://scenes/weapons/knife.tscn" id="6_s1x7u"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="7_2l4js"]
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
@@ -28,14 +29,13 @@
 [ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="19_wqk1x"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
-[ext_resource type="Texture2D" uid="uid://cfueha3fw75xb" path="res://assets/item_slot_art/melee_slot_icon.png" id="22_o6auj"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
 [ext_resource type="Texture2D" uid="uid://csxexb5tswdx4" path="res://assets/player/extra_health_bar.png" id="24_6rclf"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
 [ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="26_dg40j"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="26_vwwfy"]
-[ext_resource type="PackedScene" uid="uid://cf42u3xh0a26" path="res://scenes/weapons/base_melee.tscn" id="34_7xgtv"]
+[ext_resource type="Texture2D" uid="uid://di6efswf1q25t" path="res://assets/item_slot_art/tuutikki.png" id="36_s1x7u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jukt"]
 radius = 4.0
@@ -281,7 +281,8 @@ script = ExtResource("1_it4js")
 damage_number_scene = ExtResource("2_rpnd8")
 pickup_popup_scene = ExtResource("3_tswxa")
 grave_scene = ExtResource("4_aqa0x")
-base_melee = ExtResource("34_7xgtv")
+base_melee = ExtResource("6_s1x7u")
+melee_items = Array[PackedScene]([ExtResource("6_s1x7u")])
 ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn"), ExtResource("11_s0anf")])
 ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
 utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx"), ExtResource("12_aqa0x"), ExtResource("14_5jukt")])
@@ -518,7 +519,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("22_o6auj")
+texture = ExtResource("36_s1x7u")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/melee"]
 visible = false

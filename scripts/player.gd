@@ -38,7 +38,7 @@ var stunned = null
 @onready var ranged_socket: Node2D = $UI/RangedSocket
 @onready var ability_socket: Node2D = $UI/AbilitySocket
 @onready var utility_socket: Node2D = $UI/UtilitySocket
-@onready var currently_equipped = $UI/RangedSocket
+@onready var currently_equipped = $MeleeSocket
 @onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
 # =========================
@@ -64,7 +64,7 @@ var _facing_angle: float = 0.0
 @onready var utility_icon = $UI/slots/utility/utility
 @onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
 @onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
-@onready var base_melee_icon = load("res://assets/item_slot_art/melee_slot_icon.png")
+@onready var base_melee_icon = load("res://assets/item_slot_art/tuutikki.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
 @onready var controller_pickup_label = $UI/controller_pickup
