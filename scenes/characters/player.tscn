@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
 [ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
 [ext_resource type="PackedScene" uid="uid://bd2h6av3wtpy7" path="res://scenes/weapons/blast_cannon.tscn" id="11_s0anf"]
-[ext_resource type="PackedScene" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
+[ext_resource type="PackedScene" uid="uid://f2dn24clrfbt" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
 [ext_resource type="PackedScene" uid="uid://cwewln63uqkbp" path="res://scenes/items/grenade.tscn" id="14_5jukt"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
