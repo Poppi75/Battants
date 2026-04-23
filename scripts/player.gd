@@ -167,9 +167,10 @@ func _physics_process(delta: float) -> void:
 		if anim.animation != "p" + str(player_number) + "_idle":
 			anim.play("p" + str(player_number) + "_idle")
 
-	if $UI/slots.visible == true \
-	and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER) \
-	and not Input.is_action_pressed("item_slot"):
+	if $UI/slots.visible == true and device_id == -1 and not Input.is_action_pressed("item_slot"):
+		$UI/slots.visible = false
+	
+	elif $UI/slots.visible == true and device_id != -1 and not Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
 		$UI/slots.visible = false
 
 	move_and_slide()
