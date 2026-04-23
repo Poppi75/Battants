@@ -92,6 +92,7 @@ var shoot_held: bool = false
 var aim_direction: Vector2 = Vector2.RIGHT
 var can_move := false
 var prev_pickup_pressed := false
+var pickup_just_pressed: bool = false
 
 # =========================
 # EQUIPPED ITEMS
@@ -183,6 +184,7 @@ func _read_input() -> void:
 	if device_id == -1:
 		move_input = Input.get_vector("left", "right", "up", "down")
 		shoot_held = Input.is_action_pressed("attack")
+		pickup_just_pressed = Input.is_action_just_pressed("pickup")
 
 		if Input.is_action_pressed("item_slot"):
 			$UI/slots.visible = true
@@ -206,7 +208,11 @@ func _read_input() -> void:
 		$UI/slots.visible = true
 		current_highlight.visible = true
 		_handle_item_selection_gamepad(device_id)
-
+	
+	var pressed := Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER)
+	pickup_just_pressed = pressed and not prev_pickup_pressed
+	prev_pickup_pressed = pressed
+	
 	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
 		flowering()
 
@@ -471,16 +477,7 @@ func _pickup_area_exited() -> void:
 	set_pickup_hint(_pickup_overlap_count > 0)
 	
 func is_pickup_pressed() -> bool:
-	# Keyboard/mouse player
-	if device_id == -1:
-		return Input.is_action_just_pressed("pickup")
-
-	var pressed := Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER)
-
-	var just_pressed := pressed and not prev_pickup_pressed
-	prev_pickup_pressed = pressed
-
-	return just_pressed
+	return pickup_just_pressed
 
 func pickup() -> void:
 	var chosen := _pick_random_item_from_pool()
