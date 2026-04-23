@@ -3,12 +3,9 @@ extends Control
 const MAX_PLAYERS := 4
 const MIN_PLAYERS := 2
 
-var joined_devices: Array[int] = []      # device ids (-1 for KBM)
 var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
 
 var players_joined = 0
-func _ready() -> void:
-	randomize()
 	
 @onready var players = [
 	$p1_txt,
@@ -29,6 +26,10 @@ var maps = Global.maps
 var mouse_texture = preload("res://assets/ui art/ui_mouse.png")
 var controller_texture = preload("res://assets/ui art/ui_controller.png")
 
+func _ready() -> void:
+	update_players_joined()
+	randomize()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("join"):
 		var device_id = _get_event_device_id(event)
@@ -36,9 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		# Prevent multiple joins from KBM (-1)
-		if joined_devices.has(device_id):
+		if Global.joined_devices.has(device_id):
 			return
-		if joined_devices.size() >= MAX_PLAYERS:
+		if Global.joined_devices.size() >= MAX_PLAYERS:
 			return
 
 		_add_device(device_id)
@@ -48,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if device_id == null:
 			return
 			
-		if joined_devices.has(device_id):
+		if Global.joined_devices.has(device_id):
 			_remove_device(device_id)
 
 func _get_event_device_id(event: InputEvent):
@@ -59,13 +60,13 @@ func _get_event_device_id(event: InputEvent):
 	return null
 
 func _add_device(device_id: int) -> void:
-	joined_devices.append(device_id)
+	Global.joined_devices.append(device_id)
 	print("Player joined with device:", device_id)
 	players_joined += 1
 	update_players_joined()
 	
 func _remove_device(device_id: int) -> void:
-	joined_devices.erase(device_id)
+	Global.joined_devices.erase(device_id)
 	print("player left with device", device_id)
 	players_joined -= 1
 	players[players_joined].visible = false
@@ -78,22 +79,22 @@ func _remove_device(device_id: int) -> void:
 	# add_child(p)
 	
 func update_players_joined():
-	for i in range(joined_devices.size()):
+	for i in range(Global.joined_devices.size()):
 		players[i].visible = true
 		controls[i].visible = true
-		if joined_devices[i] != -1:
+		if Global.joined_devices[i] != -1:
 			controls[i].texture = controller_texture
 		else:
 			controls[i].texture = mouse_texture
 	
 
 func _start_match() -> void:
-	if joined_devices.size() < MIN_PLAYERS:
+	if Global.joined_devices.size() < MIN_PLAYERS:
 		print("Need at least", MIN_PLAYERS, "players")
 		return
 
 	var bindings: Array = []
-	for device_id in joined_devices:
+	for device_id in Global.joined_devices:
 		bindings.append({ "device": device_id })
 
 	Global.player_bindings = bindings
@@ -103,3 +104,7 @@ func _start_match() -> void:
 
 func _on_settings_button_pressed() -> void:
 	_start_match()
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
