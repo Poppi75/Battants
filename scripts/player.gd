@@ -315,6 +315,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "melee"
 		current_highlight = $UI/slots/melee/highlight
 		currently_equipped = melee_socket
+		
 	elif angle >= 45 and angle < 135:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -323,6 +324,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "utility"
 		current_highlight = $UI/slots/utility/highlight
 		currently_equipped = utility_socket
+		
 	elif angle >= 135 and angle < 225:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -331,6 +333,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "ranged"
 		current_highlight = $UI/slots/ranged/highlight
 		currently_equipped = ranged_socket
+		
 	elif angle >= 225 and angle < 315:
 		currently_equipped.visible = false
 		current_highlight.visible = false
