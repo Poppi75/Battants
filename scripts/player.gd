@@ -194,7 +194,7 @@ func _read_input() -> void:
 
 		if Input.is_action_pressed("flooverer"):
 			flowering()
-
+ 
 		var cam := get_viewport().get_camera_2d()
 		var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
 		var dir := world_mouse - global_position
