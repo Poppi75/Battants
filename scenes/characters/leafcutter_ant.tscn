@@ -1,126 +1,111 @@
-[gd_scene load_steps=68 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=53 format=3 uid="uid://bqhwvtowk3tbp"]
 
-[ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
-[ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="2_kqtwu"]
-[ext_resource type="PackedScene" uid="uid://demldhr5ptla3" path="res://scenes/ui/damage_number.tscn" id="2_rpnd8"]
-[ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="3_6eyoc"]
-[ext_resource type="PackedScene" uid="uid://d3vkn7oktrgq8" path="res://scenes/ui/pickup_popup.tscn" id="3_tswxa"]
-[ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
-[ext_resource type="PackedScene" uid="uid://bpj1f0gd8rmf4" path="res://scenes/characters/grave.tscn" id="4_aqa0x"]
-[ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_eojnx"]
-[ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="5_a46ul"]
-[ext_resource type="PackedScene" uid="uid://bfbwvy7kl55e4" path="res://scenes/items/flashbang.tscn" id="5_jk2m4"]
-[ext_resource type="PackedScene" uid="uid://d1kffgd6w0sr1" path="res://scenes/weapons/weapon_homing_launcher.tscn" id="5_qgnko"]
-[ext_resource type="PackedScene" uid="uid://dfot2p3kwhpe1" path="res://scenes/weapons/sawed_off.tscn" id="5_xrqxk"]
-[ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="6_7vyk4"]
-[ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="6_ea28a"]
-[ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="6_jk2m4"]
-[ext_resource type="PackedScene" uid="uid://dppnx51cugxd" path="res://scenes/weapons/knife.tscn" id="6_s1x7u"]
-[ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="7_2l4js"]
-[ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="7_d6tgn"]
-[ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="8_jk2m4"]
-[ext_resource type="PackedScene" uid="uid://dyys0om4igwwa" path="res://scenes/abilities/shield_ability_icon.tscn" id="8_kmyvj"]
-[ext_resource type="PackedScene" uid="uid://bd2h6av3wtpy7" path="res://scenes/weapons/blast_cannon.tscn" id="11_s0anf"]
-[ext_resource type="PackedScene" uid="uid://f2dn24clrfbt" path="res://scenes/items/smoke.tscn" id="12_aqa0x"]
-[ext_resource type="PackedScene" uid="uid://cwewln63uqkbp" path="res://scenes/items/grenade.tscn" id="14_5jukt"]
-[ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="15_dm10o"]
-[ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_d6tgn"]
-[ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="18_kmyvj"]
-[ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
-[ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="19_wqk1x"]
-[ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
-[ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
-[ext_resource type="Texture2D" uid="uid://csxexb5tswdx4" path="res://assets/player/extra_health_bar.png" id="24_6rclf"]
-[ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
-[ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="26_dg40j"]
-[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="26_o6auj"]
-[ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="26_vwwfy"]
-[ext_resource type="Texture2D" uid="uid://di6efswf1q25t" path="res://assets/item_slot_art/tuutikki.png" id="36_s1x7u"]
+[ext_resource type="Script" uid="uid://4byl46bant13" path="res://scripts/characters/leafcutter_ant.gd" id="1_3e36t"]
+[ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="2_ncrot"]
+[ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="3_4lync"]
+[ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="4_xuq1n"]
+[ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="5_brhph"]
+[ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="6_trk3e"]
+[ext_resource type="AudioStream" uid="uid://co16gf6ubyy4k" path="res://assets/8bit_sounds/battants_stun_sound.mp3" id="7_xrgp6"]
+[ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="8_ajiqk"]
+[ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="9_i5xyg"]
+[ext_resource type="Texture2D" uid="uid://csxexb5tswdx4" path="res://assets/player/extra_health_bar.png" id="10_k8wke"]
+[ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="11_kxb0v"]
+[ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="12_1kubg"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="13_y1yub"]
+[ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="14_10ypb"]
+[ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="15_ocmd0"]
+[ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="16_afqct"]
+[ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="17_dt6oo"]
+[ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="18_w21ol"]
+[ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="19_44xlk"]
+[ext_resource type="Texture2D" uid="uid://di6efswf1q25t" path="res://assets/item_slot_art/tuutikki.png" id="20_fgj3i"]
+[ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="21_rsrcy"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jukt"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
-atlas = ExtResource("6_jk2m4")
+atlas = ExtResource("2_ncrot")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4v7y"]
-atlas = ExtResource("6_jk2m4")
+atlas = ExtResource("2_ncrot")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrqxk"]
-atlas = ExtResource("6_jk2m4")
+atlas = ExtResource("2_ncrot")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jukt"]
-atlas = ExtResource("6_jk2m4")
+atlas = ExtResource("2_ncrot")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vwwfy"]
-atlas = ExtResource("6_jk2m4")
+atlas = ExtResource("2_ncrot")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g66nw"]
-atlas = ExtResource("6_7vyk4")
+atlas = ExtResource("3_4lync")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpnd8"]
-atlas = ExtResource("6_7vyk4")
+atlas = ExtResource("3_4lync")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6tgn"]
-atlas = ExtResource("6_7vyk4")
+atlas = ExtResource("3_4lync")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3wg1y"]
-atlas = ExtResource("6_7vyk4")
+atlas = ExtResource("3_4lync")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kmyvj"]
-atlas = ExtResource("6_7vyk4")
+atlas = ExtResource("3_4lync")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2luo"]
-atlas = ExtResource("7_2l4js")
+atlas = ExtResource("4_xuq1n")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eir2k"]
-atlas = ExtResource("7_2l4js")
+atlas = ExtResource("4_xuq1n")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_inhyd"]
-atlas = ExtResource("7_2l4js")
+atlas = ExtResource("4_xuq1n")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wqk1x"]
-atlas = ExtResource("7_2l4js")
+atlas = ExtResource("4_xuq1n")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dm10o"]
-atlas = ExtResource("7_2l4js")
+atlas = ExtResource("4_xuq1n")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6auj"]
-atlas = ExtResource("8_jk2m4")
+atlas = ExtResource("5_brhph")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j8g38"]
-atlas = ExtResource("8_jk2m4")
+atlas = ExtResource("5_brhph")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tswxa"]
-atlas = ExtResource("8_jk2m4")
+atlas = ExtResource("5_brhph")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqa0x"]
-atlas = ExtResource("8_jk2m4")
+atlas = ExtResource("5_brhph")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yhyq5"]
-atlas = ExtResource("8_jk2m4")
+atlas = ExtResource("5_brhph")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_a46ul"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_f84ma"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -224,22 +209,22 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dg40j"]
-atlas = ExtResource("15_dm10o")
+atlas = ExtResource("6_trk3e")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xgtv"]
-atlas = ExtResource("15_dm10o")
+atlas = ExtResource("6_trk3e")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6rclf"]
-atlas = ExtResource("15_dm10o")
+atlas = ExtResource("6_trk3e")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s0anf"]
-atlas = ExtResource("15_dm10o")
+atlas = ExtResource("6_trk3e")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_s1x7u"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_u73mn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -259,53 +244,43 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wewdl"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5mb0v"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d6tgn"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vrmce"]
 radius = 3.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_j8g38"]
-font = ExtResource("26_o6auj")
+[sub_resource type="LabelSettings" id="LabelSettings_v52rb"]
+font = ExtResource("13_y1yub")
 font_size = 8
 
-[sub_resource type="LabelSettings" id="LabelSettings_o6auj"]
-font = ExtResource("26_o6auj")
+[sub_resource type="LabelSettings" id="LabelSettings_jvv6x"]
+font = ExtResource("13_y1yub")
 font_size = 8
 
-[node name="Player" type="CharacterBody2D" groups=["players"]]
-z_index = 20
+[node name="Leafcutter_ant" type="CharacterBody2D" groups=["players"]]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_it4js")
-damage_number_scene = ExtResource("2_rpnd8")
-pickup_popup_scene = ExtResource("3_tswxa")
-grave_scene = ExtResource("4_aqa0x")
-base_melee = ExtResource("6_s1x7u")
-melee_items = Array[PackedScene]([ExtResource("6_s1x7u")])
-ranged_items = Array[PackedScene]([ExtResource("3_6eyoc"), ExtResource("5_qgnko"), ExtResource("2_kqtwu"), ExtResource("5_xrqxk"), ExtResource("7_d6tgn"), ExtResource("11_s0anf")])
-ability_items = Array[PackedScene]([ExtResource("8_kmyvj")])
-utility_items = Array[PackedScene]([ExtResource("5_jk2m4"), ExtResource("4_eojnx"), ExtResource("12_aqa0x"), ExtResource("14_5jukt")])
+script = ExtResource("1_3e36t")
 
 [node name="checker" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="checker"]
-shape = SubResource("CapsuleShape2D_5jukt")
+shape = SubResource("CapsuleShape2D_ulbuo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_a46ul")
+sprite_frames = SubResource("SpriteFrames_f84ma")
 animation = &"p1_idle"
 
 [node name="stun_effect" type="AnimatedSprite2D" parent="."]
 visible = false
-sprite_frames = SubResource("SpriteFrames_s1x7u")
+sprite_frames = SubResource("SpriteFrames_u73mn")
 autoplay = "default"
-frame_progress = 0.27646363
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.2)
 scale = Vector2(1, 0.81)
-shape = SubResource("CapsuleShape2D_wewdl")
+shape = SubResource("CapsuleShape2D_5mb0v")
 
 [node name="HeadshotArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -313,18 +288,18 @@ collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadshotArea"]
 position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_d6tgn")
+shape = SubResource("CircleShape2D_vrmce")
 
 [node name="stunTimer" type="Timer" parent="."]
 wait_time = 6.0
 one_shot = true
 
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("18_kmyvj")
+stream = ExtResource("7_xrgp6")
 volume_db = 5.0
 
 [node name="damage_sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("19_3wg1y")
+stream = ExtResource("8_ajiqk")
 volume_db = 12.0
 
 [node name="UI" type="Node2D" parent="."]
@@ -336,7 +311,7 @@ offset_top = -24.0
 offset_right = 32.0
 offset_bottom = 16.0
 value = 100.0
-texture_progress = ExtResource("4_aod5d")
+texture_progress = ExtResource("9_i5xyg")
 
 [node name="extra_health" type="TextureProgressBar" parent="UI"]
 z_index = 21
@@ -345,7 +320,7 @@ offset_top = -24.0
 offset_right = 48.0
 offset_bottom = 16.0
 allow_greater = true
-texture_progress = ExtResource("24_6rclf")
+texture_progress = ExtResource("10_k8wke")
 
 [node name="damagetaken" type="TextureProgressBar" parent="UI"]
 z_index = 20
@@ -354,8 +329,8 @@ offset_top = -24.0
 offset_right = 32.0
 offset_bottom = 16.0
 value = 100.0
-texture_under = ExtResource("5_a46ul")
-texture_progress = ExtResource("6_ea28a")
+texture_under = ExtResource("11_kxb0v")
+texture_progress = ExtResource("12_1kubg")
 
 [node name="pc_pickup" type="Control" parent="UI"]
 visible = false
@@ -374,7 +349,7 @@ offset_right = 56.60742
 offset_bottom = -23.000002
 scale = Vector2(0.7254638, 0.7254638)
 text = "to pickup"
-label_settings = SubResource("LabelSettings_j8g38")
+label_settings = SubResource("LabelSettings_v52rb")
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="UI/pc_pickup"]
@@ -385,7 +360,7 @@ offset_top = -33.0
 offset_right = -14.0
 offset_bottom = -17.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("26_dg40j")
+texture = ExtResource("14_10ypb")
 
 [node name="controller_pickup" type="Control" parent="UI"]
 visible = false
@@ -405,7 +380,7 @@ offset_right = 66.42969
 offset_bottom = -23.000002
 scale = Vector2(0.7254638, 0.7254638)
 text = "to pickup"
-label_settings = SubResource("LabelSettings_j8g38")
+label_settings = SubResource("LabelSettings_v52rb")
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="UI/controller_pickup"]
@@ -415,7 +390,7 @@ offset_left = -25.0
 offset_top = -40.0
 offset_right = -9.0
 offset_bottom = -24.0
-texture = ExtResource("26_vwwfy")
+texture = ExtResource("15_ocmd0")
 
 [node name="RangedSocket" type="Node2D" parent="UI"]
 visible = false
@@ -448,7 +423,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("19_wqk1x")
+texture = ExtResource("16_afqct")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ability"]
 visible = false
@@ -459,7 +434,7 @@ offset_top = -2.0
 offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("16_d6tgn")
+texture = ExtResource("17_dt6oo")
 
 [node name="ranged" type="ColorRect" parent="UI/slots"]
 z_index = 100
@@ -474,7 +449,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("21_dm10o")
+texture = ExtResource("18_w21ol")
 
 [node name="bullet_count_icon" type="TextureRect" parent="UI/slots/ranged"]
 visible = false
@@ -483,7 +458,7 @@ offset_top = 34.0
 offset_right = 32.0
 offset_bottom = 66.0
 scale = Vector2(0.17188771, 0.17188771)
-texture = ExtResource("25_j8g38")
+texture = ExtResource("19_44xlk")
 
 [node name="bullet_count" type="Label" parent="UI/slots/ranged"]
 layout_mode = 0
@@ -492,7 +467,7 @@ offset_top = 35.0
 offset_right = 45.5
 offset_bottom = 43.0
 scale = Vector2(0.6443471, 0.6443471)
-label_settings = SubResource("LabelSettings_o6auj")
+label_settings = SubResource("LabelSettings_jvv6x")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ranged"]
 visible = false
@@ -503,7 +478,7 @@ offset_top = -2.0
 offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("16_d6tgn")
+texture = ExtResource("17_dt6oo")
 
 [node name="melee" type="ColorRect" parent="UI/slots"]
 z_index = 100
@@ -518,7 +493,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("36_s1x7u")
+texture = ExtResource("20_fgj3i")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/melee"]
 visible = false
@@ -529,7 +504,7 @@ offset_top = -2.0
 offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("16_d6tgn")
+texture = ExtResource("17_dt6oo")
 
 [node name="utility" type="ColorRect" parent="UI/slots"]
 z_index = 100
@@ -544,7 +519,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("23_j8g38")
+texture = ExtResource("21_rsrcy")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/utility"]
 visible = false
@@ -554,6 +529,4 @@ offset_top = -2.0
 offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("16_d6tgn")
-
-[connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]
+texture = ExtResource("17_dt6oo")

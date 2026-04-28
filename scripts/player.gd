@@ -17,28 +17,33 @@ var stunned = null
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
 @onready var damageTaken_bar: TextureProgressBar = $UI/damagetaken
+@onready var damage_number_scene = preload("res://scenes/ui/damage_number.tscn")
+@onready var pickup_popup_scene = preload("res://scenes/ui/pickup_popup.tscn")
+@onready var grave_scene = preload("res://assets/player/grave.png")
 
-# Optional: damage numbers
-@export var damage_number_scene: PackedScene
-@export var pickup_popup_scene: PackedScene
-@export var grave_scene: PackedScene
+@onready var ranged_items = [
+	preload("res://scenes/weapons/deagle.tscn"),
+	preload("res://scenes/weapons/weapon_ak47.tscn"),
+	preload("res://scenes/weapons/sawed_off.tscn"),
+	preload("res://scenes/weapons/weapon_homing_launcher.tscn"),
+	preload("res://scenes/weapons/blast_cannon.tscn"),
+	preload("res://scenes/weapons/testi_kapula.tscn")
+]
+@onready var ability_items = [
+	preload("res://scenes/abilities/shield_ability_icon.tscn")
+]
+@onready var utility_items = [
+	preload("res://scenes/items/flashbang.tscn"),
+	preload("res://scenes/items/grenade.tscn"),
+	preload("res://scenes/items/molotov.tscn"),
+	preload("res://scenes/items/smoke.tscn")
+]
 
-# =========================
-# ITEM SCENES
-# =========================
-@export_category("Item Scenes")
 
-@export var base_melee: PackedScene
-@export var melee_items: Array[PackedScene]
-@export var ranged_items: Array[PackedScene]
-@export var ability_items: Array[PackedScene]
-@export var utility_items: Array[PackedScene]
-
-@onready var melee_socket: Node2D = $MeleeSocket
 @onready var ranged_socket: Node2D = $UI/RangedSocket
 @onready var ability_socket: Node2D = $UI/AbilitySocket
 @onready var utility_socket: Node2D = $UI/UtilitySocket
-@onready var currently_equipped = $MeleeSocket
+@onready var currently_equipped = $UI/RangedSocket
 @onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
 # =========================
@@ -55,7 +60,7 @@ var stunned = null
 @onready var stun_effect: AnimatedSprite2D = $stun_effect
 @onready var checker: Area2D = $checker
 
-var equipped_slot := "melee"
+var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
 @onready var current_highlight = $UI/slots/melee/highlight
 @onready var ranged_icon = $"UI/slots/ranged/pyssykkä"
@@ -64,7 +69,6 @@ var _facing_angle: float = 0.0
 @onready var utility_icon = $UI/slots/utility/utility
 @onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
 @onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
-@onready var base_melee_icon = load("res://assets/item_slot_art/tuutikki.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
 @onready var controller_pickup_label = $UI/controller_pickup
@@ -98,7 +102,6 @@ var pickup_just_pressed: bool = false
 # EQUIPPED ITEMS
 # =========================
 var equipped := {
-	"melee": null,
 	"ranged": null,
 	"ability": null,
 	"utility": null
@@ -109,7 +112,7 @@ var equipped := {
 # =========================
 const GAMEPAD_LEFT_DEADZONE := 0.20
 const GAMEPAD_RIGHT_DEADZONE := 0.25
-const TRIGGER_PRESS_THRESHOLD := 0.50
+const TRIGGER_PRESS_THRESHOLD := 0.10
 
 # =========================
 # ITEM SELECTION
@@ -122,7 +125,6 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
-	equip_base_melee()
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
@@ -303,20 +305,8 @@ func _select_item_by_direction(direction: Vector2) -> void:
 
 	var new_slot := equipped_slot
 
-	# Up (315-45): Melee
-	# Right (45-135): Utility
-	# Down (135-225): Ranged
-	# Left (225-315): Ability
-	if angle >= 315 or angle < 45:
-		currently_equipped.visible = false
-		current_highlight.visible = false
-		$UI/slots/melee/highlight.visible = true
-		melee_socket.visible = true
-		new_slot = "melee"
-		current_highlight = $UI/slots/melee/highlight
-		currently_equipped = melee_socket
-		
-	elif angle >= 45 and angle < 135:
+
+	if angle >= 45 and angle < 135:
 		currently_equipped.visible = false
 		current_highlight.visible = false
 		$UI/slots/utility/highlight.visible = true
@@ -324,7 +314,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "utility"
 		current_highlight = $UI/slots/utility/highlight
 		currently_equipped = utility_socket
-		
+
 	elif angle >= 135 and angle < 225:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -333,7 +323,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "ranged"
 		current_highlight = $UI/slots/ranged/highlight
 		currently_equipped = ranged_socket
-		
+
 	elif angle >= 225 and angle < 315:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -490,8 +480,6 @@ func pickup() -> void:
 	var item_type: String = chosen["type"]
 
 	match item_type:
-		"melee":
-			_equip_specific_item("melee", chosen["scene"], melee_socket)
 		"ranged":
 			_equip_specific_item("ranged", chosen["scene"], ranged_socket)
 			update_bullet_count()
@@ -503,9 +491,6 @@ func pickup() -> void:
 
 func _pick_random_item_from_pool() -> Dictionary:
 	var pool: Array[Dictionary] = []
-
-	for item in melee_items:
-		pool.append({ "type": "melee", "scene": item })
 
 	for item in ranged_items:
 		pool.append({ "type": "ranged", "scene": item })
@@ -571,12 +556,6 @@ func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: No
 
 	_spawn_pickup_popup(popup_text, popup_icon)
 
-func equip_base_melee():
-	var item = base_melee.instantiate()
-	melee_socket.add_child(item)
-	equipped["melee"] = item
-	item.owner_player = self
-
 func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 	if pickup_popup_scene == null:
 		return
@@ -593,9 +572,6 @@ func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 # ATTACK
 # =========================
 func _attack() -> void:
-	if equipped["melee"] and equipped["melee"].has_method("attack") and equipped_slot == "melee" and stunned == false:
-		equipped["melee"].attack()
-
 	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged" and stunned == false:
 		equipped["ranged"]._shoot()
 
