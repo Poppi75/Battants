@@ -23,7 +23,6 @@ var _did_split_this_collision: bool = false # stops multiple splits in one "over
 var _has_split_once: bool = false           # for destroy_after_first_split option
 
 func _ready() -> void:
-	# Splitting is ONLY on collision now (no timed split).
 	pass
 
 func _physics_process(delta: float) -> void:
