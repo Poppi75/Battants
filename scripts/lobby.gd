@@ -21,7 +21,7 @@ var players_joined = 0
 	$p4_ctrl
 ]
 
-var maps = Global.maps
+#var maps = Global.maps
 
 var mouse_texture = preload("res://assets/ui art/ui_mouse.png")
 var controller_texture = preload("res://assets/ui art/ui_controller.png")
@@ -87,6 +87,8 @@ func update_players_joined():
 		else:
 			controls[i].texture = mouse_texture
 	
+func _on_start_button_pressed() -> void:
+	_start_match()
 
 func _start_match() -> void:
 	if Global.joined_devices.size() < MIN_PLAYERS:
@@ -99,12 +101,11 @@ func _start_match() -> void:
 
 	Global.player_bindings = bindings
 
-	var chosen: String = maps[randi() % maps.size()]
-	get_tree().change_scene_to_file(chosen)
+	# pick random map from Global
+	var chosen = Global.pick_random_map()
 
-func _on_settings_button_pressed() -> void:
-	_start_match()
+	# store it for the loading screen
+	Global.set_next_map(chosen)
 
-
-func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	# go to loading screen instead of the map directly
+	get_tree().change_scene_to_file("res://scenes/ui/loading_screen.tscn")

@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://bf5g0ncioaq02"]
+
+[ext_resource type="Script" uid="uid://d0pw6ay2a4omo" path="res://scripts/loading_screen.gd" id="1_5fj0j"]
+[ext_resource type="Texture2D" uid="uid://cn10n020s4l3p" path="res://assets/ui art/battants_spinner_.png" id="1_q4fso"]
+[ext_resource type="Script" uid="uid://cxi6ici5mw2wy" path="res://scripts/loading_spinner.gd" id="2_5fj0j"]
+[ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="2_s2kth"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s41fs"]
+font = ExtResource("2_s2kth")
+
+[sub_resource type="Theme" id="Theme_s2kth"]
+default_font = ExtResource("2_s2kth")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5fj0j")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 1030.0
+offset_right = 162.0
+offset_bottom = 1053.0
+text = "Loading"
+label_settings = SubResource("LabelSettings_s41fs")
+
+[node name="loadingSpinner" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1820.0
+offset_top = 980.0
+offset_right = 3820.0
+offset_bottom = 2980.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_q4fso")
+script = ExtResource("2_5fj0j")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 1858.0
+offset_top = 1030.0
+offset_right = 1862.0
+offset_bottom = 1057.0
+theme = SubResource("Theme_s2kth")

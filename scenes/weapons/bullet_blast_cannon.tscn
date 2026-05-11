@@ -1,39 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcdg1hmkh00ob"]
+[gd_scene load_steps=9 format=3 uid="uid://bcdg1hmkh00ob"]
 
 [ext_resource type="Script" uid="uid://c40kaoxuos1r8" path="res://scripts/weapons/script_bullet_cannon.gd" id="1_h3fef"]
-[ext_resource type="Texture2D" uid="uid://dcv6vr8jybtg3" path="res://assets/weapons/TEMP_shockwave_better.png" id="2_h3fef"]
+[ext_resource type="Shader" uid="uid://cok36gffrot58" path="res://shaders/bullet_blast_cannon.gdshader" id="2_x4bup"]
+[ext_resource type="Texture2D" uid="uid://bqdur1dtamvmh" path="res://assets/weapons/proto_shockwave_bullet.png" id="3_d5nc8"]
 [ext_resource type="AudioStream" uid="uid://db6y6m5br2efj" path="res://assets/8bit_sounds/dink_battants.mp3" id="3_g12kr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x4bup"]
-atlas = ExtResource("2_h3fef")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_804ff"]
+shader = ExtResource("2_x4bup")
+shader_parameter/cloak_active = true
+shader_parameter/distortion_strength = 0.40000000596046
+shader_parameter/visibility = 0.50000002375
+shader_parameter/noise_scale = 50.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn734"]
+atlas = ExtResource("3_d5nc8")
 region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g12kr"]
-atlas = ExtResource("2_h3fef")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d5nc8"]
-atlas = ExtResource("2_h3fef")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_804ff"]
-atlas = ExtResource("2_h3fef")
-region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_804ff"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x4bup")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g12kr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d5nc8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_804ff")
+"texture": SubResource("AtlasTexture_bn734")
 }],
 "loop": true,
 "name": &"move",
@@ -52,14 +39,15 @@ splits_remaining = 1
 destroy_after_first_split = true
 
 [node name="wave" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_804ff")
 sprite_frames = SubResource("SpriteFrames_804ff")
 animation = &"move"
 autoplay = "move"
 frame_progress = 0.9349651
-offset = Vector2(0, 0.525)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1.0866042, -1.1027232)
+position = Vector2(-1, 0)
+scale = Vector2(0.86346745, -1.5811588)
 shape = SubResource("CircleShape2D_bn734")
 
 [node name="LifeTime" type="Timer" parent="."]

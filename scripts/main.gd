@@ -177,4 +177,9 @@ func _load_random_map() -> void:
 		return
 
 	var chosen: String = maps[randi() % maps.size()]
-	get_tree().change_scene_to_file(chosen)
+
+	# Store for loading screen
+	Global.set_next_map(chosen)
+
+	# Go through loading screen instead of direct change
+	get_tree().change_scene_to_file("res://scenes/ui/loading_screen.tscn")
