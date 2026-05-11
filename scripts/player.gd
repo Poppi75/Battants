@@ -19,25 +19,7 @@ var stunned = null
 @onready var damageTaken_bar: TextureProgressBar = $UI/damagetaken
 @onready var damage_number_scene = preload("res://scenes/ui/damage_number.tscn")
 @onready var pickup_popup_scene = preload("res://scenes/ui/pickup_popup.tscn")
-@onready var grave_scene = preload("res://assets/player/grave.png")
-
-@onready var ranged_items = [
-	preload("res://scenes/weapons/deagle.tscn"),
-	preload("res://scenes/weapons/weapon_ak47.tscn"),
-	preload("res://scenes/weapons/sawed_off.tscn"),
-	preload("res://scenes/weapons/weapon_homing_launcher.tscn"),
-	preload("res://scenes/weapons/blast_cannon.tscn"),
-	preload("res://scenes/weapons/testi_kapula.tscn")
-]
-@onready var ability_items = [
-	preload("res://scenes/abilities/shield_ability_icon.tscn")
-]
-@onready var utility_items = [
-	preload("res://scenes/items/flashbang.tscn"),
-	preload("res://scenes/items/grenade.tscn"),
-	preload("res://scenes/items/molotov.tscn"),
-	preload("res://scenes/items/smoke.tscn")
-]
+@onready var grave_scene = preload("res://scenes/characters/grave.tscn")
 
 
 @onready var ranged_socket: Node2D = $UI/RangedSocket
@@ -52,6 +34,7 @@ var stunned = null
 @export var speed: float = 200.0
 @export var turn_speed: float = 8.0
 @export var orientation_offset: float = 0.0
+@onready var controller: PlayerController = $PlayerController
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
@@ -62,10 +45,9 @@ var stunned = null
 
 var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
-@onready var current_highlight = $UI/slots/melee/highlight
+@onready var current_highlight = $UI/slots/ranged/highlight
 @onready var ranged_icon = $"UI/slots/ranged/pyssykkä"
 @onready var ability_icon = $UI/slots/ability/ability
-@onready var melee_icon = $UI/slots/melee/melee
 @onready var utility_icon = $UI/slots/utility/utility
 @onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
 @onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
@@ -125,6 +107,7 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
+	controller.device_id = device_id
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
@@ -183,118 +166,31 @@ func _physics_process(delta: float) -> void:
 # INPUT
 # =========================
 func _read_input() -> void:
-	if device_id == -1:
-		move_input = Input.get_vector("left", "right", "up", "down")
-		shoot_held = Input.is_action_pressed("attack")
-		pickup_just_pressed = Input.is_action_just_pressed("pickup")
+	var wheel_center := _get_slot_wheel_center_screen()
+	controller.update(global_position, wheel_center)
 
-		if Input.is_action_pressed("item_slot"):
-			$UI/slots.visible = true
-			_handle_item_selection_mouse()
+	move_input = controller.move
+	aim_direction = controller.aim
+	shoot_held = controller.shoot_held
+	pickup_just_pressed = controller.pickup_just_pressed
 
-		if Input.is_action_pressed("flooverer"):
-			flowering()
- 
-		var cam := get_viewport().get_camera_2d()
-		var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
-		var dir := world_mouse - global_position
-		if dir != Vector2.ZERO:
-			aim_direction = dir.normalized()
-		return
+	$UI/slots.visible = controller.slot_wheel_open
+	current_highlight.visible = controller.slot_wheel_open
 
-	move_input = _get_move_for_device(device_id)
-	aim_direction = _get_aim_for_device(device_id)
-	shoot_held = _get_shoot_for_device(device_id)
+	if controller.item_select_direction != Vector2.ZERO:
+		_select_item_by_direction(controller.item_select_direction)
 
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
-		$UI/slots.visible = true
-		current_highlight.visible = true
-		_handle_item_selection_gamepad(device_id)
-	
-	var pressed := Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER)
-	pickup_just_pressed = pressed and not prev_pickup_pressed
-	prev_pickup_pressed = pressed
-	
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
+	if controller.flower_just_pressed:
 		flowering()
 
-
-
-
-func _get_shoot_for_device(pad: int) -> bool:
-	var rt := Input.get_joy_axis(pad, JOY_AXIS_TRIGGER_RIGHT)
-	var rt01 := rt
-	if rt01 < 0.0:
-		rt01 = (rt + 1.0) * 0.5
-	rt01 = clamp(rt01, 0.0, 1.0)
-	return rt01 > TRIGGER_PRESS_THRESHOLD
-
-
-func _get_move_for_device(pad: int) -> Vector2:
-	var dir := Vector2.ZERO
-
-	var stick := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_LEFT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_LEFT_Y)
-	)
-
-	if stick.length() >= GAMEPAD_LEFT_DEADZONE:
-		dir += stick
-
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_LEFT):
-		dir.x -= 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_RIGHT):
-		dir.x += 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_UP):
-		dir.y -= 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_DOWN):
-		dir.y += 1
-
-	if dir.length() > 1.0:
-		dir = dir.normalized()
-	return dir
-
-
-func _get_aim_for_device(pad: int) -> Vector2:
-	var v := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
-	)
-
-	if v.length() < GAMEPAD_RIGHT_DEADZONE:
-		return aim_direction
-
-	return v.normalized()
-
+func _get_slot_wheel_center_screen() -> Vector2:
+	# Works if $UI/slots is a Control (UI) node
+	return $UI/slots.get_global_rect().get_center()
 
 # =========================
 # ITEM SELECTION
 # =========================
-func _handle_item_selection_gamepad(pad: int) -> void:
-	var stick := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
-	)
-
-	if stick.length() >= ITEM_SELECTION_DEADZONE:
-		_select_item_by_direction(stick.normalized())
-
-
-func _handle_item_selection_mouse() -> void:
-	var cam := get_viewport().get_camera_2d()
-	var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
-	var dir := world_mouse - global_position
-
-	if dir.length() >= ITEM_SELECTION_DEADZONE * 50:
-		_select_item_by_direction(dir.normalized())
-
-
 func _select_item_by_direction(direction: Vector2) -> void:
-	# Prevent rapid switching - only change if direction has changed significantly
-	if direction.distance_to(last_selection_direction) < 0.5:
-		return
-
-	last_selection_direction = direction
 
 	# Calculate angle in degrees (0 = right, 90 = up, 180 = left, 270 = down)
 	var angle := rad_to_deg(atan2(direction.y, direction.x))
@@ -472,36 +368,21 @@ func _pickup_area_exited() -> void:
 func is_pickup_pressed() -> bool:
 	return pickup_just_pressed
 
-func pickup() -> void:
-	var chosen := _pick_random_item_from_pool()
+func pickup(chosen: Dictionary) -> void:
 	if chosen.is_empty():
 		return
 
 	var item_type: String = chosen["type"]
+	var item_scene: PackedScene = chosen["scene"]
 
 	match item_type:
 		"ranged":
-			_equip_specific_item("ranged", chosen["scene"], ranged_socket)
+			_equip_specific_item("ranged", item_scene, ranged_socket)
 			update_bullet_count()
 		"ability":
-			call_deferred("_equip_specific_item", "ability", chosen["scene"], ability_socket)
+			call_deferred("_equip_specific_item", "ability", item_scene, ability_socket)
 		"utility":
-			_equip_specific_item("utility", chosen["scene"], utility_socket)
-
-
-func _pick_random_item_from_pool() -> Dictionary:
-	var pool: Array[Dictionary] = []
-
-	for item in ranged_items:
-		pool.append({ "type": "ranged", "scene": item })
-
-	for item in ability_items:
-		pool.append({ "type": "ability", "scene": item })
-
-	for item in utility_items:
-		pool.append({ "type": "utility", "scene": item })
-
-	return pool.pick_random() if not pool.is_empty() else {}
+			_equip_specific_item("utility", item_scene, utility_socket)
 
 
 func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: Node2D) -> void:
@@ -534,9 +415,6 @@ func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: No
 	if item_type == "ranged":
 		ranged_icon.texture = item.icon
 		bullet_count_icon.visible = true
-
-	if item_type == "melee":
-		melee_icon.texture = item.icon
 
 	if item_type == "ability":
 		ability_icon.texture = item.icon
