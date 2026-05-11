@@ -17,28 +17,15 @@ var stunned = null
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
 @onready var damageTaken_bar: TextureProgressBar = $UI/damagetaken
+@onready var damage_number_scene = preload("res://scenes/ui/damage_number.tscn")
+@onready var pickup_popup_scene = preload("res://scenes/ui/pickup_popup.tscn")
+@onready var grave_scene = preload("res://scenes/characters/grave.tscn")
 
-# Optional: damage numbers
-@export var damage_number_scene: PackedScene
-@export var pickup_popup_scene: PackedScene
-@export var grave_scene: PackedScene
 
-# =========================
-# ITEM SCENES
-# =========================
-@export_category("Item Scenes")
-
-@export var base_melee: PackedScene
-@export var melee_items: Array[PackedScene]
-@export var ranged_items: Array[PackedScene]
-@export var ability_items: Array[PackedScene]
-@export var utility_items: Array[PackedScene]
-
-@onready var melee_socket: Node2D = $MeleeSocket
 @onready var ranged_socket: Node2D = $UI/RangedSocket
 @onready var ability_socket: Node2D = $UI/AbilitySocket
 @onready var utility_socket: Node2D = $UI/UtilitySocket
-@onready var currently_equipped = $MeleeSocket
+@onready var currently_equipped = $UI/RangedSocket
 @onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
 # =========================
@@ -47,6 +34,7 @@ var stunned = null
 @export var speed: float = 200.0
 @export var turn_speed: float = 8.0
 @export var orientation_offset: float = 0.0
+@onready var controller: PlayerController = $PlayerController
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
@@ -55,16 +43,14 @@ var stunned = null
 @onready var stun_effect: AnimatedSprite2D = $stun_effect
 @onready var checker: Area2D = $checker
 
-var equipped_slot := "melee"
+var equipped_slot := "ranged"
 var _facing_angle: float = 0.0
-@onready var current_highlight = $UI/slots/melee/highlight
+@onready var current_highlight = $UI/slots/ranged/highlight
 @onready var ranged_icon = $"UI/slots/ranged/pyssykkä"
 @onready var ability_icon = $UI/slots/ability/ability
-@onready var melee_icon = $UI/slots/melee/melee
 @onready var utility_icon = $UI/slots/utility/utility
 @onready var base_ranged_icon = load("res://assets/item_slot_art/ranged_slot_icon.png")
 @onready var base_ability_icon = load("res://assets/item_slot_art/ability_slot_icon.png")
-@onready var base_melee_icon = load("res://assets/item_slot_art/tuutikki.png")
 @onready var base_utility_icon = load("res://assets/item_slot_art/utility_slot_icon.png")
 @onready var ui: Node2D = $UI
 @onready var controller_pickup_label = $UI/controller_pickup
@@ -98,7 +84,6 @@ var pickup_just_pressed: bool = false
 # EQUIPPED ITEMS
 # =========================
 var equipped := {
-	"melee": null,
 	"ranged": null,
 	"ability": null,
 	"utility": null
@@ -109,7 +94,7 @@ var equipped := {
 # =========================
 const GAMEPAD_LEFT_DEADZONE := 0.20
 const GAMEPAD_RIGHT_DEADZONE := 0.25
-const TRIGGER_PRESS_THRESHOLD := 0.50
+const TRIGGER_PRESS_THRESHOLD := 0.10
 
 # =========================
 # ITEM SELECTION
@@ -122,7 +107,7 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
-	equip_base_melee()
+	controller.device_id = device_id
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
@@ -181,118 +166,26 @@ func _physics_process(delta: float) -> void:
 # INPUT
 # =========================
 func _read_input() -> void:
-	if device_id == -1:
-		move_input = Input.get_vector("left", "right", "up", "down")
-		shoot_held = Input.is_action_pressed("attack")
-		pickup_just_pressed = Input.is_action_just_pressed("pickup")
+	controller.update(global_position)
 
-		if Input.is_action_pressed("item_slot"):
-			$UI/slots.visible = true
-			_handle_item_selection_mouse()
+	move_input = controller.move
+	aim_direction = controller.aim
+	shoot_held = controller.shoot_held
+	pickup_just_pressed = controller.pickup_just_pressed
 
-		if Input.is_action_pressed("flooverer"):
-			flowering()
- 
-		var cam := get_viewport().get_camera_2d()
-		var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
-		var dir := world_mouse - global_position
-		if dir != Vector2.ZERO:
-			aim_direction = dir.normalized()
-		return
+	$UI/slots.visible = controller.slot_wheel_open
+	current_highlight.visible = controller.slot_wheel_open
 
-	move_input = _get_move_for_device(device_id)
-	aim_direction = _get_aim_for_device(device_id)
-	shoot_held = _get_shoot_for_device(device_id)
+	if controller.item_select_direction != Vector2.ZERO:
+		_select_item_by_direction(controller.item_select_direction)
 
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):
-		$UI/slots.visible = true
-		current_highlight.visible = true
-		_handle_item_selection_gamepad(device_id)
-	
-	var pressed := Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER)
-	pickup_just_pressed = pressed and not prev_pickup_pressed
-	prev_pickup_pressed = pressed
-	
-	if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):
+	if controller.flower_just_pressed:
 		flowering()
-
-
-
-
-func _get_shoot_for_device(pad: int) -> bool:
-	var rt := Input.get_joy_axis(pad, JOY_AXIS_TRIGGER_RIGHT)
-	var rt01 := rt
-	if rt01 < 0.0:
-		rt01 = (rt + 1.0) * 0.5
-	rt01 = clamp(rt01, 0.0, 1.0)
-	return rt01 > TRIGGER_PRESS_THRESHOLD
-
-
-func _get_move_for_device(pad: int) -> Vector2:
-	var dir := Vector2.ZERO
-
-	var stick := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_LEFT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_LEFT_Y)
-	)
-
-	if stick.length() >= GAMEPAD_LEFT_DEADZONE:
-		dir += stick
-
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_LEFT):
-		dir.x -= 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_RIGHT):
-		dir.x += 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_UP):
-		dir.y -= 1
-	if Input.is_joy_button_pressed(pad, JOY_BUTTON_DPAD_DOWN):
-		dir.y += 1
-
-	if dir.length() > 1.0:
-		dir = dir.normalized()
-	return dir
-
-
-func _get_aim_for_device(pad: int) -> Vector2:
-	var v := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
-	)
-
-	if v.length() < GAMEPAD_RIGHT_DEADZONE:
-		return aim_direction
-
-	return v.normalized()
-
 
 # =========================
 # ITEM SELECTION
 # =========================
-func _handle_item_selection_gamepad(pad: int) -> void:
-	var stick := Vector2(
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_X),
-		Input.get_joy_axis(pad, JOY_AXIS_RIGHT_Y)
-	)
-
-	if stick.length() >= ITEM_SELECTION_DEADZONE:
-		_select_item_by_direction(stick.normalized())
-
-
-func _handle_item_selection_mouse() -> void:
-	var cam := get_viewport().get_camera_2d()
-	var world_mouse := cam.get_global_mouse_position() if cam else get_global_mouse_position()
-	var dir := world_mouse - global_position
-
-	if dir.length() >= ITEM_SELECTION_DEADZONE * 50:
-		_select_item_by_direction(dir.normalized())
-
-
 func _select_item_by_direction(direction: Vector2) -> void:
-	# Prevent rapid switching - only change if direction has changed significantly
-	if direction.distance_to(last_selection_direction) < 0.5:
-		return
-
-	last_selection_direction = direction
 
 	# Calculate angle in degrees (0 = right, 90 = up, 180 = left, 270 = down)
 	var angle := rad_to_deg(atan2(direction.y, direction.x))
@@ -303,20 +196,8 @@ func _select_item_by_direction(direction: Vector2) -> void:
 
 	var new_slot := equipped_slot
 
-	# Up (315-45): Melee
-	# Right (45-135): Utility
-	# Down (135-225): Ranged
-	# Left (225-315): Ability
-	if angle >= 315 or angle < 45:
-		currently_equipped.visible = false
-		current_highlight.visible = false
-		$UI/slots/melee/highlight.visible = true
-		melee_socket.visible = true
-		new_slot = "melee"
-		current_highlight = $UI/slots/melee/highlight
-		currently_equipped = melee_socket
-		
-	elif angle >= 45 and angle < 135:
+
+	if angle >= 45 and angle < 135:
 		currently_equipped.visible = false
 		current_highlight.visible = false
 		$UI/slots/utility/highlight.visible = true
@@ -324,7 +205,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "utility"
 		current_highlight = $UI/slots/utility/highlight
 		currently_equipped = utility_socket
-		
+
 	elif angle >= 135 and angle < 225:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -333,7 +214,7 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "ranged"
 		current_highlight = $UI/slots/ranged/highlight
 		currently_equipped = ranged_socket
-		
+
 	elif angle >= 225 and angle < 315:
 		currently_equipped.visible = false
 		current_highlight.visible = false
@@ -482,41 +363,21 @@ func _pickup_area_exited() -> void:
 func is_pickup_pressed() -> bool:
 	return pickup_just_pressed
 
-func pickup() -> void:
-	var chosen := _pick_random_item_from_pool()
+func pickup(chosen: Dictionary) -> void:
 	if chosen.is_empty():
 		return
 
 	var item_type: String = chosen["type"]
+	var item_scene: PackedScene = chosen["scene"]
 
 	match item_type:
-		"melee":
-			_equip_specific_item("melee", chosen["scene"], melee_socket)
 		"ranged":
-			_equip_specific_item("ranged", chosen["scene"], ranged_socket)
+			_equip_specific_item("ranged", item_scene, ranged_socket)
 			update_bullet_count()
 		"ability":
-			call_deferred("_equip_specific_item", "ability", chosen["scene"], ability_socket)
+			call_deferred("_equip_specific_item", "ability", item_scene, ability_socket)
 		"utility":
-			_equip_specific_item("utility", chosen["scene"], utility_socket)
-
-
-func _pick_random_item_from_pool() -> Dictionary:
-	var pool: Array[Dictionary] = []
-
-	for item in melee_items:
-		pool.append({ "type": "melee", "scene": item })
-
-	for item in ranged_items:
-		pool.append({ "type": "ranged", "scene": item })
-
-	for item in ability_items:
-		pool.append({ "type": "ability", "scene": item })
-
-	for item in utility_items:
-		pool.append({ "type": "utility", "scene": item })
-
-	return pool.pick_random() if not pool.is_empty() else {}
+			_equip_specific_item("utility", item_scene, utility_socket)
 
 
 func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: Node2D) -> void:
@@ -550,9 +411,6 @@ func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: No
 		ranged_icon.texture = item.icon
 		bullet_count_icon.visible = true
 
-	if item_type == "melee":
-		melee_icon.texture = item.icon
-
 	if item_type == "ability":
 		ability_icon.texture = item.icon
 
@@ -571,12 +429,6 @@ func _equip_specific_item(item_type: String, item_scene: PackedScene, socket: No
 
 	_spawn_pickup_popup(popup_text, popup_icon)
 
-func equip_base_melee():
-	var item = base_melee.instantiate()
-	melee_socket.add_child(item)
-	equipped["melee"] = item
-	item.owner_player = self
-
 func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 	if pickup_popup_scene == null:
 		return
@@ -593,9 +445,6 @@ func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 # ATTACK
 # =========================
 func _attack() -> void:
-	if equipped["melee"] and equipped["melee"].has_method("attack") and equipped_slot == "melee" and stunned == false:
-		equipped["melee"].attack()
-
 	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged" and stunned == false:
 		equipped["ranged"]._shoot()
 
