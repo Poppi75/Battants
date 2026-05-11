@@ -6,6 +6,8 @@ class_name PlayerController
 @export var trigger_press_threshold := 0.2
 @export var gamepad_left_deadzone := 0.2
 @export var gamepad_right_deadzone := 0.25
+@export var item_selection_mouse_accum_px := 60.0 # pixels of accumulated mouse movement required
+@export var item_selection_mouse_decay := 0.85    # 0..1, higher = less decay
 
 # Selection deadzones
 @export var item_selection_deadzone_gamepad := 0.6
@@ -32,15 +34,17 @@ var _prev_pickup_pressed: bool = false
 var _has_last_selection_angle: bool = false
 var _last_selection_angle: float = 0.0
 var _wheel_was_open: bool = false
+var _prev_mouse_pos: Vector2 = Vector2.ZERO
+var _mouse_accum: Vector2 = Vector2.ZERO
 
 
-func update(player_global_pos: Vector2, wheel_center_screen: Vector2) -> void:
+func update(player_global_pos: Vector2) -> void:
 	pickup_just_pressed = false
 	flower_just_pressed = false
 	item_select_direction = Vector2.ZERO
 
 	if device_id == -1:
-		_read_keyboard_mouse(player_global_pos, wheel_center_screen)
+		_read_keyboard_mouse(player_global_pos)
 	else:
 		_read_gamepad(player_global_pos)
 
@@ -50,24 +54,33 @@ func update(player_global_pos: Vector2, wheel_center_screen: Vector2) -> void:
 		_has_last_selection_angle = false
 
 
-func _read_keyboard_mouse(player_global_pos: Vector2, wheel_center_screen: Vector2) -> void:
+func _read_keyboard_mouse(player_global_pos: Vector2) -> void:
 	move = Input.get_vector("left", "right", "up", "down")
 	shoot_held = Input.is_action_pressed("attack")
 	pickup_just_pressed = Input.is_action_just_pressed("pickup")
 
 	slot_wheel_open = Input.is_action_pressed("item_slot")
 
-	# Wheel just opened: force first direction to pass through
+	var mouse := get_viewport().get_mouse_position()
+
+	# Wheel just opened: reset accumulators so first flick selects immediately.
 	if slot_wheel_open and not _wheel_was_open:
 		_wheel_was_open = true
 		_has_last_selection_angle = false
+		_prev_mouse_pos = mouse
+		_mouse_accum = Vector2.ZERO
 
 	if slot_wheel_open:
-		var mouse := get_viewport().get_mouse_position() # screen-space
-		var dir := mouse - wheel_center_screen           # screen-space relative to wheel
+		var delta := mouse - _prev_mouse_pos
+		_prev_mouse_pos = mouse
 
-		if dir.length() >= item_selection_deadzone_mouse_px:
-			item_select_direction = _filter_selection_direction_by_angle(dir)
+		# Accumulate movement (optionally decay so old movement doesn't dominate)
+		_mouse_accum = (_mouse_accum * item_selection_mouse_decay) + delta
+
+		if _mouse_accum.length() >= item_selection_mouse_accum_px:
+			item_select_direction = _filter_selection_direction_by_angle(_mouse_accum)
+	else:
+		_prev_mouse_pos = mouse
 
 	if Input.is_action_just_pressed("flooverer"):
 		flower_just_pressed = true

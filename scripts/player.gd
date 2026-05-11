@@ -166,8 +166,7 @@ func _physics_process(delta: float) -> void:
 # INPUT
 # =========================
 func _read_input() -> void:
-	var wheel_center := _get_slot_wheel_center_screen()
-	controller.update(global_position, wheel_center)
+	controller.update(global_position)
 
 	move_input = controller.move
 	aim_direction = controller.aim
@@ -182,10 +181,6 @@ func _read_input() -> void:
 
 	if controller.flower_just_pressed:
 		flowering()
-
-func _get_slot_wheel_center_screen() -> Vector2:
-	# Works if $UI/slots is a Control (UI) node
-	return $UI/slots.get_global_rect().get_center()
 
 # =========================
 # ITEM SELECTION
