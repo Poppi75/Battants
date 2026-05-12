@@ -263,6 +263,7 @@ collision_layer = 2
 collision_mask = 133
 script = ExtResource("1_hmacm")
 max_health = 80
+speed = 240.0
 
 [node name="checker" type="Area2D" parent="."]
 

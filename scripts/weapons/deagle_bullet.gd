@@ -4,7 +4,7 @@ extends Area2D
 @export var auto_free_time: float = 2.0
 
 # Hardcoded headshot damage range
-@export var headshot_damage: int = 100
+@export var headshot_damage: float = 100
 
 var owner_player = null
 @onready var dink_sound: AudioStreamPlayer2D = $Dink_sound
@@ -27,7 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	if body.is_in_group("players"):
-		var damage_amount := randi_range(25, 45)  # ← your existing random damage
+		var damage_amount : float = randi_range(25, 45)  # ← your existing random damage
 		print("[Bullet] Body hit for %d" % damage_amount)
 		body.take_damage(damage_amount, false)
 

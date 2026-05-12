@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage_amount: int = 0
+@export var damage_amount: float = 0
 @export var explosion_duration: float = 0.1
 @export var particle_lifetime: float = 0.6
 

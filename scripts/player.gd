@@ -9,10 +9,11 @@ signal died(player: Player)
 # =========================
 # STATS
 # =========================
-@export var max_health: int = 100
-var health: int
-var _damage_update_seq: int = 0
+@export var max_health: float = 100
+var health: float
+var _damage_update_seq: float = 0
 var stunned = null
+var resistance = 0.3
 
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
@@ -230,10 +231,11 @@ func _select_item_by_direction(direction: Vector2) -> void:
 # =========================
 # DAMAGE / DEATH
 # =========================
-func take_damage(damage: int, is_headshot: bool = false) -> void:
+func take_damage(damage: float, is_headshot: bool = false) -> void:
 	if health <= 0:
 		return
 
+	damage = damage - damage * resistance
 	health -= damage
 	damage_sound_play()
 
@@ -307,7 +309,7 @@ func _flash_on_damage() -> void:
 
 
 # --- Optional damage numbers ---
-func _spawn_damage_number(amount: int, is_headshot: bool, is_heal: bool) -> void:
+func _spawn_damage_number(amount: float, is_headshot: bool, is_heal: bool) -> void:
 	if damage_number_scene == null:
 		return
 

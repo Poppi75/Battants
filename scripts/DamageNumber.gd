@@ -6,9 +6,12 @@ var float_speed := 40
 var lifetime := 0.8
 var velocity := Vector2.ZERO
 
-func setup(damage: int, is_crit: bool = false, is_heal: bool = false):
+func setup(damage: float, is_crit: bool = false, is_heal: bool = false):
 	# Set text
-	label.text = str(damage)
+	if int(damage) == damage:
+		label.text = str(int(damage))
+	else:
+		label.text = str(damage)
 
 	# Color logic
 	if is_heal:

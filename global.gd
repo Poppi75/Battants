@@ -8,10 +8,17 @@ var maps: Array[String] = [
 ]
 
 var classes =[
-	"res://scenes/characters/leafcutter_ant.tscn",
-	"res://scenes/characters/fire_ant.tscn",
-	"res://scenes/characters/honey_pot_ant.tscn",
-	"res://scenes/characters/trap_jaw_ant.tscn"
+	load("res://scenes/characters/leafcutter_ant.tscn"),
+	load("res://scenes/characters/fire_ant.tscn"),
+	load("res://scenes/characters/honey_pot_ant.tscn"),
+	load("res://scenes/characters/trap_jaw_ant.tscn")
+]
+
+var class_choices =[
+	0,
+	0,
+	0,
+	0
 ]
 
 var playerwins = [

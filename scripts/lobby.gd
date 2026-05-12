@@ -14,13 +14,6 @@ var players_joined = 0
 	$p4_txt
 ]
 
-var player_classes = [
-	0,
-	0,
-	0,
-	0
-]
-
 @onready var controls = [
 	$p1_class,
 	$p2_class,
@@ -63,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("class_up"):
 		var device_id = _get_event_device_id(event)
 		var player = Global.joined_devices.find(device_id)
+		var player_classes = Global.class_choices
 		if Global.joined_devices.has(device_id):
 			player_classes[player] += 1
 			if 0 <= player_classes[player] and player_classes[player] <= 3:
@@ -74,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("class_down"):
 		var device_id = _get_event_device_id(event)
 		var player = Global.joined_devices.find(device_id)
+		var player_classes = Global.class_choices
 		if Global.joined_devices.has(device_id):
 			player_classes[player] -= 1
 			if 0 <= player_classes[player] and player_classes[player] <= 3:
@@ -107,6 +102,7 @@ func update_players_joined():
 	for i in range(Global.joined_devices.size()):
 		players[i].visible = true
 		controls[i].visible = true
+		controls[i].texture = class_images[Global.class_choices[i]]
 	
 func _on_start_button_pressed() -> void:
 	_start_match()

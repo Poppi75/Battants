@@ -3,7 +3,7 @@ extends Area2D
 @export var speed: float = 550.0
 @export var auto_free_time: float = 0.42 # pellets despawn fast
 
-@export var headshot_damage: int = 7
+@export var headshot_damage: float = 7
 @onready var dink_sound: AudioStreamPlayer2D = $dink_sound
 var owner_player = null
 

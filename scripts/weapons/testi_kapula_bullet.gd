@@ -17,7 +17,7 @@ func _on_life_time_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		var damage_amount := randi_range(5, 8)
+		var damage_amount : float = randi_range(5, 8)
 		body.take_damage(damage_amount, false)
 	
 	queue_free()
