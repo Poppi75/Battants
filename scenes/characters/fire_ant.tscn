@@ -394,7 +394,6 @@ offset_bottom = -24.0
 texture = ExtResource("14_6abc1")
 
 [node name="RangedSocket" type="Node2D" parent="UI"]
-visible = false
 
 [node name="AbilitySocket" type="Node2D" parent="UI"]
 visible = false

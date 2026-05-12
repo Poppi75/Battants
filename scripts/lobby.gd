@@ -37,7 +37,6 @@ var player_classes = [
 
 func _ready() -> void:
 	update_players_joined()
-	randomize()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("join"):
@@ -116,6 +115,8 @@ func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
 
 func _start_match() -> void:
+	Global.player_bindings = []
+	
 	if Global.joined_devices.size() < MIN_PLAYERS:
 		print("Need at least", MIN_PLAYERS, "players")
 		return
