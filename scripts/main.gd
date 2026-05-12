@@ -1,7 +1,7 @@
 extends Node2D
 
 const PlayerScene := preload("res://scenes/characters/leafcutter_ant.tscn")
-
+const ControllerScene := preload("res://scenes/characters/PlayerController.tscn")
 
 # =====================================================
 # CAMERA / UI
@@ -86,9 +86,10 @@ func _spawn_players() -> void:
 	for i in range(bindings.size()):
 		var data: Dictionary = bindings[i]
 		var device_id: int = data["device"]
-
 		var player: Player = PlayerScene.instantiate()
+		var controller = ControllerScene.instantiate()
 		player.device_id = device_id
+		controller.device_id = device_id
 		player.player_index = i
 		player.player_number = player_number
 		player_number += 1
@@ -99,6 +100,7 @@ func _spawn_players() -> void:
 			player.position = spawn_points[i].position
 
 		player.died.connect(_on_player_died)
+		player.add_child(controller)
 
 		add_child(player)
 		players.append(player)
