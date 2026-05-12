@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cbg673mv7bdf1"]
+[gd_scene load_steps=23 format=4 uid="uid://cbg673mv7bdf1"]
 
 [ext_resource type="Script" uid="uid://c5q2tfv5xc0en" path="res://scripts/main.gd" id="1_g86sx"]
 [ext_resource type="PackedScene" uid="uid://bedp52x5ayk0o" path="res://scenes/maps/camera_2d.tscn" id="2_he8e3"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://sr3atm15a0lx" path="res://assets/8bit_sounds/battlemusic1-battants.mp3" id="8_o4kqt"]
 [ext_resource type="Texture2D" uid="uid://bwbl7vrac17ae" path="res://assets/tilemaps/test_floor_spot.png" id="8_urrlk"]
 [ext_resource type="Texture2D" uid="uid://go1kxmcipmdo" path="res://assets/tilemaps/testing_pit.png" id="8_x6mtj"]
+[ext_resource type="PackedScene" uid="uid://b5uw5ql774y61" path="res://scenes/ui/pause_menu.tscn" id="12_km7pc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]
 texture = ExtResource("3_he8e3")
@@ -248,3 +249,5 @@ stream = ExtResource("8_o4kqt")
 volume_db = -5.0
 autoplay = true
 parameters/looping = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("12_km7pc")]
