@@ -1,6 +1,6 @@
 extends Node2D
 
-const PlayerScene := preload("res://scenes/characters/player.tscn")
+const PlayerScene := preload("res://scenes/characters/leafcutter_ant.tscn")
 
 
 # =====================================================
