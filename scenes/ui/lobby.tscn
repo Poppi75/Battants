@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=12 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
 [ext_resource type="Texture2D" uid="uid://ciccjyip5fxcy" path="res://assets/ui art/lobby_art.png" id="3_5t5el"]
+[ext_resource type="Texture2D" uid="uid://cnev5myc0flrk" path="res://assets/weapons/knife.png" id="4_rqagm"]
 [ext_resource type="AudioStream" uid="uid://05dqpr5fnq4g" path="res://assets/8bit_sounds/battants_music2.mp3" id="5_rqagm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_66348"]
@@ -109,6 +110,7 @@ offset_left = 417.0
 offset_top = 843.0
 offset_right = 547.0
 offset_bottom = 973.0
+texture = ExtResource("4_rqagm")
 
 [node name="p2_class" type="TextureRect" parent="."]
 visible = false
@@ -117,6 +119,7 @@ offset_left = 611.0
 offset_top = 843.0
 offset_right = 741.0
 offset_bottom = 973.0
+texture = ExtResource("4_rqagm")
 
 [node name="p3_class" type="TextureRect" parent="."]
 visible = false
@@ -125,6 +128,7 @@ offset_left = 803.0
 offset_top = 843.0
 offset_right = 933.0
 offset_bottom = 973.0
+texture = ExtResource("4_rqagm")
 
 [node name="p4_class" type="TextureRect" parent="."]
 visible = false
@@ -133,6 +137,7 @@ offset_left = 996.0
 offset_top = 843.0
 offset_right = 1126.0
 offset_bottom = 973.0
+texture = ExtResource("4_rqagm")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_rqagm")
