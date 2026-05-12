@@ -29,10 +29,10 @@ var player_classes = [
 ]
 
 @onready var class_images = [
-	"res://assets/weapons/knife.png",
-	"res://assets/weapons/deagle.png",
-	"res://assets/weapons/sawed_off.png",
-	"res://assets/weapons/testikapula.png"
+	preload("res://assets/weapons/knife.png"),
+	preload("res://assets/weapons/deagle.png"),
+	preload("res://assets/weapons/sawed_off.png"),
+	preload("res://assets/weapons/testikapula.png")
 ]
 
 func _ready() -> void:
@@ -62,7 +62,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			_remove_device(device_id)
 
 	if event.is_action_pressed("class_up"):
-		return
+		var device_id = _get_event_device_id(event)
+		var player = Global.joined_devices.find(device_id)
+		if Global.joined_devices.has(device_id):
+			player_classes[player] += 1
+			if 0 <= player_classes[player] and player_classes[player] <= 3:
+				controls[player].texture = class_images[player_classes[player]]
+			else:
+				player_classes[player] = 0
+				controls[player].texture = class_images[player_classes[player]]
+
+	if event.is_action_pressed("class_down"):
+		var device_id = _get_event_device_id(event)
+		var player = Global.joined_devices.find(device_id)
+		if Global.joined_devices.has(device_id):
+			player_classes[player] -= 1
+			if 0 <= player_classes[player] and player_classes[player] <= 3:
+				controls[player].texture = class_images[player_classes[player]]
+			else:
+				player_classes[player] = 3
+				controls[player].texture = class_images[player_classes[player]]
 
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
@@ -92,6 +111,9 @@ func update_players_joined():
 	
 func _on_start_button_pressed() -> void:
 	_start_match()
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
 
 func _start_match() -> void:
 	if Global.joined_devices.size() < MIN_PLAYERS:
