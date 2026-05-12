@@ -4,19 +4,21 @@ extends CanvasLayer
 @onready var quit_button: Button = $Control/VBoxContainer/QuitButton
 
 func _ready() -> void:
-	visible = false
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
+	visible = false
+
 	resume_button.pressed.connect(_on_resume_button_pressed)
 	quit_button.pressed.connect(_on_quit_button_pressed)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("unjoin"):
+	if event.is_action_pressed("pause"):
 		toggle_pause()
 
 
 func toggle_pause() -> void:
-	visible = not visible
+	visible = !visible
 	get_tree().paused = visible
 
 
