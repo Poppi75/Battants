@@ -61,6 +61,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Global.joined_devices.has(device_id):
 			_remove_device(device_id)
 
+	if event.is_action_pressed("class_up"):
+		return
+
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
 		return -1
