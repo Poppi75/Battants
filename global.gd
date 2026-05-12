@@ -7,16 +7,19 @@ var maps: Array[String] = [
 	"res://scenes/maps/map2.tscn",
 ]
 
+var classes =[
+	"res://scenes/characters/leafcutter_ant.tscn",
+	"res://scenes/characters/fire_ant.tscn",
+	"res://scenes/characters/honey_pot_ant.tscn",
+	"res://scenes/characters/trap_jaw_ant.tscn"
+]
+
 var playerwins = [
 	0,
 	0,
 	0,
 	0
 ]
-
-# -------------------------
-# 🟢 Loading system logic
-# -------------------------
 
 var next_scene: String = ""
 

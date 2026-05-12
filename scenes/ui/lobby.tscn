@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=11 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
 [ext_resource type="Texture2D" uid="uid://ciccjyip5fxcy" path="res://assets/ui art/lobby_art.png" id="3_5t5el"]
-[ext_resource type="Texture2D" uid="uid://5r1ms2gi7rmu" path="res://assets/ui art/ui_controller.png" id="4_2rbxb"]
 [ext_resource type="AudioStream" uid="uid://05dqpr5fnq4g" path="res://assets/8bit_sounds/battants_music2.mp3" id="5_rqagm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_66348"]
@@ -103,41 +102,37 @@ offset_bottom = 817.0
 text = "P4"
 label_settings = SubResource("LabelSettings_bnidf")
 
-[node name="p1_ctrl" type="TextureRect" parent="."]
+[node name="p1_class" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 417.0
 offset_top = 843.0
 offset_right = 547.0
 offset_bottom = 973.0
-texture = ExtResource("4_2rbxb")
 
-[node name="p2_ctrl" type="TextureRect" parent="."]
+[node name="p2_class" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 611.0
 offset_top = 843.0
 offset_right = 741.0
 offset_bottom = 973.0
-texture = ExtResource("4_2rbxb")
 
-[node name="p3_ctrl" type="TextureRect" parent="."]
+[node name="p3_class" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 803.0
 offset_top = 843.0
 offset_right = 933.0
 offset_bottom = 973.0
-texture = ExtResource("4_2rbxb")
 
-[node name="p4_ctrl" type="TextureRect" parent="."]
+[node name="p4_class" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 996.0
 offset_top = 843.0
 offset_right = 1126.0
 offset_bottom = 973.0
-texture = ExtResource("4_2rbxb")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_rqagm")
@@ -179,6 +174,6 @@ text = "Back
 "
 flat = true
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

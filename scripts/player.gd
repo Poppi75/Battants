@@ -107,7 +107,6 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
-	controller.device_id = device_id
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
