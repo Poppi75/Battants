@@ -262,8 +262,8 @@ z_index = 20
 collision_layer = 2
 collision_mask = 133
 script = ExtResource("1_ikkqq")
-max_health = 80
-speed = 240.0
+max_health = 90
+speed = 220.0
 
 [node name="checker" type="Area2D" parent="."]
 

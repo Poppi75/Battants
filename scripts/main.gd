@@ -1,6 +1,5 @@
 extends Node2D
 
-const PlayerScene := preload("res://scenes/characters/leafcutter_ant.tscn")
 const ControllerScene := preload("res://scenes/characters/PlayerController.tscn")
 
 # =====================================================
@@ -84,6 +83,7 @@ func _spawn_players() -> void:
 	var bindings: Array = Global.player_bindings
 
 	for i in range(bindings.size()):
+		var PlayerScene = Global.classes[Global.class_choices[i]]
 		var data: Dictionary = bindings[i]
 		var device_id: int = data["device"]
 		var player: Player = PlayerScene.instantiate()

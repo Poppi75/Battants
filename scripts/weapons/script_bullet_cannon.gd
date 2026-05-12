@@ -6,11 +6,11 @@ extends Area2D
 # --- Split settings ---
 @export var spread_angle: float = 12.0  # Degrees between bullets
 @export var bullet_scene: PackedScene = preload("res://scenes/weapons/bullet_blast_cannon.tscn")
-@export var bullet_count: int = 5
+@export var bullet_count: float = 5
 
 # How many times THIS bullet instance can split on separate collisions.
 # Children will be spawned with splits_remaining = 0 (no splitting).
-@export var splits_remaining: int = 2
+@export var splits_remaining: float = 2
 
 # If true, this bullet will be destroyed immediately after it successfully splits once.
 @export var destroy_after_first_split: bool = false

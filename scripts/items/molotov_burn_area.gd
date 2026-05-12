@@ -121,7 +121,7 @@ func _apply_damage(delta: float) -> void:
 
 		damage_accumulator[body] += dmg
 
-		var whole: int = int(damage_accumulator[body])
+		var whole: float = float(damage_accumulator[body])
 		if whole > 0:
 			damage_accumulator[body] -= float(whole)
 			body.take_damage(whole)

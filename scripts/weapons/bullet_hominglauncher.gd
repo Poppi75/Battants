@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed: float = 400.0
 @export var turn_speed: float = 3.0
-@export var damage_amount: int = 65
+@export var damage_amount: float = 65
 
 @export var explosion_scene: PackedScene  # assign ExplosionAOE.tscn here
 @onready var life_time: Timer = $LifeTime
