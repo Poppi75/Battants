@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bqhwvtowk3tbp"]
+[gd_scene load_steps=53 format=3 uid="uid://bqhwvtowk3tbp"]
 
 [ext_resource type="Script" uid="uid://4byl46bant13" path="res://scripts/characters/leafcutter_ant.gd" id="1_3e36t"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="2_ncrot"]
@@ -20,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="18_w21ol"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="19_44xlk"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="21_rsrcy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji5xe"]
+radius = 56.0803
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
@@ -260,9 +263,16 @@ font_size = 8
 [node name="Leafcutter_ant" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
-collision_mask = 133
+collision_mask = 389
 script = ExtResource("1_3e36t")
 speed = 160.0
+
+[node name="passive" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="passive"]
+shape = SubResource("CircleShape2D_ji5xe")
 
 [node name="checker" type="Area2D" parent="."]
 
@@ -393,6 +403,9 @@ offset_right = -9.0
 offset_bottom = -24.0
 texture = ExtResource("15_ocmd0")
 
+[node name="ClassAbilitySocket" type="Node2D" parent="UI"]
+visible = false
+
 [node name="RangedSocket" type="Node2D" parent="UI"]
 
 [node name="AbilitySocket" type="Node2D" parent="UI"]
@@ -502,3 +515,32 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("17_dt6oo")
+
+[node name="class_ability" type="ColorRect" parent="UI/slots"]
+z_index = 100
+layout_mode = 0
+offset_left = 25.0
+offset_top = -24.0
+offset_right = 65.0
+offset_bottom = 16.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="class_ability" type="TextureRect" parent="UI/slots/class_ability"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("16_afqct")
+
+[node name="highlight" type="TextureRect" parent="UI/slots/class_ability"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("17_dt6oo")
+
+[connection signal="body_entered" from="passive" to="." method="_on_passive_body_entered"]
+[connection signal="body_exited" from="passive" to="." method="_on_passive_body_exited"]

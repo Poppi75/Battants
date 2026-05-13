@@ -260,9 +260,8 @@ font_size = 8
 [node name="Trap-jaw_ant" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
-collision_mask = 133
+collision_mask = 389
 script = ExtResource("1_ikkqq")
-max_health = 90
 speed = 220.0
 
 [node name="checker" type="Area2D" parent="."]
@@ -402,6 +401,9 @@ visible = false
 [node name="UtilitySocket" type="Node2D" parent="UI"]
 visible = false
 
+[node name="ClassAbilitySocket" type="Node2D" parent="UI"]
+visible = false
+
 [node name="slots" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -496,6 +498,32 @@ texture = ExtResource("19_m2drb")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/utility"]
 visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 62.0
+offset_bottom = 62.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("16_pxed3")
+
+[node name="class_ability" type="ColorRect" parent="UI/slots"]
+z_index = 100
+layout_mode = 0
+offset_left = 25.0
+offset_top = -24.0
+offset_right = 65.0
+offset_bottom = 16.0
+color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
+
+[node name="class_ability" type="TextureRect" parent="UI/slots/class_ability"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("15_sb2is")
+
+[node name="highlight" type="TextureRect" parent="UI/slots/class_ability"]
+visible = false
+z_index = 2
 layout_mode = 0
 offset_left = -2.0
 offset_top = -2.0

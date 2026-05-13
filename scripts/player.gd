@@ -13,7 +13,7 @@ signal died(player: Player)
 var health: float
 var _damage_update_seq: float = 0
 var stunned = null
-var resistance = 0.3
+var resistance = 0.0
 
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
@@ -26,6 +26,7 @@ var resistance = 0.3
 @onready var ranged_socket: Node2D = $UI/RangedSocket
 @onready var ability_socket: Node2D = $UI/AbilitySocket
 @onready var utility_socket: Node2D = $UI/UtilitySocket
+@onready var class_ability_socket: Node2D = $UI/ClassAbilitySocket
 @onready var currently_equipped = $UI/RangedSocket
 @onready var damage_sound: AudioStreamPlayer2D = $damage_sound
 
@@ -87,7 +88,8 @@ var pickup_just_pressed: bool = false
 var equipped := {
 	"ranged": null,
 	"ability": null,
-	"utility": null
+	"utility": null,
+	"class_ability": null
 }
 
 # =========================
@@ -108,6 +110,7 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
+	stunTimer.timeout.connect(_on_stun_timer_timeout)
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
 
@@ -223,6 +226,15 @@ func _select_item_by_direction(direction: Vector2) -> void:
 		new_slot = "ability"
 		current_highlight = $UI/slots/ability/highlight
 		currently_equipped = ability_socket
+
+	elif angle >= 315 or angle < 45:
+		currently_equipped.visible = false
+		current_highlight.visible = false
+		$UI/slots/class_ability/highlight.visible = true
+		class_ability_socket.visible = true
+		new_slot = "class_ability"
+		current_highlight = $UI/slots/class_ability/highlight
+		currently_equipped = class_ability_socket
 
 	if new_slot != equipped_slot:
 		equipped_slot = new_slot
