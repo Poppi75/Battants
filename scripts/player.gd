@@ -243,12 +243,27 @@ func _select_item_by_direction(direction: Vector2) -> void:
 # =========================
 # DAMAGE / DEATH
 # =========================
-func take_damage(damage: float, is_headshot: bool = false) -> void:
+func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> void:
+
 	if health <= 0:
 		return
 
+	if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
+		damage = damage * 1.35
+
+	if "can_extra_dmg" in attacker:
+		attacker.can_extra_dmg = false
+		attacker.extra_dmg_timer.start()
+
 	damage = damage - damage * resistance
 	health -= damage
+
+	if "damage_dealt" in attacker:
+		attacker.damage_dealt += damage
+		if attacker.damage_dealt >= 25:
+			burn()
+			attacker.damage_dealt = 0.0
+
 	damage_sound_play()
 
 	_spawn_damage_number(damage, is_headshot, false)
@@ -276,6 +291,9 @@ func _die_deferred() -> void:
 		get_tree().current_scene.add_child(grave)
 
 	queue_free()
+
+func burn() -> void:
+	print("should burn")
 
 func flower_heal() -> void:
 	health += 25
@@ -458,14 +476,8 @@ func _spawn_pickup_popup(text: String, icon: Texture2D) -> void:
 # ATTACK
 # =========================
 func _attack() -> void:
-	if equipped["ranged"] and equipped["ranged"].has_method("_shoot") and equipped_slot == "ranged" and stunned == false:
-		equipped["ranged"]._shoot()
-
-	if equipped["ability"] and equipped["ability"].has_method("attack") and equipped_slot == "ability" and stunned == false:
-		equipped["ability"].attack()
-
-	if equipped["utility"] and equipped["utility"].has_method("attack") and equipped_slot == "utility" and stunned == false:
-		equipped["utility"].attack()
+	if equipped[equipped_slot] and equipped[equipped_slot].has_method("attack")and stunned == false:
+		equipped[equipped_slot].attack()
 
 func update_bullet_count() -> void:
 	if equipped["ranged"].total_ammo <= 0:

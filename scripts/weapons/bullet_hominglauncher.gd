@@ -62,6 +62,7 @@ func _explode_now() -> void:
 
 	explosion.global_position = global_position
 	explosion.damage_amount = damage_amount
+	explosion.owner_player = owner_player
 	var cam := get_tree().get_first_node_in_group("main_camera") as Camera2D
 	if cam.has_method("add_shake"):
 		cam.add_shake(0.8)

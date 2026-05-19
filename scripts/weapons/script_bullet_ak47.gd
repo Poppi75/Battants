@@ -5,6 +5,7 @@ extends Area2D
 
 @export var headshot_damage: float = 25
 @onready var dink_sound: AudioStreamPlayer2D = $dink_sound
+var owner_player = null
 
 func _physics_process(delta: float) -> void:
 	# Move forward based on current rotation (0 rad faces right).
@@ -22,7 +23,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		var damage_amount : float = randi_range(6, 13)
 		print("[Bullet] Body hit for %d" % damage_amount)
-		body.take_damage(damage_amount, false)
+		body.take_damage(owner_player, damage_amount, false)
 
 	print("[Bullet] Destroyed")
 	queue_free()
@@ -42,7 +43,7 @@ func _on_area_entered(area: Area2D) -> void:
 			play_dink_sound()
 
 			print("[Bullet] HEADSHOT for %d" % damage)
-			player.take_damage(damage, true)
+			player.take_damage(owner_player, damage, true)
 
 			queue_free()  # Bullet can die immediately
 			

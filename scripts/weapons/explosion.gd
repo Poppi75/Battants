@@ -6,6 +6,7 @@ extends Area2D
 
 # Tracks bodies we've already damaged so we never double-hit the same target
 var _damaged: Dictionary = {}
+var owner_player = null
 
 @onready var particles: GPUParticles2D = $ExplosionParticles
 @onready var explosion: AudioStreamPlayer2D = $explosion
@@ -47,7 +48,7 @@ func _apply_damage(body: Node2D) -> void:
 
 	if body.is_in_group("players"):
 		print("[Explosion] Damaging player: ", body.name)
-		body.take_damage(damage_amount)
+		body.take_damage(owner_player, damage_amount, false)
 
 func _end_damage_phase() -> void:
 	monitoring = false

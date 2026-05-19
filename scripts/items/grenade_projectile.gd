@@ -103,6 +103,7 @@ func explode() -> void:
 		var explosion: Node2D = explode_scene.instantiate()
 		explosion.global_position = global_position
 		get_tree().current_scene.add_child(explosion)
+		explosion.owner_player = owner_player
 		explosion.damage_amount = damage_amount
 
 	queue_free()
