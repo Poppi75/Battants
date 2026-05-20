@@ -46,7 +46,7 @@ func _aim_from_owner(delta: float) -> void:
 # ATTACK (CALLED BY PLAYER)
 # -------------------------
 
-func _shoot() -> void:
+func attack() -> void:
 	if bullet_scene == null:
 		push_warning("Assign a Bullet scene.")
 		return
@@ -64,6 +64,7 @@ func _shoot() -> void:
 
 	bullet.global_position = shoot_point.global_position
 	bullet.rotation = rotation
+	bullet.owner_player = owner_player
 	canShoot = false
 	total_ammo -= 1
 	owner_player.update_bullet_count()

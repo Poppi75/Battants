@@ -88,6 +88,7 @@ func explode() -> void:
 	if fire_scene:
 		var fire := fire_scene.instantiate()
 		fire.global_position = global_position
+		fire.owner_player = owner_player
 		get_tree().current_scene.add_child(fire)
 	queue_free()
 

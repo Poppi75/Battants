@@ -20,6 +20,7 @@ var damage_accumulator := {}  # body -> accumulated float damage
 @onready var embers: GPUParticles2D = $Embers
 
 var tick_timer: Timer
+var owner_player = null
 
 func _ready() -> void:
 	randomize()
@@ -124,7 +125,7 @@ func _apply_damage(delta: float) -> void:
 		var whole: float = float(damage_accumulator[body])
 		if whole > 0:
 			damage_accumulator[body] -= float(whole)
-			body.take_damage(whole)
+			body.take_damage(owner_player, whole, false)
 
 func _on_body_entered(body: Node) -> void:
 	if bodies_in_fire.has(body):

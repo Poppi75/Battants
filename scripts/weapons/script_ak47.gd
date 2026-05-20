@@ -45,7 +45,7 @@ func _aim_from_owner(delta:  float) -> void:
 	var step:  float = clamp(diff, -rotation_speed * delta, rotation_speed * delta)
 	rotation += step
 
-func _shoot() -> void:
+func attack() -> void:
 	
 	if bullet_scene == null:
 		push_warning("Assign a Bullet scene to 'bullet_scene' in the Inspector.")
@@ -64,6 +64,7 @@ func _shoot() -> void:
 		
 		bullet.global_position = shoot_point.global_position
 		bullet.rotation = rotation
+		bullet.owner_player = owner_player
 		
 		# Start cooldown
 		can_shoot = false

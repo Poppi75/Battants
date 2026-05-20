@@ -61,7 +61,7 @@ func _aim_from_owner(delta: float) -> void:
 	_base_rotation = rotation
 
 
-func _shoot() -> void:
+func attack() -> void:
 	if bullet_scene == null:
 		push_warning("Assign a Bullet scene to 'bullet_scene' in the Inspector.")
 		return
