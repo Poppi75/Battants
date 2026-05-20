@@ -14,6 +14,7 @@ var health: float
 var _damage_update_seq: float = 0
 var stunned = null
 var resistance = 0.0
+var burns := []
 
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
@@ -248,21 +249,30 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 	if health <= 0:
 		return
 
-	if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
-		damage = damage * 1.35
+	if attacker != null:
+		if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
+			damage = damage * 1.35
+			attacker.can_extra_dmg = false
+			attacker.extra_dmg_timer.start()
+			attacker.animate_cloak(attacker.cloak_progress < 0.5, 0.6)
 
-	if "can_extra_dmg" in attacker:
-		attacker.can_extra_dmg = false
-		attacker.extra_dmg_timer.start()
+		damage = damage - damage * resistance
+		health -= damage
 
-	damage = damage - damage * resistance
-	health -= damage
+		if "damage_dealt" in attacker:
+			attacker.damage_dealt += damage
+			if attacker.damage_dealt >= 25:
+				for i in range(int(attacker.damage_dealt / 25)):
+					burns.append({
+						"damage": 2.0,
+						"time_left": 4.0
+					})
+				start_burn_timer()
+				attacker.damage_dealt = 0.0
 
-	if "damage_dealt" in attacker:
-		attacker.damage_dealt += damage
-		if attacker.damage_dealt >= 25:
-			burn()
-			attacker.damage_dealt = 0.0
+	else:
+		damage = damage - damage * resistance
+		health -= damage
 
 	damage_sound_play()
 
@@ -292,8 +302,20 @@ func _die_deferred() -> void:
 
 	queue_free()
 
+func start_burn_timer() -> void:
+	while burns.size() > 0:
+		await get_tree().create_timer(1.0).timeout
+		burn()
+
 func burn() -> void:
-	print("should burn")
+	for i in range(burns.size() - 1, -1, -1):
+		var effect = burns[i]
+		
+		take_damage(null, effect.damage, false)
+		effect.time_left -= 1
+		
+		if effect.time_left <= 0:
+			burns.remove_at(i)
 
 func flower_heal() -> void:
 	health += 25

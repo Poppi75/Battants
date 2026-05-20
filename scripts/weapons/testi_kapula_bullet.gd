@@ -36,7 +36,7 @@ func _on_area_entered(area: Area2D) -> void:
 			var damage = headshot_damage
 			play_dink_sound()
 
-			player.take_damage(owner_player, damage, true)
+			player.take_damage(owner_player if owner_player else null, damage, true)
 
 			queue_free()  # Bullet can die immediately
 

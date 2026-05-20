@@ -1,7 +1,8 @@
-[gd_scene load_steps=52 format=3 uid="uid://b8iagshgpc15w"]
+[gd_scene load_steps=54 format=3 uid="uid://b8iagshgpc15w"]
 
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_4tm0g"]
 [ext_resource type="Script" uid="uid://cp0eaclxaqrer" path="res://scripts/characters/trap_jaw_ant.gd" id="1_ikkqq"]
+[ext_resource type="Shader" uid="uid://dq3ejqu28lfmh" path="res://shaders/trap_jaw_ant.gdshader" id="2_1c4yd"]
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="2_ikkqq"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="3_1c4yd"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="4_j8k7e"]
@@ -23,6 +24,15 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1c4yd"]
+shader = ExtResource("2_1c4yd")
+shader_parameter/cloak_progress = 0.0
+shader_parameter/distortion = 0.02
+shader_parameter/speed = 0.8
+shader_parameter/opacity = 0.8
+shader_parameter/chunk_scale = 28.0
+shader_parameter/edge_softness = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhtjm"]
 atlas = ExtResource("1_4tm0g")
@@ -271,6 +281,7 @@ speed = 240.0
 shape = SubResource("CapsuleShape2D_ulbuo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_1c4yd")
 sprite_frames = SubResource("SpriteFrames_f84ma")
 animation = &"p1_idle"
 
@@ -297,7 +308,8 @@ wait_time = 6.0
 one_shot = true
 
 [node name="ExtraDmgTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 3.6
+one_shot = true
 autostart = true
 
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
