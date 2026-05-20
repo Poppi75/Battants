@@ -76,7 +76,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		var damage_amount := randi_range(32, 69)
 		print("[Bullet] Body hit for %d" % damage_amount)
-		body.take_damage(owner_player, damage_amount, false)
+		body.take_damage(owner_player if owner_player else null, damage_amount, false)
 
 	# Split on collision (once per overlap burst)
 	if !_did_split_this_collision and splits_remaining > 0:

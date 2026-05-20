@@ -125,7 +125,7 @@ func _apply_damage(delta: float) -> void:
 		var whole: float = float(damage_accumulator[body])
 		if whole > 0:
 			damage_accumulator[body] -= float(whole)
-			body.take_damage(owner_player, whole, false)
+			body.take_damage(owner_player if owner_player else null, whole, false)
 
 func _on_body_entered(body: Node) -> void:
 	if bodies_in_fire.has(body):

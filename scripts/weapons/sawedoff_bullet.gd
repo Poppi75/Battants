@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		var damage_amount := randi_range(3, 6)
-		body.take_damage(owner_player, damage_amount, false)
+		body.take_damage(owner_player if owner_player else null, damage_amount, false)
 
 	queue_free()
 
@@ -51,7 +51,7 @@ func _on_area_entered(area: Area2D) -> void:
 			play_dink_sound()
 
 			print("[Bullet] HEADSHOT for %d" % damage)
-			player.take_damage(owner_player, damage, true)
+			player.take_damage(owner_player if owner_player else null, damage, true)
 
 			queue_free()  # Bullet can die immediately
 

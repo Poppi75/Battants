@@ -48,7 +48,7 @@ func _apply_damage(body: Node2D) -> void:
 
 	if body.is_in_group("players"):
 		print("[Explosion] Damaging player: ", body.name)
-		body.take_damage(owner_player, damage_amount, false)
+		body.take_damage(owner_player if owner_player else null, damage_amount, false)
 
 func _end_damage_phase() -> void:
 	monitoring = false
