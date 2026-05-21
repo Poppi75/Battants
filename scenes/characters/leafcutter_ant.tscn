@@ -265,6 +265,7 @@ z_index = 20
 collision_layer = 2
 collision_mask = 389
 script = ExtResource("1_3e36t")
+max_health = 180.0
 speed = 160.0
 
 [node name="passive" type="Area2D" parent="."]
@@ -321,7 +322,8 @@ offset_left = -8.0
 offset_top = -24.0
 offset_right = 32.0
 offset_bottom = 16.0
-value = 100.0
+max_value = 180.0
+value = 180.0
 texture_progress = ExtResource("9_i5xyg")
 
 [node name="extra_health" type="TextureProgressBar" parent="UI"]
@@ -339,6 +341,7 @@ offset_left = -8.0
 offset_top = -24.0
 offset_right = 32.0
 offset_bottom = 16.0
+max_value = 180.0
 value = 100.0
 texture_under = ExtResource("11_kxb0v")
 texture_progress = ExtResource("12_1kubg")
@@ -363,7 +366,7 @@ text = "to pickup"
 label_settings = SubResource("LabelSettings_v52rb")
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="UI/pc_pickup"]
+[node name="TextureRect" type="TextureRect" parent="UI/pc_pickup" groups=["players"]]
 z_index = 21
 layout_mode = 0
 offset_left = -30.0
