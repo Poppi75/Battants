@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="10_v1xna"]
 [ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="11_p8pte"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="12_so356"]
-[ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="13_7cr45"]
+[ext_resource type="Texture2D" uid="uid://6sq76k3ix66n" path="res://assets/ui art/shift.png" id="14_5db4j"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="14_7ng2m"]
 [ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="15_r36iw"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_ft3jn"]
@@ -364,7 +364,7 @@ offset_top = -33.0
 offset_right = -14.0
 offset_bottom = -17.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_7cr45")
+texture = ExtResource("14_5db4j")
 
 [node name="controller_pickup" type="Control" parent="UI"]
 visible = false
