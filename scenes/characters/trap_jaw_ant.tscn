@@ -14,8 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://dd6dvvivb61d4" path="res://assets/player/under_health_bar_correct.png" id="10_o7re1"]
 [ext_resource type="Texture2D" uid="uid://ibqvck5mr0fy" path="res://assets/player/damage_bar_over.png" id="11_nu77v"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="12_awunc"]
-[ext_resource type="Texture2D" uid="uid://bbvp53rqxnu23" path="res://assets/ui art/E.png" id="13_ws0y8"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="14_uaveg"]
+[ext_resource type="Texture2D" uid="uid://6sq76k3ix66n" path="res://assets/ui art/shift.png" id="15_1c4yd"]
 [ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="15_sb2is"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_pxed3"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_3gsjy"]
@@ -378,7 +378,7 @@ offset_top = -33.0
 offset_right = -14.0
 offset_bottom = -17.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_ws0y8")
+texture = ExtResource("15_1c4yd")
 
 [node name="controller_pickup" type="Control" parent="UI"]
 visible = false
