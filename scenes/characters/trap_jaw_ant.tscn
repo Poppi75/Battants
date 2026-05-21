@@ -1,9 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://b8iagshgpc15w"]
+[gd_scene load_steps=56 format=3 uid="uid://b8iagshgpc15w"]
 
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_4tm0g"]
 [ext_resource type="Script" uid="uid://cp0eaclxaqrer" path="res://scripts/characters/trap_jaw_ant.gd" id="1_ikkqq"]
 [ext_resource type="Shader" uid="uid://dq3ejqu28lfmh" path="res://shaders/trap_jaw_ant.gdshader" id="2_1c4yd"]
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="2_ikkqq"]
+[ext_resource type="PackedScene" uid="uid://di670twpt03rx" path="res://scenes/abilities/spike.tscn" id="2_j8k7e"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="3_1c4yd"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="4_j8k7e"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="5_xc7nh"]
@@ -21,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_3gsjy"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_obsbi"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_m2drb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1c4yd"]
+radius = 152.0033
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
@@ -272,8 +276,17 @@ z_index = 20
 collision_layer = 2
 collision_mask = 389
 script = ExtResource("1_ikkqq")
-max_health = 80.0
+SPIKE = ExtResource("2_j8k7e")
+max_health = 110.0
 speed = 240.0
+
+[node name="ability" type="Area2D" parent="." groups=["players"]]
+collision_layer = 256
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ability"]
+shape = SubResource("CircleShape2D_1c4yd")
 
 [node name="checker" type="Area2D" parent="."]
 
@@ -312,6 +325,9 @@ wait_time = 3.6
 one_shot = true
 autostart = true
 
+[node name="AbilityCooldown" type="Timer" parent="."]
+wait_time = 10.0
+
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_xyj2n")
 volume_db = 5.0
@@ -328,7 +344,8 @@ offset_left = -8.0
 offset_top = -24.0
 offset_right = 32.0
 offset_bottom = 16.0
-value = 100.0
+max_value = 110.0
+value = 110.0
 texture_progress = ExtResource("8_pdfud")
 
 [node name="extra_health" type="TextureProgressBar" parent="UI"]
@@ -549,4 +566,7 @@ offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_pxed3")
 
+[connection signal="body_entered" from="ability" to="." method="_on_ability_body_entered"]
+[connection signal="body_exited" from="ability" to="." method="_on_ability_body_exited"]
 [connection signal="timeout" from="ExtraDmgTimer" to="." method="_on_extra_dmg_timer_timeout"]
+[connection signal="timeout" from="AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]

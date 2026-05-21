@@ -82,6 +82,7 @@ var aim_direction: Vector2 = Vector2.RIGHT
 var can_move := false
 var prev_pickup_pressed := false
 var pickup_just_pressed: bool = false
+var active_ability_use: bool = false
 
 # =========================
 # EQUIPPED ITEMS
@@ -173,18 +174,19 @@ func _read_input() -> void:
 	controller.update(global_position)
 
 	move_input = controller.move
-	aim_direction = controller.aim
-	shoot_held = controller.shoot_held
-	pickup_just_pressed = controller.pickup_just_pressed
+	if active_ability_use == false:
+		aim_direction = controller.aim
+		shoot_held = controller.shoot_held
+		pickup_just_pressed = controller.pickup_just_pressed
 
-	$UI/slots.visible = controller.slot_wheel_open
-	current_highlight.visible = controller.slot_wheel_open
+		$UI/slots.visible = controller.slot_wheel_open
+		current_highlight.visible = controller.slot_wheel_open
 
-	if controller.item_select_direction != Vector2.ZERO:
-		_select_item_by_direction(controller.item_select_direction)
+		if controller.item_select_direction != Vector2.ZERO:
+			_select_item_by_direction(controller.item_select_direction)
 
-	if controller.flower_just_pressed:
-		flowering()
+		if controller.flower_just_pressed:
+			flowering()
 
 # =========================
 # ITEM SELECTION
@@ -251,10 +253,11 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 
 	if attacker != null:
 		if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
-			damage = damage * 1.35
+			damage = damage + 12
 			attacker.can_extra_dmg = false
 			attacker.extra_dmg_timer.start()
 			attacker.animate_cloak(attacker.cloak_progress < 0.5, 0.6)
+			attacker._visible = true
 
 		damage = damage - damage * resistance
 		health -= damage
@@ -330,7 +333,7 @@ func flowering() -> void:
 func update_health_bars() -> void:
 	if health_bar:
 		health_bar.value = health
-		extra_health.value = health - 100
+		extra_health.value = health - max_health
 
 	_damage_update_seq += 1
 	var seq := _damage_update_seq
