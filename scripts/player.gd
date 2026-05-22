@@ -382,6 +382,7 @@ func _spawn_damage_number(amount: float, is_headshot: bool, is_heal: bool) -> vo
 
 
 func apply_stun() -> void:
+	stunTimer.wait_time = 6
 	stunTimer.start()
 
 	# Reset volume before playing
@@ -395,6 +396,19 @@ func apply_stun() -> void:
 	stunned = true
 	stun_effect.visible = true
 
+func ability_stun(duration: float) -> void:
+	stunTimer.wait_time = duration
+	stunTimer.start()
+
+	stunSound.volume_db = 24.0
+	stunSound.play()
+
+	var tween := create_tween()
+	tween.tween_property(stunSound, "volume_db", -20.0, 5.0)  # fade out
+	tween.tween_callback(stunSound.stop)                      # stop after fade
+
+	stunned = true
+	stun_effect.visible = true
 
 func _on_stun_timer_timeout() -> void:
 	stunned = false

@@ -2,6 +2,9 @@ extends Player
 
 var can_extra_dmg: bool = false
 var _visible: bool = true
+
+@export var stun_duration: float = 0.0
+
 @onready var extra_dmg_timer: Timer = $ExtraDmgTimer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ability: Area2D = $ability
@@ -145,6 +148,7 @@ func teleport_to_closest():
 			print("Teleporting to: ", test_position)
 
 		global_position = test_position
+		closest.ability_stun(stun_duration)
 
 		await fire_spikes(closest)
 
