@@ -260,6 +260,7 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 			attacker._visible = true
 
 		damage = damage - damage * resistance
+		damage = round(damage * 100) / 100
 		health -= damage
 
 		if "damage_dealt" in attacker:
@@ -275,6 +276,7 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 
 	else:
 		damage = damage - damage * resistance
+		damage = round(damage * 100) / 100
 		health -= damage
 
 	damage_sound_play()
