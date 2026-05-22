@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bqhwvtowk3tbp"]
+[gd_scene load_steps=54 format=3 uid="uid://bqhwvtowk3tbp"]
 
 [ext_resource type="Script" uid="uid://4byl46bant13" path="res://scripts/characters/leafcutter_ant.gd" id="1_3e36t"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="2_ncrot"]
@@ -20,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="18_w21ol"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="19_44xlk"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="21_rsrcy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3e36t"]
+radius = 90.199776
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ji5xe"]
 radius = 56.0803
@@ -268,6 +271,13 @@ script = ExtResource("1_3e36t")
 max_health = 180.0
 speed = 160.0
 
+[node name="bodyslam" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bodyslam"]
+shape = SubResource("CircleShape2D_3e36t")
+
 [node name="passive" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 2
@@ -304,6 +314,10 @@ shape = SubResource("CircleShape2D_vrmce")
 
 [node name="stunTimer" type="Timer" parent="."]
 wait_time = 6.0
+one_shot = true
+
+[node name="AbilityCooldown" type="Timer" parent="."]
+wait_time = 15.0
 one_shot = true
 
 [node name="stunSound" type="AudioStreamPlayer2D" parent="."]
@@ -547,3 +561,4 @@ texture = ExtResource("17_dt6oo")
 
 [connection signal="body_entered" from="passive" to="." method="_on_passive_body_entered"]
 [connection signal="body_exited" from="passive" to="." method="_on_passive_body_exited"]
+[connection signal="timeout" from="AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]
