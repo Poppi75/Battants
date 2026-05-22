@@ -15,6 +15,7 @@ var _damage_update_seq: float = 0
 var stunned = null
 var resistance = 0.0
 var burns := []
+var can_ability: bool = true
 
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
@@ -35,6 +36,7 @@ var burns := []
 # MOVEMENT
 # =========================
 @export var speed: float = 200.0
+var original_speed: float
 @export var turn_speed: float = 8.0
 @export var orientation_offset: float = 0.0
 @onready var controller: PlayerController = $PlayerController
@@ -112,6 +114,7 @@ var _pickup_overlap_count: int = 0
 # READY
 # =========================
 func _ready() -> void:
+	original_speed = speed
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
 	anim.play("p" + str(player_number) + "_idle")
 	stunned = false
@@ -396,9 +399,10 @@ func apply_stun() -> void:
 	stunned = true
 	stun_effect.visible = true
 
-func ability_stun(duration: float) -> void:
+func ability_stun(duration: float, slow_down_percent: float = 0.0) -> void:
 	stunTimer.wait_time = duration
 	stunTimer.start()
+	speed = speed - speed * slow_down_percent
 
 	stunSound.volume_db = 24.0
 	stunSound.play()
@@ -413,6 +417,7 @@ func ability_stun(duration: float) -> void:
 func _on_stun_timer_timeout() -> void:
 	stunned = false
 	stun_effect.visible = false
+	speed = original_speed
 
 
 # =========================

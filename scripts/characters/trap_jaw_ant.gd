@@ -20,7 +20,6 @@ var _visible: bool = true
 var cloak_progress := 0.0
 var cloak_tween: Tween
 var bars_tween: Tween
-var can_ability: bool = true
 
 var nearby_players = []
 
