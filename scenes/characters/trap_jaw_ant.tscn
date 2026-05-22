@@ -276,6 +276,7 @@ z_index = 20
 collision_layer = 2
 collision_mask = 389
 script = ExtResource("1_ikkqq")
+stun_duration = 2.0
 SPIKE = ExtResource("2_j8k7e")
 max_health = 110.0
 speed = 240.0
