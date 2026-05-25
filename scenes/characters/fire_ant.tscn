@@ -1,8 +1,9 @@
-[gd_scene load_steps=52 format=3 uid="uid://eewxgugdwmuc"]
+[gd_scene load_steps=54 format=3 uid="uid://eewxgugdwmuc"]
 
 [ext_resource type="Script" uid="uid://dnyka8xn8ixwq" path="res://scripts/characters/fire_ant.gd" id="1_hmacm"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_sgdye"]
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="2_hmacm"]
+[ext_resource type="PackedScene" uid="uid://57jellafyr5l" path="res://scenes/abilities/burn_trail.tscn" id="2_ksk4v"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="3_ksk4v"]
 [ext_resource type="Texture2D" uid="uid://dmtn8mtb1t1lk" path="res://assets/player/p4_animations.png" id="4_43hol"]
 [ext_resource type="Texture2D" uid="uid://clqwil0kqbery" path="res://assets/item_art/stun_effect.png" id="5_mhc4b"]
@@ -246,6 +247,9 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5mb0v"]
 radius = 4.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ksk4v"]
+radius = 4.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vrmce"]
 radius = 3.0
 
@@ -260,8 +264,9 @@ font_size = 8
 [node name="fire_ant" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
-collision_mask = 389
+collision_mask = 901
 script = ExtResource("1_hmacm")
+burn_trail_scene = ExtResource("2_ksk4v")
 max_health = 130.0
 speed = 240.0
 
@@ -284,6 +289,14 @@ position = Vector2(0, 3.2)
 scale = Vector2(1, 0.81)
 shape = SubResource("CapsuleShape2D_5mb0v")
 
+[node name="DashHitbox" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHitbox"]
+shape = SubResource("CapsuleShape2D_ksk4v")
+
 [node name="HeadshotArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 5
@@ -291,6 +304,9 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadshotArea"]
 position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_vrmce")
+
+[node name="AbilityCooldown" type="Timer" parent="."]
+one_shot = true
 
 [node name="stunTimer" type="Timer" parent="."]
 wait_time = 6.0
@@ -534,3 +550,6 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_fnpdr")
+
+[connection signal="body_entered" from="DashHitbox" to="." method="_on_dash_hitbox_body_entered"]
+[connection signal="timeout" from="AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]
