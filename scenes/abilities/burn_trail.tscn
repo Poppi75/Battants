@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://57jellafyr5l"]
+
+[ext_resource type="Script" uid="uid://b5afwhjybyk64" path="res://scripts/abilities/burn_trail.gd" id="1_emi3t"]
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_emi3t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emi3t"]
+radius = 6.1509604
+
+[sub_resource type="Gradient" id="Gradient_0uego"]
+offsets = PackedFloat32Array(0, 0.29508197, 0.6885246, 1)
+colors = PackedColorArray(1, 0.95686275, 0.6901961, 1, 1, 0.5411765, 0.101960786, 1, 0.47843137, 0.047058824, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b1vdq"]
+gradient = SubResource("Gradient_0uego")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uutia"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, -20, 0)
+scale_min = 0.29999998
+color_ramp = SubResource("GradientTexture1D_b1vdq")
+
+[node name="BurnTrail" type="Area2D"]
+z_index = 15
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_emi3t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6.342557, 6.342557)
+shape = SubResource("CircleShape2D_emi3t")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="DamageTick" type="Timer" parent="."]
+
+[node name="flames" type="GPUParticles2D" parent="."]
+scale = Vector2(-0.38411993, -0.38411993)
+amount = 64
+texture = ExtResource("2_emi3t")
+lifetime = 0.7
+process_material = SubResource("ParticleProcessMaterial_uutia")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="timeout" from="DamageTick" to="." method="_on_damage_tick_timeout"]

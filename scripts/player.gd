@@ -16,6 +16,7 @@ var stunned = null
 var resistance = 0.0
 var burns := []
 var can_ability: bool = true
+var charging_dash := false
 
 @onready var health_bar: TextureProgressBar = $UI/health
 @onready var extra_health: TextureProgressBar = $UI/extra_health
@@ -146,9 +147,12 @@ func _physics_process(delta: float) -> void:
 	if shoot_held:
 		_attack()
 
-	velocity = move_input * speed
+	if charging_dash:
+		velocity = Vector2.ZERO
+	else:
+		velocity = move_input * speed
 
-	if move_input != Vector2.ZERO:
+	if move_input != Vector2.ZERO and !charging_dash:
 		var target_angle := Vector2.UP.angle_to(move_input) + orientation_offset
 		_facing_angle = lerp_angle(_facing_angle, target_angle, turn_speed * delta)
 
@@ -176,20 +180,21 @@ func _physics_process(delta: float) -> void:
 func _read_input() -> void:
 	controller.update(global_position)
 
-	move_input = controller.move
-	if active_ability_use == false:
-		aim_direction = controller.aim
-		shoot_held = controller.shoot_held
-		pickup_just_pressed = controller.pickup_just_pressed
+	if !charging_dash:
+		move_input = controller.move
+		if !active_ability_use:
+			aim_direction = controller.aim
+			shoot_held = controller.shoot_held
+			pickup_just_pressed = controller.pickup_just_pressed
 
-		$UI/slots.visible = controller.slot_wheel_open
-		current_highlight.visible = controller.slot_wheel_open
+			$UI/slots.visible = controller.slot_wheel_open
+			current_highlight.visible = controller.slot_wheel_open
 
-		if controller.item_select_direction != Vector2.ZERO:
-			_select_item_by_direction(controller.item_select_direction)
+			if controller.item_select_direction != Vector2.ZERO:
+				_select_item_by_direction(controller.item_select_direction)
 
-		if controller.flower_just_pressed:
-			flowering()
+			if controller.flower_just_pressed:
+				flowering()
 
 # =========================
 # ITEM SELECTION

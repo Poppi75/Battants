@@ -266,13 +266,13 @@ font_size = 8
 [node name="Leafcutter_ant" type="CharacterBody2D" groups=["players"]]
 z_index = 20
 collision_layer = 2
-collision_mask = 389
+collision_mask = 1413
 script = ExtResource("1_3e36t")
 max_health = 180.0
 speed = 160.0
 
 [node name="bodyslam" type="Area2D" parent="."]
-collision_layer = 256
+collision_layer = 512
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bodyslam"]
