@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var coin_scene: PackedScene = preload("res://scenes/items/random_pickup_coin.tscn")
+@export var pickups: Array[PackedScene]
 @export var max_attempts := 20
 
 func _ready():
@@ -12,7 +12,7 @@ func spawn_coin():
 	for i in max_attempts:
 		var pos = get_random_point_in_area()
 		if is_position_free(pos):
-			var coin = coin_scene.instantiate()
+			var coin = pickups.pick_random().instantiate()
 			coin.global_position = pos
 			get_tree().current_scene.add_child(coin)
 			return

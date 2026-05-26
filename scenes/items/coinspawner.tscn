@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx5sqqjomivsw"]
+[gd_scene load_steps=6 format=3 uid="uid://dx5sqqjomivsw"]
 
 [ext_resource type="Script" uid="uid://dhqybg08edmxf" path="res://scripts/items/coinspawner.gd" id="1_0adhx"]
+[ext_resource type="PackedScene" uid="uid://cbxe716fia0hc" path="res://scenes/items/ranged_pickup.tscn" id="2_tp1hk"]
+[ext_resource type="PackedScene" uid="uid://b2tlgouf47pru" path="res://scenes/items/ability_pickup.tscn" id="3_yfyf3"]
+[ext_resource type="PackedScene" uid="uid://dgb1q7ffwwqxb" path="res://scenes/items/utility_pickup.tscn" id="4_k0wd5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wg82f"]
 size = Vector2(1920, 1080)
@@ -9,6 +12,7 @@ size = Vector2(1920, 1080)
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_0adhx")
+pickups = Array[PackedScene]([ExtResource("2_tp1hk"), ExtResource("3_yfyf3"), ExtResource("4_k0wd5")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wg82f")

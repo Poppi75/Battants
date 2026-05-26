@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c7t8jidp27mak" path="res://assets/tilemaps/battants_floor_clean.png" id="7_cb40e"]
 [ext_resource type="Texture2D" uid="uid://bwbl7vrac17ae" path="res://assets/tilemaps/test_floor_spot.png" id="8_urrlk"]
 [ext_resource type="Texture2D" uid="uid://go1kxmcipmdo" path="res://assets/tilemaps/testing_pit.png" id="8_x6mtj"]
-[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="12_km7pc"]
+[ext_resource type="PackedScene" uid="uid://b5uw5ql774y61" path="res://scenes/ui/pause_menu.tscn" id="12_km7pc"]
 [ext_resource type="AudioStream" uid="uid://bjs53xrjhh512" path="res://assets/8bit_sounds/battants_battlemusic2.mp3" id="12_qqq38"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhurw"]

@@ -4,18 +4,24 @@ extends Area2D
 @onready var sprite_2d_2: Sprite2D = $Sprite2D2
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-@export var ranged_items: Array[PackedScene]
-
-@export var ability_items: Array[PackedScene]
-
 @export var utility_items: Array[PackedScene]
 
 var claimed: bool = false
 var players_in_range: Array[Player] = []
 
+var random: int
+
+
+
+func _ready() -> void:
+	random = [-1, 1].pick_random()
+
+
 func _process(_delta: float) -> void:
 	if claimed:
 		return
+
+	rotation += 0.02 * random
 
 	for p in players_in_range:
 		if not is_instance_valid(p):
@@ -62,12 +68,6 @@ func _claim(p: Player) -> void:
 # Move this method from player to here:
 func _pick_random_item_from_pool() -> Dictionary:
 	var pool: Array[Dictionary] = []
-
-	for item in ranged_items:
-		pool.append({ "type": "ranged", "scene": item })
-
-	for item in ability_items:
-		pool.append({ "type": "ability", "scene": item })
 
 	for item in utility_items:
 		pool.append({ "type": "utility", "scene": item })
