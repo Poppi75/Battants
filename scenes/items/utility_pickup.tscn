@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgb1q7ffwwqxb"]
+
+[ext_resource type="Script" uid="uid://bpksvtlu2ncyt" path="res://scripts/items/utility_pickup.gd" id="1_757ee"]
+[ext_resource type="AudioStream" uid="uid://cbu3fodmx58l" path="res://assets/8bit_sounds/battants_pickupsound.mp3" id="2_757ee"]
+[ext_resource type="PackedScene" uid="uid://bfbwvy7kl55e4" path="res://scenes/items/flashbang.tscn" id="2_ecebc"]
+[ext_resource type="PackedScene" uid="uid://cwewln63uqkbp" path="res://scenes/items/grenade.tscn" id="3_ixxqc"]
+[ext_resource type="PackedScene" uid="uid://d21ukyc61ytah" path="res://scenes/items/molotov.tscn" id="4_rihq0"]
+[ext_resource type="PackedScene" uid="uid://f2dn24clrfbt" path="res://scenes/items/smoke.tscn" id="5_uaa8w"]
+[ext_resource type="Texture2D" uid="uid://5qabnllbaih6" path="res://assets/item_art/utility_pickup.png" id="6_ecebc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixxqc"]
+size = Vector2(16, 16)
+
+[node name="Area2D" type="Area2D"]
+z_index = 21
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_757ee")
+utility_items = Array[PackedScene]([ExtResource("2_ecebc"), ExtResource("3_ixxqc"), ExtResource("4_rihq0"), ExtResource("5_uaa8w")])
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("6_ecebc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ixxqc")
+
+[node name="pickup_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_757ee")
+volume_db = 10.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

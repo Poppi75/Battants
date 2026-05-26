@@ -1,0 +1,34 @@
+[gd_scene load_steps=11 format=3 uid="uid://cbxe716fia0hc"]
+
+[ext_resource type="Script" uid="uid://bvgmcyeue8yys" path="res://scripts/items/ranged_pickup.gd" id="1_nth85"]
+[ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="2_yfb5x"]
+[ext_resource type="PackedScene" uid="uid://bd2h6av3wtpy7" path="res://scenes/weapons/blast_cannon.tscn" id="3_7xt2b"]
+[ext_resource type="PackedScene" uid="uid://dfot2p3kwhpe1" path="res://scenes/weapons/sawed_off.tscn" id="4_1afyv"]
+[ext_resource type="PackedScene" uid="uid://dty5q2paghe2d" path="res://scenes/weapons/testi_kapula.tscn" id="5_cobcv"]
+[ext_resource type="PackedScene" uid="uid://dktncexna67yk" path="res://scenes/weapons/weapon_ak47.tscn" id="6_vgwgy"]
+[ext_resource type="PackedScene" uid="uid://d1kffgd6w0sr1" path="res://scenes/weapons/weapon_homing_launcher.tscn" id="7_a2c2f"]
+[ext_resource type="Texture2D" uid="uid://b6bcxqmr1i1xq" path="res://assets/item_art/ranged_pickup.png" id="8_k551j"]
+[ext_resource type="AudioStream" uid="uid://cbu3fodmx58l" path="res://assets/8bit_sounds/battants_pickupsound.mp3" id="14_unaxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stbt2"]
+size = Vector2(16, 16)
+
+[node name="Area2D" type="Area2D"]
+z_index = 21
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_nth85")
+ranged_items = Array[PackedScene]([ExtResource("2_yfb5x"), ExtResource("3_7xt2b"), ExtResource("4_1afyv"), ExtResource("5_cobcv"), ExtResource("6_vgwgy"), ExtResource("7_a2c2f")])
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("8_k551j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_stbt2")
+
+[node name="pickup_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_unaxb")
+volume_db = 10.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
