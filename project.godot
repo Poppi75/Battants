@@ -31,6 +31,8 @@ players=""
 shield=""
 explosion=""
 main_camera=""
+walls=""
+fire_chunk=""
 
 [input]
 

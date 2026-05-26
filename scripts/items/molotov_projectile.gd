@@ -86,10 +86,11 @@ func _physics_process(delta: float) -> void:
 
 func explode() -> void:
 	if fire_scene:
-		var fire := fire_scene.instantiate()
-		fire.global_position = global_position
-		fire.owner_player = owner_player
-		get_tree().current_scene.add_child(fire)
+		for i in range(20):
+			var fire := fire_scene.instantiate()
+			fire.global_position = global_position
+			#fire.owner_player = owner_player
+			get_tree().current_scene.add_child(fire)
 	queue_free()
 
 func _on_lifetime_timeout() -> void:
