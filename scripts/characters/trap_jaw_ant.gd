@@ -177,13 +177,13 @@ func fire_spikes(target: Node2D) -> void:
 )
 
 		# Wait while attached
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.2).timeout
 
 		# Fire
 		if is_instance_valid(spike):
 			spike.launch()
 
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.3).timeout
 
 func is_position_free(pos: Vector2, target: Node2D) -> bool:
 	var space_state = get_world_2d().direct_space_state

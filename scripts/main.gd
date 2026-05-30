@@ -12,6 +12,9 @@ var camera: Camera2D
 var winner: Label
 var countdown_label: Label
 
+@onready var floors: TileMapLayer = $ground
+@onready var walls: TileMapLayer = $walls
+@onready var pits: TileMapLayer = $pits
 
 # =====================================================
 # SPAWNING
@@ -35,6 +38,8 @@ var maps = Global.maps
 # READY
 # =====================================================
 func _ready() -> void:
+	print("MapRoot ready: registering fire layers")
+	FireManager.register_layers(floors, walls, pits)
 	randomize()
 
 	_locate_camera()

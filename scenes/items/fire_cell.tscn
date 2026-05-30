@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://doif0e1cq8awu"]
+
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="1_v7dpr"]
+
+[sub_resource type="Gradient" id="Gradient_1hley"]
+offsets = PackedFloat32Array(0, 0.30601093, 0.715847, 1)
+colors = PackedColorArray(1, 0.95686275, 0.6901961, 1, 1, 0.5411765, 0.101960786, 1, 0.47843137, 0.047058824, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fg45l"]
+gradient = SubResource("Gradient_1hley")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_im7m4"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, -20, 0)
+scale_min = 0.29999998
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_fg45l")
+
+[node name="FireCell" type="Node2D"]
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+z_index = 1
+amount = 30
+texture = ExtResource("1_v7dpr")
+lifetime = 0.4
+explosiveness = 0.2
+randomness = 0.4
+visibility_rect = Rect2(-16, -16, 32, 32)
+process_material = SubResource("ParticleProcessMaterial_im7m4")

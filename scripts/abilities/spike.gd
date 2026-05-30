@@ -52,12 +52,17 @@ func launch():
 
 func _on_body_entered(body: Node2D) -> void:
 
-	if body.is_in_group("players") and body != owner_player:
+	if body != owner_player:
+		if body.is_in_group("players"):
 
-		body.take_damage(
-			owner_player,
-			body.health * damage,
-			false
-		)
+			body.take_damage(
+				owner_player,
+				body.health * damage,
+				false
+			)
 
 		queue_free()
+
+
+func _on_life_time_timeout() -> void:
+	queue_free()

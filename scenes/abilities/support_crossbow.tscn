@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpfr5lsjx1vwo"]
+
+[ext_resource type="Script" uid="uid://dljjhueqiue8u" path="res://scripts/abilities/support_crossbow.gd" id="1_3ae66"]
+[ext_resource type="Texture2D" uid="uid://psb7uiahyitj" path="res://assets/ability_art/battants_crossbow.png" id="1_poj5l"]
+[ext_resource type="PackedScene" uid="uid://bdtfolmpil4i7" path="res://scenes/abilities/crossbow_arrow.tscn" id="2_i0ia6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ae66"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0ia6"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53x62"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpsju"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58idh"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlwn7"]
+atlas = ExtResource("1_poj5l")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w11bm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ae66")
+}],
+"loop": true,
+"name": &"loaded",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0ia6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53x62")
+}],
+"loop": false,
+"name": &"loading",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpsju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58idh")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlwn7")
+}],
+"loop": false,
+"name": &"shot",
+"speed": 5.0
+}]
+
+[node name="support_crossbow" type="Node2D"]
+script = ExtResource("1_3ae66")
+bullet_scene = ExtResource("2_i0ia6")
+
+[node name="crossbow_anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w11bm")
+animation = &"loading"
+autoplay = "loaded"
+frame = 1
+frame_progress = 1.0
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(13, 0)
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="shootCooldown" to="." method="_on_shoot_cooldown_timeout"]

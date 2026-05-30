@@ -4,17 +4,29 @@ extends Player
 @onready var ability_cooldown: Timer = $AbilityCooldown
 @export var ability_damage: float = 30.0
 @export var stun_duration: float = 4.0
+var visible_res = 0
+
+@onready var res_indicators = [
+	$UI/Res_icons/Shield,
+	$UI/Res_icons/Shield2,
+	$UI/Res_icons/Shield3
+]
+
 
 func _on_passive_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players") and body != self:
+		res_indicators[visible_res].visible = true
 		resistance += 0.3
+		visible_res += 1
 	else:
 		return
 
 
 func _on_passive_body_exited(body: Node2D) -> void:
 	if body.is_in_group("players") and body != self:
+		visible_res -= 1
 		resistance -= 0.3
+		res_indicators[visible_res].visible = false
 	else:
 		return
 
@@ -22,6 +34,7 @@ func _attack() -> void:
 	super._attack()
 	if equipped_slot == "class_ability" and !stunned and can_ability:
 		active_ability_use = true
+		$bodyslam/GPUParticles2D.emitting = true
 		var bodies = bodyslam.get_overlapping_bodies()
 		for body in bodies:
 			if body != self:

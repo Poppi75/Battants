@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbxe716fia0hc"]
+[gd_scene load_steps=11 format=3 uid="uid://bc13prtk2d6ba"]
 
-[ext_resource type="Script" uid="uid://bvgmcyeue8yys" path="res://scripts/items/ranged_pickup.gd" id="1_nth85"]
+[ext_resource type="Script" path="res://scripts/items/ranged_pickup.gd" id="1_utxji"]
 [ext_resource type="PackedScene" uid="uid://diu5x7xv8y6f8" path="res://scenes/weapons/deagle.tscn" id="2_yfb5x"]
 [ext_resource type="PackedScene" uid="uid://bd2h6av3wtpy7" path="res://scenes/weapons/blast_cannon.tscn" id="3_7xt2b"]
 [ext_resource type="PackedScene" uid="uid://dfot2p3kwhpe1" path="res://scenes/weapons/sawed_off.tscn" id="4_1afyv"]
@@ -17,8 +17,8 @@ size = Vector2(16, 16)
 z_index = 21
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_nth85")
-ranged_items = Array[PackedScene]([ExtResource("2_yfb5x"), ExtResource("3_7xt2b"), ExtResource("4_1afyv"), ExtResource("5_cobcv"), ExtResource("6_vgwgy"), ExtResource("7_a2c2f")])
+script = ExtResource("1_utxji")
+ranged_items = Array[PackedScene]([ExtResource("2_yfb5x"), ExtResource("4_1afyv"), ExtResource("6_vgwgy"), ExtResource("7_a2c2f"), ExtResource("5_cobcv"), ExtResource("3_7xt2b")])
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 texture = ExtResource("8_k551j")

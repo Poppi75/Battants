@@ -20,7 +20,8 @@ rotation = -0.7853982
 texture = ExtResource("1_qu68l")
 
 [node name="life_time" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
+autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="life_time" to="." method="_on_life_time_timeout"]
