@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clqwil0kqbery"
-path="res://.godot/imported/stun_effect.png-2b46365fbb51c098cdbbdbdfc473a3ff.ctex"
+uid="uid://b13goby6dikpk"
+path="res://.godot/imported/battants_arrow.png-a6ee6a71553165b7e2c7e90619efd955.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/item_art/stun_effect.png"
-dest_files=["res://.godot/imported/stun_effect.png-2b46365fbb51c098cdbbdbdfc473a3ff.ctex"]
+source_file="res://assets/ability_art/battants_arrow.png"
+dest_files=["res://.godot/imported/battants_arrow.png-a6ee6a71553165b7e2c7e90619efd955.ctex"]
 
 [params]
 

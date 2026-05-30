@@ -47,6 +47,7 @@ var original_speed: float
 @onready var stunTimer: Timer = $stunTimer
 @onready var stunSound: AudioStreamPlayer2D = $stunSound
 @onready var stun_effect: AnimatedSprite2D = $stun_effect
+@onready var burn_effect: AnimatedSprite2D = $burn_effect
 @onready var checker: Area2D = $checker
 
 var equipped_slot := "ranged"
@@ -316,9 +317,13 @@ func _die_deferred() -> void:
 	queue_free()
 
 func start_burn_timer() -> void:
+	burn_effect.play()
+	burn_effect.visible = true
 	while burns.size() > 0:
 		await get_tree().create_timer(1.0).timeout
 		burn()
+	burn_effect.visible = false
+	burn_effect.pause()
 
 func burn() -> void:
 	for i in range(burns.size() - 1, -1, -1):
@@ -330,9 +335,9 @@ func burn() -> void:
 		if effect.time_left <= 0:
 			burns.remove_at(i)
 
-func flower_heal() -> void:
-	health += 25
-	_spawn_damage_number(25, false, true)
+func heal(amount: float) -> void:
+	health += amount
+	_spawn_damage_number(amount, false, true)
 	update_health_bars()
 	
 func flowering() -> void:
@@ -402,6 +407,7 @@ func apply_stun() -> void:
 	tween.tween_callback(stunSound.stop)                      # stop after fade
 
 	stunned = true
+	stun_effect.play()
 	stun_effect.visible = true
 
 func ability_stun(duration: float, slow_down_percent: float = 0.0) -> void:
@@ -417,11 +423,13 @@ func ability_stun(duration: float, slow_down_percent: float = 0.0) -> void:
 	tween.tween_callback(stunSound.stop)                      # stop after fade
 
 	stunned = true
+	stun_effect.play()
 	stun_effect.visible = true
 
 func _on_stun_timer_timeout() -> void:
 	stunned = false
 	stun_effect.visible = false
+	stun_effect.pause()
 	speed = original_speed
 
 

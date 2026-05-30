@@ -19,6 +19,7 @@ run/snap/snap_2d_transforms_to_pixel=false
 [autoload]
 
 Global="*res://global.gd"
+FireManager="*res://scripts/fire_manager.gd"
 
 [display]
 
@@ -31,8 +32,8 @@ players=""
 shield=""
 explosion=""
 main_camera=""
-walls=""
-fire_chunk=""
+wall=""
+fire=""
 
 [input]
 

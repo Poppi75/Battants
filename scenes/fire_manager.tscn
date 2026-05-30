@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckn3yqdy2w6fd"]
+
+[ext_resource type="Script" uid="uid://b4i3ykrvpmllt" path="res://scripts/fire_manager.gd" id="1_ei47u"]
+
+[node name="FireManager" type="Node2D"]
+script = ExtResource("1_ei47u")

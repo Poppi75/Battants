@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dchutohfdufrh" path="res://scripts/items/molotov_projectile.gd" id="1_ksao6"]
 [ext_resource type="Texture2D" uid="uid://bc2nbhwhbsudn" path="res://assets/item_art/molotov_onfire.png" id="2_c5dxc"]
-[ext_resource type="PackedScene" uid="uid://c6br4pv7ti1cg" path="res://scenes/items/molotov_burn_chunk.tscn" id="2_d6kqo"]
+[ext_resource type="PackedScene" uid="uid://bumohh4fq2yc8" path="res://scenes/items/molotov_burn_area.tscn" id="2_d6kqo"]
 [ext_resource type="AudioStream" uid="uid://ebfssrb7bpem" path="res://assets/8bit_sounds/battants_flysound.mp3" id="4_d6kqo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksao6"]

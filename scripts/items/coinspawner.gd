@@ -2,6 +2,7 @@ extends Area2D
 
 @export var pickups: Array[PackedScene]
 @export var max_attempts := 20
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _ready():
 	await get_tree().process_frame
@@ -18,7 +19,7 @@ func spawn_coin():
 			return
 
 func get_random_point_in_area() -> Vector2:
-	var shape := $CollisionShape2D.shape as RectangleShape2D
+	var shape := collision_shape_2d.shape as RectangleShape2D
 	var extents = shape.extents
 	return global_position + Vector2(
 		randf_range(-extents.x, extents.x),

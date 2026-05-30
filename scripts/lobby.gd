@@ -3,8 +3,6 @@ extends Control
 const MAX_PLAYERS := 4
 const MIN_PLAYERS := 2
 
-var player_scene: PackedScene = preload("res://scenes/characters/player.tscn")
-
 var players_joined = 0
 	
 @onready var players = [

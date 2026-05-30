@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0pinrgexdr1f"
-path="res://.godot/imported/shield.png-3130f2c2569cf16d9d685d7ac13cb9d4.ctex"
+uid="uid://ciotvcd1uga7i"
+path="res://.godot/imported/battants_burn_indicator.png-674e0a1c30cd341e8863ddab1c5d7e0e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ability_art/shield.png"
-dest_files=["res://.godot/imported/shield.png-3130f2c2569cf16d9d685d7ac13cb9d4.ctex"]
+source_file="res://assets/player/battants_burn_indicator.png"
+dest_files=["res://.godot/imported/battants_burn_indicator.png-674e0a1c30cd341e8863ddab1c5d7e0e.ctex"]
 
 [params]
 
