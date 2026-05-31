@@ -21,6 +21,12 @@ func toggle_pause() -> void:
 	visible = !visible
 	get_tree().paused = visible
 
+	if visible == true:
+		$Control/VBoxContainer/ResumeButton.grab_focus()
+
+	else:
+		get_viewport().gui_release_focus()
+
 
 func _on_resume_button_pressed() -> void:
 	toggle_pause()

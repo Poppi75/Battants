@@ -56,9 +56,7 @@ func attack() -> void:
 	
 	shoot_sound.pitch_scale = randf_range(0.95, 1.05)
 	shoot_sound.play()
-	var cam := get_tree().get_first_node_in_group("main_camera") as Camera2D
-	if cam.has_method("add_shake"):
-		cam.add_shake(0.6)
+	CameraShakeBus.shake_requested.emit(0.6)
 		
 	shotgunAnim.play("shoot")
 

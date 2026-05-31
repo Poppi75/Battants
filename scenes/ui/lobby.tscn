@@ -154,6 +154,8 @@ theme_override_constants/separation = 40
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../BackButton")
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
 theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
@@ -167,6 +169,8 @@ flat = true
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
 theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)

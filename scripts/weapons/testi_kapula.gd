@@ -55,9 +55,7 @@ func attack() -> void:
 		return
 	
 	shoot_sound_play()
-	var cam := get_tree().get_first_node_in_group("main_camera") as Camera2D
-	if cam.has_method("add_shake"):
-		cam.add_shake(0.25)
+	CameraShakeBus.shake_requested.emit(0.25)
 	
 	var bullet := bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
