@@ -115,8 +115,11 @@ func _apply_damage(dt: float) -> void:
 		if not body.has_method("take_damage"):
 			continue
 
-		# Use your float-based signature
-		body.take_damage(owner_player if owner_player else null, dmg, false)
+		if body.is_in_group("players"):
+			body.take_damage(owner_player if owner_player else null, dmg, false)
+
+		if body.is_in_group("map_props"):
+			body.take_damage(dmg)
 
 func _on_body_entered(body: Node) -> void:
 	bodies_in_fire[body] = true

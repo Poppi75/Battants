@@ -25,6 +25,11 @@ func _on_body_entered(body: Node2D) -> void:
 		print("[Bullet] Body hit for %d" % damage_amount)
 		body.take_damage(owner_player if owner_player else null, damage_amount, false)
 
+	if body.is_in_group("map_props"):
+		var damage_amount : float = randi_range(6, 13)
+		print("[Bullet] Body hit for %d" % damage_amount)
+		body.take_damage(damage_amount)
+
 	print("[Bullet] Destroyed")
 	queue_free()
 

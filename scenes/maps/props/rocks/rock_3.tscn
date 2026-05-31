@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba3cu6lk28dg2"]
+
+[ext_resource type="Script" uid="uid://dyehv4banpemj" path="res://scripts/map_objects/rock.gd" id="1_5lbuj"]
+[ext_resource type="Texture2D" uid="uid://8768yce0khnw" path="res://assets/props/battants_rock3.png" id="2_5lbuj"]
+
+[node name="rock3" type="CharacterBody2D" groups=["map_props"]]
+z_index = 22
+collision_mask = 527
+script = ExtResource("1_5lbuj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5lbuj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(7, -3, 7, -5, 8, -5, 8, -6, 9, -6, 9, -7, 10, -7, 10, -8, 11, -8, 11, -11, 10, -11, 10, -12, -5, -12, -5, -11, -11, -11, -11, -10, -12, -10, -12, -9, -13, -9, -13, -8, -14, -8, -14, -7, -15, -7, -15, -1, -14, -1, -14, 1, -13, 1, -13, 3, -12, 3, -12, 10, -11, 10, -11, 11, -10, 11, -10, 12, -9, 12, -9, 13, -7, 13, -7, 14, -4, 14, -4, 15, 4, 15, 4, 14, 5, 14, 5, 13, 7, 13, 7, 12, 10, 12, 10, 11, 11, 11, 11, 10, 12, 10, 12, 9, 13, 9, 13, 3, 12, 3, 12, 1, 11, 1, 11, 0, 10, 0, 10, -1, 9, -1, 9, -2, 8, -2, 8, -3, 7, -3)

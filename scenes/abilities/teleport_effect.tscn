@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvl5tkvugnbli"]
+
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="1_8lag1"]
+[ext_resource type="Script" uid="uid://1hs8lrixxfmg" path="res://scripts/abilities/teleport_effect.gd" id="2_8dwkm"]
+
+[sub_resource type="Gradient" id="Gradient_8lag1"]
+offsets = PackedFloat32Array(0.0054644807, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8dwkm"]
+gradient = SubResource("Gradient_8lag1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8dwkm"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -600.0
+linear_accel_max = -200.0
+scale_min = 0.19999999
+scale_max = 0.59999996
+color_ramp = SubResource("GradientTexture1D_8dwkm")
+
+[node name="teleport_effect" type="GPUParticles2D"]
+amount = 50
+texture = ExtResource("1_8lag1")
+lifetime = 0.3
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8dwkm")
+script = ExtResource("2_8dwkm")
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://bcr2ms741i7nt"]
+
+[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="1_mktrk"]
+[ext_resource type="Script" uid="uid://cq2m7o148f0cr" path="res://scripts/abilities/slam_effect.gd" id="2_mkyb2"]
+
+[sub_resource type="Curve" id="Curve_mkyb2"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.50239235, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4lync"]
+curve = SubResource("Curve_mkyb2")
+
+[sub_resource type="Gradient" id="Gradient_jh2uh"]
+colors = PackedColorArray(0.6392157, 0.54901963, 0.45882353, 1, 0.6392157, 0.54901963, 0.45882353, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_brhph"]
+gradient = SubResource("Gradient_jh2uh")
+
+[sub_resource type="Curve" id="Curve_mbos7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xrgp6"]
+curve = SubResource("Curve_mbos7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nk7mu"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angular_velocity_curve = SubResource("CurveTexture_4lync")
+gravity = Vector3(0, 0, 0)
+damping_min = 150.0
+damping_max = 150.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_xrgp6")
+color_ramp = SubResource("GradientTexture1D_brhph")
+turbulence_noise_strength = 5.0
+turbulence_noise_scale = 3.0
+
+[node name="Slam_Effect" type="GPUParticles2D"]
+amount = 80
+texture = ExtResource("1_mktrk")
+lifetime = 1.8
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_nk7mu")
+script = ExtResource("2_mkyb2")
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 1.7999999999999998
+autostart = true
+
+[connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]
