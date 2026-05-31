@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5y4t3qmr34bj"]
+
+[ext_resource type="Script" uid="uid://7hg8iu8yf0gf" path="res://scripts/map_objects/barrel.gd" id="1_vioh0"]
+[ext_resource type="Texture2D" uid="uid://bjw5te818kvhi" path="res://assets/props/battants_barrel_prop.png" id="1_x3nn8"]
+[ext_resource type="PackedScene" uid="uid://dvj7kditdrf2q" path="res://scenes/weapons/explosion.tscn" id="2_djrp6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vioh0"]
+radius = 16.03122
+
+[node name="Barrel" type="CharacterBody2D" groups=["map_props"]]
+z_index = 22
+collision_mask = 527
+script = ExtResource("1_vioh0")
+explosion_scene = ExtResource("2_djrp6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x3nn8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vioh0")

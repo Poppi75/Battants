@@ -15,3 +15,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players") and body != owner_player:
 		body.take_damage(owner_player if owner_player else null, damage, false)
 		owner_player.heal(damage / 2)
+
+	if body.is_in_group("map_props"):
+		body.take_damage(damage)

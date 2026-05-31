@@ -17,6 +17,8 @@ var _visible: bool = true
 	$UI/damagetaken
 ]
 
+@export var teleport_effect: PackedScene
+
 var cloak_progress := 0.0
 var cloak_tween: Tween
 var bars_tween: Tween
@@ -145,6 +147,11 @@ func teleport_to_closest():
 
 		if is_position_free(test_position, closest):
 			print("Teleporting to: ", test_position)
+
+		var effect = teleport_effect.instantiate()
+		get_tree().current_scene.add_child(effect)
+		effect.global_position = global_position
+
 
 		global_position = test_position
 		closest.ability_stun(stun_duration)

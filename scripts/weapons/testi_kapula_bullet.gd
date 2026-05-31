@@ -20,6 +20,10 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		var damage_amount : float = randi_range(5, 8)
 		body.take_damage(owner_player, damage_amount, false)
+
+	if body.is_in_group("map_props"):
+		var damage_amount : float = randi_range(5, 8)
+		body.take_damage(damage_amount)
 	
 	queue_free()
 

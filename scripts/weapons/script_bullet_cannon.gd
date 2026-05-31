@@ -78,6 +78,11 @@ func _on_body_entered(body: Node2D) -> void:
 		print("[Bullet] Body hit for %d" % damage_amount)
 		body.take_damage(owner_player if owner_player else null, damage_amount, false)
 
+	if body.is_in_group("map_props"):
+		var damage_amount := randi_range(32, 69)
+		print("[Bullet] Body hit for %d" % damage_amount)
+		body.take_damage(damage_amount)
+
 	# Split on collision (once per overlap burst)
 	if !_did_split_this_collision and splits_remaining > 0:
 		_did_split_this_collision = true

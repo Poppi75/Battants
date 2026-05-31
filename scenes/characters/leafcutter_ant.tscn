@@ -1,7 +1,7 @@
-[gd_scene load_steps=93 format=3 uid="uid://bqhwvtowk3tbp"]
+[gd_scene load_steps=84 format=3 uid="uid://bqhwvtowk3tbp"]
 
 [ext_resource type="Script" uid="uid://4byl46bant13" path="res://scripts/characters/leafcutter_ant.gd" id="1_3e36t"]
-[ext_resource type="Texture2D" uid="uid://b0njba4h2krvi" path="res://assets/item_art/particle_texture.png" id="2_4lync"]
+[ext_resource type="PackedScene" uid="uid://bcr2ms741i7nt" path="res://scenes/abilities/slam_effect.tscn" id="2_4lync"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="2_ncrot"]
 [ext_resource type="Texture2D" uid="uid://crpduex01824v" path="res://assets/player/p2_animations.png" id="3_4lync"]
 [ext_resource type="Texture2D" uid="uid://dsuasugkh2kts" path="res://assets/player/p3_animations.png" id="4_xuq1n"]
@@ -25,50 +25,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3e36t"]
 radius = 90.199776
-
-[sub_resource type="Curve" id="Curve_ncrot"]
-_limits = [-360.0, 360.0, 0.0, 1.0]
-_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.50239235, -360), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_4lync"]
-curve = SubResource("Curve_ncrot")
-
-[sub_resource type="Gradient" id="Gradient_xuq1n"]
-colors = PackedColorArray(0.17302391, 0.10829348, 0.001914894, 1, 0.3238101, 0.21935573, 9.62615e-08, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_brhph"]
-gradient = SubResource("Gradient_xuq1n")
-
-[sub_resource type="Curve" id="Curve_xuq1n"]
-_limits = [-360.0, 360.0, 0.0, 1.0]
-_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.49760768, -360), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_brhph"]
-curve = SubResource("Curve_xuq1n")
-
-[sub_resource type="Curve" id="Curve_trk3e"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7511962, 0.79775286), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_xrgp6"]
-curve = SubResource("Curve_trk3e")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trk3e"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 90.0
-direction = Vector3(0, -1, 0)
-spread = 180.0
-initial_velocity_min = 100.0
-initial_velocity_max = 300.0
-angular_velocity_curve = SubResource("CurveTexture_4lync")
-orbit_velocity_curve = SubResource("CurveTexture_brhph")
-scale_curve = SubResource("CurveTexture_xrgp6")
-color_ramp = SubResource("GradientTexture1D_brhph")
-turbulence_noise_strength = 5.0
-turbulence_noise_scale = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ji5xe"]
 radius = 56.0803
@@ -507,21 +463,16 @@ z_index = 20
 collision_layer = 2
 collision_mask = 1413
 script = ExtResource("1_3e36t")
+slam_effect = ExtResource("2_4lync")
 max_health = 180.0
 speed = 160.0
 
 [node name="bodyslam" type="Area2D" parent="."]
 collision_layer = 512
-collision_mask = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bodyslam"]
 shape = SubResource("CircleShape2D_3e36t")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="bodyslam"]
-amount = 100
-texture = ExtResource("2_4lync")
-lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_trk3e")
 
 [node name="passive" type="Area2D" parent="."]
 collision_layer = 256

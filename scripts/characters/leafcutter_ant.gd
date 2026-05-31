@@ -6,6 +6,8 @@ extends Player
 @export var stun_duration: float = 4.0
 var visible_res = 0
 
+@export var slam_effect: PackedScene
+
 @onready var res_indicators = [
 	$UI/Res_icons/Shield,
 	$UI/Res_icons/Shield2,
@@ -34,12 +36,20 @@ func _attack() -> void:
 	super._attack()
 	if equipped_slot == "class_ability" and !stunned and can_ability:
 		active_ability_use = true
-		$bodyslam/GPUParticles2D.emitting = true
+		if slam_effect != null:
+			var effect = slam_effect.instantiate()
+			get_tree().current_scene.add_child(effect)
+			effect.global_position = global_position
 		var bodies = bodyslam.get_overlapping_bodies()
 		for body in bodies:
 			if body != self:
-				body.take_damage(self, ability_damage, false)
-				body.ability_stun(stun_duration, 0.4)
+				if body.is_in_group("players"):
+					body.take_damage(self, ability_damage, false)
+					body.ability_stun(stun_duration, 0.4)
+
+				if body.is_in_group("map_props"):
+					body.take_damage(ability_damage)
+
 		can_ability = false
 		active_ability_use = false
 		ability_cooldown.start()
