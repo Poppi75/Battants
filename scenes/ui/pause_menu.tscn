@@ -48,6 +48,8 @@ grow_vertical = 2
 
 [node name="ResumeButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
 theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)
@@ -61,6 +63,8 @@ flat = true
 
 [node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
 theme_override_colors/font_color = Color(0.2665748, 0.2665754, 0.26657495, 1)
 theme_override_colors/font_focus_color = Color(0.5370117, 0.5370112, 0.5370112, 1)
 theme_override_colors/font_pressed_color = Color(0.8132577, 0.8132577, 0.81325763, 1)

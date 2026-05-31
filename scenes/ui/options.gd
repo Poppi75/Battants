@@ -4,6 +4,9 @@ extends Control
 @onready var keyboard_input_map: TextureRect = $keyboard_input_map
 
 
+func _ready() -> void:
+	$VBoxContainer/LocalButton.grab_focus()
+
 func _on_settings_button_pressed() -> void:
 	keyboard_input_map.visible = false
 	

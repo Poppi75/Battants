@@ -27,6 +27,7 @@ var players_joined = 0
 ]
 
 func _ready() -> void:
+	$VBoxContainer/StartButton.grab_focus()
 	update_players_joined()
 
 func _unhandled_input(event: InputEvent) -> void:
