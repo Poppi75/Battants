@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1ea2gh57cpev"]
+[gd_scene load_steps=4 format=3 uid="uid://c1ea2gh57cpev"]
 
 [ext_resource type="Script" uid="uid://dyehv4banpemj" path="res://scripts/map_objects/rock.gd" id="1_n1ak2"]
+[ext_resource type="PackedScene" uid="uid://dmtw8uxhdfb1d" path="res://scenes/maps/props/rocks/rock_explode_effect.tscn" id="2_815rw"]
 [ext_resource type="Texture2D" uid="uid://bskh2t8m5l4jd" path="res://assets/props/battants_rock1.png" id="2_n1ak2"]
 
 [node name="rock1" type="CharacterBody2D" groups=["map_props"]]
 z_index = 22
 collision_mask = 527
 script = ExtResource("1_n1ak2")
+rock_effect = ExtResource("2_815rw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_n1ak2")

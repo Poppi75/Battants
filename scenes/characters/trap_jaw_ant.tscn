@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://b8iagshgpc15w"]
+[gd_scene load_steps=87 format=3 uid="uid://b8iagshgpc15w"]
 
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_4tm0g"]
 [ext_resource type="Script" uid="uid://cp0eaclxaqrer" path="res://scripts/characters/trap_jaw_ant.gd" id="1_ikkqq"]
@@ -24,9 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_obsbi"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_m2drb"]
 [ext_resource type="Texture2D" uid="uid://c3k6sneasd37n" path="res://assets/ability_art/battants_assassin_ability_icon.png" id="23_xc7nh"]
+[ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="25_hejww"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1c4yd"]
-radius = 178.0028
+radius = 286.00174
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
@@ -524,7 +525,7 @@ wait_time = 6.0
 one_shot = true
 
 [node name="ExtraDmgTimer" type="Timer" parent="."]
-wait_time = 3.6
+wait_time = 5.0
 one_shot = true
 autostart = true
 
@@ -768,6 +769,15 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_pxed3")
+
+[node name="crosshair" type="TextureRect" parent="UI"]
+z_index = 21
+offset_left = 40.0
+offset_top = -4.0
+offset_right = 48.0
+offset_bottom = 4.0
+pivot_offset = Vector2(-40, 4)
+texture = ExtResource("25_hejww")
 
 [connection signal="body_entered" from="ability" to="." method="_on_ability_body_entered"]
 [connection signal="body_exited" from="ability" to="." method="_on_ability_body_exited"]

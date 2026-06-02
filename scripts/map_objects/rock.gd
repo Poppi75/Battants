@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 @onready var anim: Sprite2D = $Sprite2D
 
+@export var rock_effect: PackedScene
+
 var _flash_tween: Tween
 var _default_modulate: Color = Color(1, 1, 1, 1)
 
@@ -16,6 +18,10 @@ func take_damage(amount: float) -> void:
 	_flash_on_damage()
 
 	if health <= 0:
+		if rock_effect != null:
+			var effect = rock_effect.instantiate()
+			get_tree().current_scene.add_child(effect)
+			effect.global_position = global_position
 		queue_free()
 
 func _flash_on_damage() -> void:

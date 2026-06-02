@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bqhwvtowk3tbp"]
+[gd_scene load_steps=85 format=3 uid="uid://bqhwvtowk3tbp"]
 
 [ext_resource type="Script" uid="uid://4byl46bant13" path="res://scripts/characters/leafcutter_ant.gd" id="1_3e36t"]
 [ext_resource type="PackedScene" uid="uid://bcr2ms741i7nt" path="res://scenes/abilities/slam_effect.tscn" id="2_4lync"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="19_44xlk"]
 [ext_resource type="Texture2D" uid="uid://0pinrgexdr1f" path="res://assets/ability_art/shield.png" id="21_3e36t"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="21_rsrcy"]
+[ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="23_4lync"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3e36t"]
 radius = 90.199776
@@ -793,6 +794,15 @@ offset_top = 6.0
 offset_right = 26.0
 offset_bottom = 14.0
 texture = ExtResource("21_3e36t")
+
+[node name="crosshair" type="TextureRect" parent="UI"]
+z_index = 21
+offset_left = 40.0
+offset_top = -4.0
+offset_right = 48.0
+offset_bottom = 4.0
+pivot_offset = Vector2(-40, 4)
+texture = ExtResource("23_4lync")
 
 [connection signal="body_entered" from="passive" to="." method="_on_passive_body_entered"]
 [connection signal="body_exited" from="passive" to="." method="_on_passive_body_exited"]

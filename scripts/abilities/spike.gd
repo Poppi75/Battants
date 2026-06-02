@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed := 800.0
 @export var auto_free_time := 3.0
-@export var damage := 0.1
+@export var damage := 0.15
 
 var owner_player: Node2D
 var target: Node2D

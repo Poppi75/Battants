@@ -42,6 +42,7 @@ var original_speed: float
 @export var orientation_offset: float = 0.0
 @onready var controller: PlayerController = $PlayerController
 
+@onready var crosshair: TextureRect = $UI/crosshair
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
 @onready var stunTimer: Timer = $stunTimer
@@ -141,6 +142,7 @@ func _ready() -> void:
 # PHYSICS
 # =========================
 func _physics_process(delta: float) -> void: 
+	crosshair.rotation = aim_direction.angle()
 	if not can_move:
 		return
 	_read_input()
@@ -262,11 +264,12 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 
 	if attacker != null:
 		if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
-			damage = damage + 12
+			damage = damage + 20
 			attacker.can_extra_dmg = false
 			attacker.extra_dmg_timer.start()
-			attacker.animate_cloak(attacker.cloak_progress < 0.5, 0.6)
-			attacker._visible = true
+			if attacker._visible == false:
+				attacker.animate_cloak(attacker.cloak_progress < 0.5, 0.6)
+				attacker._visible = true
 
 		damage = damage - damage * resistance
 		damage = round(damage * 100) / 100
