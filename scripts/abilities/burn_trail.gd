@@ -25,8 +25,11 @@ func _on_damage_tick_timeout():
 
 	for body in touching_bodies:
 
-		if is_instance_valid(body):
+		if is_instance_valid(body) and body.is_in_group("players"):
 			body.take_damage(null, fire_tick_damage)
+
+		if is_instance_valid(body) and body.is_in_group("map_props"):
+			body.take_damage(fire_tick_damage)
 
 
 func _on_lifetime_timeout():

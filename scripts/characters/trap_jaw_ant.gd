@@ -109,6 +109,7 @@ func _attack() -> void:
 		teleport_to_closest()
 		active_ability_use = false
 		ability.monitoring = false
+		nearby_players.clear()
 		cooldown.start()
 
 func teleport_to_closest():
@@ -221,8 +222,3 @@ func _on_ability_body_entered(body: Node2D) -> void:
 
 func _on_ability_cooldown_timeout() -> void:
 	can_ability = true
-
-
-func _on_ability_body_exited(body: Node2D) -> void:
-	if nearby_players.has(body):
-		nearby_players.erase(body)

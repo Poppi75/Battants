@@ -21,7 +21,7 @@ var players_joined = 0
 
 @onready var class_images = [
 	preload("res://assets/weapons/knife.png"),
-	preload("res://assets/weapons/deagle.png"),
+	preload("res://assets/item_slot_art/tuutikki.png"),
 	preload("res://assets/weapons/sawed_off.png"),
 	preload("res://assets/weapons/testikapula.png")
 ]

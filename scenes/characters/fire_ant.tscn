@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://eewxgugdwmuc"]
+[gd_scene load_steps=83 format=3 uid="uid://eewxgugdwmuc"]
 
 [ext_resource type="Script" uid="uid://dnyka8xn8ixwq" path="res://scripts/characters/fire_ant.gd" id="1_hmacm"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_sgdye"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_yjv5j"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_kmb8a"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_qqn2b"]
+[ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="22_43hol"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
@@ -748,6 +749,15 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_fnpdr")
+
+[node name="crosshair" type="TextureRect" parent="UI"]
+z_index = 21
+offset_left = 40.0
+offset_top = -4.0
+offset_right = 48.0
+offset_bottom = 4.0
+pivot_offset = Vector2(-40, 4)
+texture = ExtResource("22_43hol")
 
 [connection signal="body_entered" from="DashHitbox" to="." method="_on_dash_hitbox_body_entered"]
 [connection signal="timeout" from="AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]

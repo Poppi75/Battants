@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dvcvhw55ybnm8"]
+[gd_scene load_steps=65 format=3 uid="uid://dvcvhw55ybnm8"]
 
 [ext_resource type="Script" uid="uid://2p252dxqsj6g" path="res://scripts/player.gd" id="1_it4js"]
 [ext_resource type="Texture2D" uid="uid://cvngpjuchhojb" path="res://assets/player/over_health_bar_correct.png" id="4_aod5d"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://xkuuxwdr5ovq" path="res://assets/sounds/takedmg_battants.mp3" id="19_3wg1y"]
 [ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="19_wqk1x"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="21_dm10o"]
+[ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="22_eir2k"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="23_j8g38"]
 [ext_resource type="Texture2D" uid="uid://csxexb5tswdx4" path="res://assets/player/extra_health_bar.png" id="24_6rclf"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="25_j8g38"]
@@ -609,5 +610,13 @@ offset_right = 62.0
 offset_bottom = 62.0
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("16_d6tgn")
+
+[node name="crosshair" type="TextureRect" parent="UI"]
+offset_left = 40.0
+offset_top = -4.0
+offset_right = 48.0
+offset_bottom = 4.0
+pivot_offset = Vector2(-40, 4)
+texture = ExtResource("22_eir2k")
 
 [connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]

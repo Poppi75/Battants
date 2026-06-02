@@ -30,7 +30,7 @@ func take_damage(attacker: Node2D, damage: float, is_headshot: bool = false) -> 
 
 		if attacker != null:
 			if "can_extra_dmg" in attacker and attacker.can_extra_dmg == true:
-				damage = damage + 12
+				damage = damage + 20
 				attacker.can_extra_dmg = false
 				attacker.extra_dmg_timer.start()
 				attacker.animate_cloak(attacker.cloak_progress < 0.5, 0.6)
