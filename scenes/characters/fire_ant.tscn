@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://eewxgugdwmuc"]
+[gd_scene load_steps=85 format=3 uid="uid://eewxgugdwmuc"]
 
 [ext_resource type="Script" uid="uid://dnyka8xn8ixwq" path="res://scripts/characters/fire_ant.gd" id="1_hmacm"]
 [ext_resource type="Texture2D" uid="uid://dwwm221gqoxge" path="res://assets/player/p1_animations.png" id="1_sgdye"]
@@ -18,10 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://6sq76k3ix66n" path="res://assets/ui art/shift.png" id="14_hmacm"]
 [ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="15_dgv5v"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_fnpdr"]
+[ext_resource type="Texture2D" uid="uid://cyng3pkk5ipp6" path="res://assets/item_slot_art/shield_slot.png" id="17_40glm"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_yjv5j"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_kmb8a"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_qqn2b"]
 [ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="22_43hol"]
+[ext_resource type="Texture2D" uid="uid://dtu2i7227aekv" path="res://assets/ui art/dash_aim_arrow.png" id="23_mhc4b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulbuo"]
 radius = 4.0
@@ -642,7 +644,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("15_dgv5v")
+texture = ExtResource("17_40glm")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ability"]
 visible = false
@@ -758,6 +760,15 @@ offset_right = 48.0
 offset_bottom = 4.0
 pivot_offset = Vector2(-40, 4)
 texture = ExtResource("22_43hol")
+
+[node name="dash_aim_arrow" type="TextureRect" parent="UI"]
+visible = false
+z_index = 21
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+pivot_offset = Vector2(0, 16)
+texture = ExtResource("23_mhc4b")
 
 [connection signal="body_entered" from="DashHitbox" to="." method="_on_dash_hitbox_body_entered"]
 [connection signal="timeout" from="AbilityCooldown" to="." method="_on_ability_cooldown_timeout"]

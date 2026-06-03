@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctsecenwjvaaf"]
+[gd_scene load_steps=15 format=3 uid="uid://ctsecenwjvaaf"]
 
 [ext_resource type="Script" uid="uid://c4mel6a1tec34" path="res://scripts/lobby.gd" id="1_6oakf"]
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="3_2rbxb"]
 [ext_resource type="Texture2D" uid="uid://ciccjyip5fxcy" path="res://assets/ui art/lobby_art.png" id="3_5t5el"]
-[ext_resource type="Texture2D" uid="uid://cnev5myc0flrk" path="res://assets/weapons/knife.png" id="4_rqagm"]
 [ext_resource type="AudioStream" uid="uid://05dqpr5fnq4g" path="res://assets/8bit_sounds/battants_music2.mp3" id="5_rqagm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_66348"]
@@ -29,6 +28,18 @@ font = ExtResource("3_2rbxb")
 font_size = 32
 font_color = Color(1, 0.9490196, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_kghoh"]
+font = ExtResource("3_2rbxb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vfpwc"]
+font = ExtResource("3_2rbxb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_24obi"]
+font = ExtResource("3_2rbxb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cyxd6"]
+font = ExtResource("3_2rbxb")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5t5el"]
 
 [node name="lobby" type="Control"]
@@ -40,13 +51,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6oakf")
 
-[node name="Label" type="Label" parent="."]
+[node name="howtoclass" type="Label" parent="."]
 z_index = 316
 layout_mode = 0
 offset_left = 26.0
 offset_top = 1045.0
 offset_right = 1658.0
 offset_bottom = 1068.0
+theme_override_fonts/font = ExtResource("3_2rbxb")
+text = "Use D-pad left and right on controller or a and d on keyboard to change class"
+label_settings = SubResource("LabelSettings_66348")
+
+[node name="howtojoin" type="Label" parent="."]
+z_index = 316
+layout_mode = 0
+offset_left = 26.0
+offset_top = 1023.0
+offset_right = 1658.0
+offset_bottom = 1046.0
 theme_override_fonts/font = ExtResource("3_2rbxb")
 text = "At least 2 players needed to start the game. Join with [Enter] on keyboard or [Start] with controller."
 label_settings = SubResource("LabelSettings_66348")
@@ -103,41 +125,45 @@ offset_bottom = 817.0
 text = "P4"
 label_settings = SubResource("LabelSettings_bnidf")
 
-[node name="p1_class" type="TextureRect" parent="."]
+[node name="p1_class" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 417.0
-offset_top = 843.0
-offset_right = 547.0
-offset_bottom = 973.0
-texture = ExtResource("4_rqagm")
+offset_left = 410.0
+offset_top = 880.0
+offset_right = 554.0
+offset_bottom = 896.0
+label_settings = SubResource("LabelSettings_kghoh")
+horizontal_alignment = 1
 
-[node name="p2_class" type="TextureRect" parent="."]
+[node name="p2_class" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 611.0
-offset_top = 843.0
-offset_right = 741.0
-offset_bottom = 973.0
-texture = ExtResource("4_rqagm")
+offset_left = 604.0
+offset_top = 880.0
+offset_right = 746.0
+offset_bottom = 896.0
+label_settings = SubResource("LabelSettings_vfpwc")
+horizontal_alignment = 1
 
-[node name="p3_class" type="TextureRect" parent="."]
+[node name="p3_class" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 803.0
-offset_top = 843.0
-offset_right = 933.0
-offset_bottom = 973.0
-texture = ExtResource("4_rqagm")
+offset_left = 796.0
+offset_top = 880.0
+offset_right = 926.0
+offset_bottom = 1010.0
+label_settings = SubResource("LabelSettings_24obi")
+horizontal_alignment = 1
 
-[node name="p4_class" type="TextureRect" parent="."]
+[node name="p4_class" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 996.0
-offset_top = 843.0
-offset_right = 1126.0
-offset_bottom = 973.0
-texture = ExtResource("4_rqagm")
+offset_left = 989.0
+offset_top = 880.0
+offset_right = 1119.0
+offset_bottom = 1010.0
+label_settings = SubResource("LabelSettings_cyxd6")
+horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_rqagm")

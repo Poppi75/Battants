@@ -5,6 +5,8 @@ var damage_dealt: float = 0.0
 # ===== Dash ability =====
 var dash_charge := 0.0
 
+@onready var dash_aim_arrow: TextureRect = $UI/dash_aim_arrow
+
 @export var max_dash_charge := 2.0
 @export var min_dash_distance := 120.0
 @export var max_dash_distance := 520.0
@@ -55,18 +57,22 @@ func _physics_process(delta: float) -> void:
 		# Start charging
 		if controller.shoot_held and can_ability and !charging_dash:
 			charging_dash = true
+			crosshair.visible = false
+			dash_aim_arrow.visible = true
 			dash_charge = 0.0
 
 		# Continue charging
 		if charging_dash:
+			dash_aim_arrow.rotation = controller.aim.angle()
 			dash_charge += delta
 			dash_charge = min(dash_charge, max_dash_charge)
 
 		# Release -> dash
 		if charging_dash and !controller.shoot_held:
 			charging_dash = false
+			dash_aim_arrow.visible = false
+			crosshair.visible = true
 			_activate_dash()
-
 
 func _activate_dash():
 

@@ -18,10 +18,10 @@
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="12_awunc"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="14_uaveg"]
 [ext_resource type="Texture2D" uid="uid://6sq76k3ix66n" path="res://assets/ui art/shift.png" id="15_1c4yd"]
-[ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="15_sb2is"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_pxed3"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_3gsjy"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_obsbi"]
+[ext_resource type="Texture2D" uid="uid://cyng3pkk5ipp6" path="res://assets/item_slot_art/shield_slot.png" id="19_hejww"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_m2drb"]
 [ext_resource type="Texture2D" uid="uid://c3k6sneasd37n" path="res://assets/ability_art/battants_assassin_ability_icon.png" id="23_xc7nh"]
 [ext_resource type="Texture2D" uid="uid://dq2ube5jj0dyx" path="res://assets/ui art/crossahair.png" id="25_hejww"]
@@ -662,7 +662,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("15_sb2is")
+texture = ExtResource("19_hejww")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ability"]
 visible = false
