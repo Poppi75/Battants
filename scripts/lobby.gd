@@ -12,18 +12,18 @@ var players_joined = 0
 	$p4_txt
 ]
 
-@onready var controls = [
+@onready var classes = [
 	$p1_class,
 	$p2_class,
 	$p3_class,
 	$p4_class
 ]
 
-@onready var class_images = [
-	preload("res://assets/weapons/knife.png"),
-	preload("res://assets/item_slot_art/tuutikki.png"),
-	preload("res://assets/weapons/sawed_off.png"),
-	preload("res://assets/weapons/testikapula.png")
+@onready var class_names = [
+	str("Tank"),
+	str("Berserker"),
+	str("Support"),
+	str("Assassin")
 ]
 
 func _ready() -> void:
@@ -59,10 +59,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Global.joined_devices.has(device_id):
 			player_classes[player] += 1
 			if 0 <= player_classes[player] and player_classes[player] <= 3:
-				controls[player].texture = class_images[player_classes[player]]
+				classes[player].text = class_names[player_classes[player]]
 			else:
 				player_classes[player] = 0
-				controls[player].texture = class_images[player_classes[player]]
+				classes[player].text = class_names[player_classes[player]]
 
 	if event.is_action_pressed("class_down"):
 		var device_id = _get_event_device_id(event)
@@ -71,10 +71,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Global.joined_devices.has(device_id):
 			player_classes[player] -= 1
 			if 0 <= player_classes[player] and player_classes[player] <= 3:
-				controls[player].texture = class_images[player_classes[player]]
+				classes[player].text = class_names[player_classes[player]]
 			else:
 				player_classes[player] = 3
-				controls[player].texture = class_images[player_classes[player]]
+				classes[player].text = class_names[player_classes[player]]
 
 func _get_event_device_id(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
@@ -94,14 +94,14 @@ func _remove_device(device_id: int) -> void:
 	print("player left with device", device_id)
 	players_joined -= 1
 	players[players_joined].visible = false
-	controls[players_joined].visible = false
+	classes[players_joined].visible = false
 	update_players_joined()
 
 func update_players_joined():
 	for i in range(Global.joined_devices.size()):
 		players[i].visible = true
-		controls[i].visible = true
-		controls[i].texture = class_images[Global.class_choices[i]]
+		classes[i].visible = true
+		classes[i].text = class_names[Global.class_choices[i]]
 	
 func _on_start_button_pressed() -> void:
 	_start_match()

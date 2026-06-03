@@ -16,9 +16,9 @@
 [ext_resource type="FontFile" uid="uid://bia41aaplsmnw" path="res://assets/fonts/PressStart2P-vaV7.ttf" id="12_so356"]
 [ext_resource type="Texture2D" uid="uid://6sq76k3ix66n" path="res://assets/ui art/shift.png" id="14_5db4j"]
 [ext_resource type="Texture2D" uid="uid://c6aj5vn27n4du" path="res://assets/ui art/L1.png" id="14_7ng2m"]
-[ext_resource type="Texture2D" uid="uid://btypdslu7hq0p" path="res://assets/item_slot_art/ability_slot_icon.png" id="15_r36iw"]
 [ext_resource type="Texture2D" uid="uid://cckec0iu1m5s5" path="res://assets/ui art/p1_highlight.png" id="16_ft3jn"]
 [ext_resource type="Texture2D" uid="uid://cnhfxip4lgdk5" path="res://assets/item_slot_art/ranged_slot_icon.png" id="17_r5ifi"]
+[ext_resource type="Texture2D" uid="uid://cyng3pkk5ipp6" path="res://assets/item_slot_art/shield_slot.png" id="17_xxq0c"]
 [ext_resource type="Texture2D" uid="uid://dd7y4j85legdl" path="res://assets/item_slot_art/bullet_count_icon.png" id="18_mhwbf"]
 [ext_resource type="Texture2D" uid="uid://bxfbtw0mikn2t" path="res://assets/item_slot_art/utility_slot_icon.png" id="19_xxuh7"]
 [ext_resource type="Texture2D" uid="uid://tle33h04bdsf" path="res://assets/ability_art/healer_ability_icon.png" id="22_ngu5w"]
@@ -631,7 +631,7 @@ color = Color(0.50980395, 0.50980395, 0.50980395, 0.5882353)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("15_r36iw")
+texture = ExtResource("17_xxq0c")
 
 [node name="highlight" type="TextureRect" parent="UI/slots/ability"]
 visible = false
