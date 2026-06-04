@@ -34,6 +34,61 @@ func _ready() -> void:
 	set_cloak_progress(0.0)
 	set_bars_alpha(1.0)
 
+func _select_item_by_direction(direction: Vector2) -> void:
+
+	# Calculate angle in degrees (0 = right, 90 = up, 180 = left, 270 = down)
+	var angle := rad_to_deg(atan2(direction.y, direction.x))
+
+	# Normalize to 0-360
+	if angle < 0:
+		angle += 360
+
+	var new_slot := equipped_slot
+
+ 
+	if angle >= 45 and angle < 135:
+		crosshair.visible = true
+		currently_equipped.visible = false
+		current_highlight.visible = false
+		$UI/slots/utility/highlight.visible = true
+		utility_socket.visible = true
+		new_slot = "utility"
+		current_highlight = $UI/slots/utility/highlight
+		currently_equipped = utility_socket
+
+	elif angle >= 135 and angle < 225:
+		crosshair.visible = true
+		currently_equipped.visible = false
+		current_highlight.visible = false
+		$UI/slots/ranged/highlight.visible = true
+		ranged_socket.visible = true
+		new_slot = "ranged"
+		current_highlight = $UI/slots/ranged/highlight
+		currently_equipped = ranged_socket
+
+	elif angle >= 225 and angle < 315:
+		crosshair.visible = true
+		currently_equipped.visible = false
+		current_highlight.visible = false
+		$UI/slots/ability/highlight.visible = true
+		ability_socket.visible = true
+		new_slot = "ability"
+		current_highlight = $UI/slots/ability/highlight
+		currently_equipped = ability_socket
+
+	elif angle >= 315 or angle < 45:
+		crosshair.visible = false
+		currently_equipped.visible = false
+		current_highlight.visible = false
+		$UI/slots/class_ability/highlight.visible = true
+		class_ability_socket.visible = true
+		new_slot = "class_ability"
+		current_highlight = $UI/slots/class_ability/highlight
+		currently_equipped = class_ability_socket
+
+	if new_slot != equipped_slot:
+		equipped_slot = new_slot
+
 func set_cloak_progress(v: float) -> void:
 	cloak_progress = clampf(v, 0.0, 1.0)
 	var mat := sprite.material as ShaderMaterial

@@ -1,6 +1,7 @@
 extends Control
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	$VBoxContainer/LocalButton.grab_focus()
 
 func _on_play_button_pressed() -> void:
